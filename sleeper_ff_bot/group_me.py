@@ -1,6 +1,6 @@
 import requests
 
-class GroupMe():
+class GroupMe:
 	def __init__(self, bot_id):
 		self.bot_id = bot_id
 

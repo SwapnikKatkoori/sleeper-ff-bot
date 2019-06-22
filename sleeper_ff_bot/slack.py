@@ -1,5 +1,5 @@
 
-class Slack():
+class Slack:
 	def __init__(self):
 		pass
 

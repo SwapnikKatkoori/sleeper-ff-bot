@@ -1,5 +1,5 @@
 
-class Discord():
+class Discord:
 	def __init__(self):
 		pass
 
