@@ -1,4 +1,5 @@
 import schedule
+import time
 import os
 from .group_me import GroupMe
 from .slack import Slack
@@ -13,7 +14,7 @@ def get_matchups(league_id, week):
 	rosters = league.get_rosters()
 	scoreboards = league.get_scoreboards(rosters, matchups, users)
 
-	final_message_string = ""
+	final_message_string = "WEEKLY MATCHUPS\n\n"
 
 	for matchup_id in scoreboards:
 		matchup = scoreboards[matchup_id]
@@ -28,7 +29,7 @@ def get_standings(league_id, week):
 	users = league.get_users()
 	standings = league.get_standings(rosters,users)
 
-	final_message_string = "STANDINGS \n{0:<8} {1:<8} {2:<8} {3:<15}\n".format("rank", "team", "wins", "points")
+	final_message_string = "STANDINGS \n{0:<8} {1:<8} {2:<8} {3:<15}\n\n".format("rank", "team", "wins", "points")
 
 	for i,standing in enumerate(standings):
 		team = standing[0]
@@ -47,9 +48,23 @@ def get_close_games( league_id, week, close_num):
 	scoreboards = league.get_scoreboards(rosters, matchups, users)
 	close_games = league.get_close_games(scoreboards, close_num)
 
-	final_message_string = "CLOSE GAMES \n"
+	final_message_string = "CLOSE GAMES \n\n"
 	for i,matchup_id in enumerate(close_games):
 		matchup = close_games[matchup_id]
+		string_to_add = "Matchup {}\n{:<8} {:<8.2f}\n{:<8} {:<8.2f}\n\n".format(i+1, matchup[0][0], matchup[0][1], matchup[1][0], matchup[1][1])
+		final_message_string += string_to_add
+	return final_message_string
+
+def get_scoreboards(league_id, week):
+	league = League(league_id)
+	matchups = league.get_matchups(week)
+	users = league.get_users()
+	rosters = league.get_rosters()
+	scoreboards = league.get_scoreboards(rosters, matchups, users)
+
+	final_message_string = "SCORES \n\n"
+	for i,matchup_id in enumerate(scoreboards):
+		matchup = scoreboards[matchup_id]
 		string_to_add = "Matchup {}\n{:<8} {:<8.2f}\n{:<8} {:<8.2f}\n\n".format(i+1, matchup[0][0], matchup[0][1], matchup[1][0], matchup[1][1])
 		final_message_string += string_to_add
 	return final_message_string
@@ -66,7 +81,11 @@ def main():
 	else:
 		bot = Discord(bot_id)
 
-	bot.send_message(get_close_games(355526480094113792, 11, 20))
+	schedule.every(1).minutes.do(bot.send_message,get_scoreboards(355526480094113792, 11))
+
+	while True:
+		schedule.run_pending()
+		time.sleep(1)
 
 
 main()
