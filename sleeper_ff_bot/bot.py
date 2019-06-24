@@ -8,8 +8,9 @@ from sleeper_wrapper import League
 
 
 def get_matchups(league_id, week):
+	this_week = week[0]
 	league = League(league_id)
-	matchups = league.get_matchups(week)
+	matchups = league.get_matchups(this_week)
 	users = league.get_users()
 	rosters = league.get_rosters()
 	scoreboards = league.get_scoreboards(rosters, matchups, users)
@@ -23,7 +24,7 @@ def get_matchups(league_id, week):
 
 	return final_message_string
 	
-def get_standings(league_id, week):
+def get_standings(league_id):
 	league = League(league_id)
 	rosters = league.get_rosters()
 	users = league.get_users()
@@ -37,12 +38,12 @@ def get_standings(league_id, week):
 			team = "Team NA"
 		string_to_add = "{0:<8} {1:<8} {2:<8} {3:<8}\n".format(i+1 , team, standing[1] , standing[2])
 		final_message_string += string_to_add
-	print(final_message_string)
 	return final_message_string
 	
 def get_close_games( league_id, week, close_num):
+	this_week = week[0]
 	league = League(league_id)
-	matchups = league.get_matchups(week)
+	matchups = league.get_matchups(this_week)
 	users = league.get_users()
 	rosters = league.get_rosters()
 	scoreboards = league.get_scoreboards(rosters, matchups, users)
@@ -56,8 +57,9 @@ def get_close_games( league_id, week, close_num):
 	return final_message_string
 
 def get_scoreboards(league_id, week):
+	this_week = week[0]
 	league = League(league_id)
-	matchups = league.get_matchups(week)
+	matchups = league.get_matchups(this_week)
 	users = league.get_users()
 	rosters = league.get_rosters()
 	scoreboards = league.get_scoreboards(rosters, matchups, users)
@@ -69,7 +71,32 @@ def get_scoreboards(league_id, week):
 		final_message_string += string_to_add
 	return final_message_string
 
+def get_highest_score(league_id, week):
+	max_score = [0, None]
+	league = League(league_id)
+	matchups = league.get_matchups(week[0])
+	users = league.get_users()
+	rosters = league.get_rosters()
+	scoreboards = league.get_scoreboards(rosters, matchups, users)
+
+	for matchup_id in scoreboards:
+		print(matchup_id)
+		matchup = scoreboards[matchup_id]
+		if float(matchup[0][1]) > max_score[0]:
+			max_score[0] = matchup[0][1]
+			max_score[1] = matchup[0][0]
+		if float(matchup[1][1]) > max_score[0]:
+			max_score[0] = matchup[1][1]
+			max_score[1] = matchup[1][0]
+	return max_score
+
+def get_playoff_bracket(league_id):
+	league = League(league_id)
+	bracket = league.get_playoff_winners_bracket()
+	return bracket
+
 def main():
+	week = [11]
 	bot = None
 	bot_type = os.environ["BOT_TYPE"]
 	bot_id = os.environ["BOT_ID"]
@@ -81,11 +108,14 @@ def main():
 	else:
 		bot = Discord(bot_id)
 
-	schedule.every(1).minutes.do(bot.send_message,get_scoreboards(355526480094113792, 11))
+	bot.send_message(get_scoreboards(356572479369535488, [10]))
+
+	schedule.every(1).minutes.do(get_scoreboards,(356572479369535488, [10]))
 
 	while True:
 		schedule.run_pending()
 		time.sleep(1)
 
 
-main()
+if __name__ == "__main__":
+	main()
