@@ -11,3 +11,8 @@ install:
 
 script: 
   - pytest
+
+env:
+  - BOT_ID="e403ea1c8dd6db80f7583c32cf"
+  - BOT_TYPE="groupme"
+  - LEAGUE_ID="356572479369535488"
