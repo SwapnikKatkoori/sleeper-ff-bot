@@ -1,9 +1,9 @@
 import schedule
 import time
 import os
-from .group_me import GroupMe
-from .slack import Slack
-from .discord import Discord
+from group_me import GroupMe
+from slack import Slack
+from discord import Discord
 from sleeper_wrapper import League
 
 

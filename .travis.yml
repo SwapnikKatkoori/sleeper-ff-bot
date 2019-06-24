@@ -11,6 +11,11 @@ install:
 
 script: 
   - pytest
+  
+deploy:
+  provider: heroku
+  api_key:
+    secure: "YOUR ENCRYPTED API KEY"
 
 env:
   - BOT_ID="e403ea1c8dd6db80f7583c32cf" BOT_TYPE="groupme" LEAGUE_ID="356572479369535488"
