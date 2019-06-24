@@ -108,9 +108,9 @@ def main():
 	else:
 		bot = Discord(bot_id)
 
-	bot.send_message(get_scoreboards(356572479369535488, [10]))
 
-	schedule.every(5).minutes.do(get_scoreboards,356572479369535488, [10])
+
+	schedule.every(10).seconds.do(bot.send_message, get_scoreboards(356572479369535488, [10]))
 
 	while True:
 		schedule.run_pending()
