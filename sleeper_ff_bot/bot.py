@@ -1,6 +1,7 @@
 import schedule
 import time
 import os
+from datetime import datetime
 from group_me import GroupMe
 from slack import Slack
 from discord import Discord
@@ -56,6 +57,7 @@ def get_close_games( league_id, week, close_num):
 		final_message_string += string_to_add
 	return final_message_string
 
+
 def get_scoreboards(league_id, week):
 	this_week = week[0]
 	league = League(league_id)
@@ -69,6 +71,8 @@ def get_scoreboards(league_id, week):
 		matchup = scoreboards[matchup_id]
 		string_to_add = "Matchup {}\n{:<8} {:<8.2f}\n{:<8} {:<8.2f}\n\n".format(i+1, matchup[0][0], matchup[0][1], matchup[1][0], matchup[1][1])
 		final_message_string += string_to_add
+
+	week[0] = this_week+1
 	return final_message_string
 
 def get_highest_score(league_id, week):
@@ -95,8 +99,11 @@ def get_playoff_bracket(league_id):
 	bracket = league.get_playoff_winners_bracket()
 	return bracket
 
+def get_current_week():
+	print(datetime.today())
+
+
 def main():
-	week = [11]
 	bot = None
 	bot_type = os.environ["BOT_TYPE"]
 	bot_id = os.environ["BOT_ID"]
@@ -108,9 +115,7 @@ def main():
 	else:
 		bot = Discord(bot_id)
 
-
-
-	schedule.every(10).seconds.do(bot.send_message, get_scoreboards(356572479369535488, [10]))
+	schedule.every(10).seconds.do(bot.send_message, get_scoreboards(356572479369535488))
 
 	while True:
 		schedule.run_pending()
