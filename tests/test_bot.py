@@ -2,6 +2,7 @@ import pytest
 from sleeper_ff_bot import bot
 
 def test_get_matchups():
+	""" Tests the get_matchups method"""
 	matchups_string = bot.get_matchups(355526480094113792, [11])
 	assert isinstance(matchups_string, str)
 
