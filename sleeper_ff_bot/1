@@ -24,7 +24,7 @@ def get_matchups(league_id, week):
 		final_message_string += matchup_string
 
 	return final_message_string
-
+	
 def get_standings(league_id):
 	league = League(league_id)
 	rosters = league.get_rosters()
@@ -40,7 +40,7 @@ def get_standings(league_id):
 		string_to_add = "{0:<8} {1:<8} {2:<8} {3:<8}\n".format(i+1 , team, standing[1] , standing[2])
 		final_message_string += string_to_add
 	return final_message_string
-
+	
 def get_close_games( league_id, week, close_num):
 	this_week = week[0]
 	league = League(league_id)
@@ -108,7 +108,7 @@ def main():
 	bot_type = os.environ["BOT_TYPE"]
 	bot_id = os.environ["BOT_ID"]
 
-	if bot_type == "groupme":
+	if bot_type == "groupme": 
 		bot = GroupMe(bot_id)
 	elif bot_type == "slack":
 		bot = Slack(bot_id)
