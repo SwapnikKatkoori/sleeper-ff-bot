@@ -2,11 +2,18 @@
 <p>
 </p>
 
+> A GroupMe/Slack/Discord Bot for Sleeper fantasy leagues
+
 ## Install
 
 ```sh
 npm install
 ```
+
+## Author
+
+👤 **Swapnik Katkoori**
+
 
 ## Show your support
 
