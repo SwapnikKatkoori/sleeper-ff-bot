@@ -6,9 +6,6 @@
 
 ## Install
 
-```sh
-npm install
-```
 
 ## Author
 
