@@ -1,6 +1,7 @@
 import schedule
 import time
 import os
+import pendulum
 from datetime import datetime
 from group_me import GroupMe
 from slack import Slack
@@ -100,12 +101,20 @@ def get_playoff_bracket(league_id):
 	return bracket
 
 def get_current_week():
+	'''
+	Gets the current week.
+	Returns: Int 
+	'''
 	print(datetime.today())
 
 
-def main():
+if __name__ == "__main__":
 	bot = None
-	bot_type = os.environ["BOT_TYPE"]
+	try:
+		bot_type = os.environ["BOT_TYPE"]
+	except:
+		throw()
+
 	bot_id = os.environ["BOT_ID"]
 
 	if bot_type == "groupme":
@@ -115,12 +124,9 @@ def main():
 	else:
 		bot = Discord(bot_id)
 
-	schedule.every(10).seconds.do(bot.send_message, get_scoreboards(356572479369535488))
+	print(get_current_week())
+	#schedule.every(10).seconds.do(bot.send_message, get_scoreboards(356572479369535488))
 
 	while True:
 		schedule.run_pending()
 		time.sleep(1)
-
-
-if __name__ == "__main__":
-	main()
