@@ -163,10 +163,11 @@ if __name__ == "__main__":
         bot_id = os.environ["BOT_ID"]
         bot = GroupMe(bot_id)
     elif bot_type == "slack":
-        webhook = os.environ["WEBHOOK_URL"]
+        webhook = os.environ["SLACK_WEBHOOK"]
         bot = Slack(webhook)
     elif bot_type == "discord":
-        bot = Discord(bot_id)
+        webhook = os.environ["DISCORD_WEBHOOK"]
+        bot = Discord(webhook)
 
     schedule.every(1).minutes.do(bot.send, get_scores, 356572479369535488)
 
