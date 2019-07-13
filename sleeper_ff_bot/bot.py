@@ -17,7 +17,7 @@ def get_league_scoreboards(league_id, week):
 	return scoreboards
 
 def get_matchups(league_id):
-	week = get_current_test_week()
+	week = get_current_week()
 	scoreboards = get_league_scoreboards(league_id, week)
 	final_message_string = "WEEKLY MATCHUPS\n\n"
 
@@ -46,7 +46,7 @@ def get_standings(league_id):
 
 def get_close_games( league_id, close_num):
 	league = League(league_id)
-	week = get_current_test_week()
+	week = get_current_week()
 	scoreboards = get_league_scoreboards(league_id, week)
 	close_games = league.get_close_games(scoreboards, close_num)
 
@@ -59,7 +59,7 @@ def get_close_games( league_id, close_num):
 
 
 def get_scoreboards(league_id):
-	week = get_current_test_week()
+	week = get_current_week()
 	scoreboards = get_league_scoreboards(league_id, week)
 	final_message_string = "SCORES \n\n"
 	for i,matchup_id in enumerate(scoreboards):
@@ -70,7 +70,7 @@ def get_scoreboards(league_id):
 	return final_message_string
 
 def get_highest_score(league_id):
-	week = get_current_test_week()
+	week = get_current_week()
 	scoreboards = get_league_scoreboards(league_id, week)
 	max_score = [0, None]
 
@@ -98,17 +98,6 @@ def get_current_week():
 	starting_week = pendulum.datetime(2019, 6, 5)
 	week = today.diff(starting_week).in_weeks()
 	return week+1
-
-def get_current_test_week():
-	'''
-	Gets the current week.
-	Returns: Int 
-	'''
-	now = pendulum.now()
-	dt = pendulum.local(2019, 7, 13, 0, 54, 0)
-	test_week = dt.diff(now).in_minutes()
-	print(test_week)
-	return test_week+1
 
 if __name__ == "__main__":
 	bot = None
