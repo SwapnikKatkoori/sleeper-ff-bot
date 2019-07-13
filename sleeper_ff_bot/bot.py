@@ -9,6 +9,12 @@ from sleeper_wrapper import League
 
 
 def get_league_scoreboards(league_id, week):
+    """
+    Returns the scoreboards from the specified sleeper league.
+    :param league_id: Int league_id
+    :param week: Int week to get the scoreboards of
+    :return: dictionary of the scoreboards; https://github.com/SwapnikKatkoori/sleeper-api-wrapper#get_scoreboards
+    """
     league = League(league_id)
     matchups = league.get_matchups(week)
     users = league.get_users()
@@ -18,6 +24,11 @@ def get_league_scoreboards(league_id, week):
 
 
 def get_matchups(league_id):
+    """
+    Creates and returns a message of the current week's matchups.
+    :param league_id: Int league_id
+    :return: string message of the current week mathchups.
+    """
     week = get_current_week()
     scoreboards = get_league_scoreboards(league_id, week)
     final_message_string = "WEEKLY MATCHUPS\n\n"
@@ -31,12 +42,17 @@ def get_matchups(league_id):
 
 
 def get_standings(league_id):
+    """
+    Creates and returns a message of the league's standings.
+    :param league_id: Int league_id
+    :return: string message of the leagues standings.
+    """
     league = League(league_id)
     rosters = league.get_rosters()
     users = league.get_users()
     standings = league.get_standings(rosters, users)
 
-    final_message_string = "STANDINGS \n{0:<8} {1:<8} {2:<8} {3:<15}\n\n".format("rank", "team", "wins", "points")
+    final_message_string = "STANDINGS \n{0:<8} {1:<8} {2:<8} {3:<15}\n\n".format("rank", "team", "wins", "poInts")
 
     for i, standing in enumerate(standings):
         team = standing[0]
@@ -48,6 +64,12 @@ def get_standings(league_id):
 
 
 def get_close_games(league_id, close_num):
+    """
+    Creates and returns a message of the league's close games.
+    :param league_id: Int league_id
+    :param close_num: Int what poInt difference is considered a close game.
+    :return: string message of the current week's close games.
+    """
     league = League(league_id)
     week = get_current_week()
     scoreboards = get_league_scoreboards(league_id, week)
@@ -62,7 +84,12 @@ def get_close_games(league_id, close_num):
     return final_message_string
 
 
-def get_scoreboards(league_id):
+def get_scores(league_id):
+    """
+    Creates and returns a message of the league's current scores for the current week.
+    :param league_id: Int league_id
+    :return: string message of the current week's scores
+    """
     week = get_current_week()
     scoreboards = get_league_scoreboards(league_id, week)
     final_message_string = "SCORES \n\n"
@@ -76,6 +103,11 @@ def get_scoreboards(league_id):
 
 
 def get_highest_score(league_id):
+    """
+    Gets the highest score of the week
+    :param league_id: Int league_id
+    :return: List [score, team_name]
+    """
     week = get_current_week()
     scoreboards = get_league_scoreboards(league_id, week)
     max_score = [0, None]
@@ -92,6 +124,11 @@ def get_highest_score(league_id):
 
 
 def get_playoff_bracket(league_id):
+    """
+    Creates and returns a message of the league's playoff bracket.
+    :param league_id: Int league_id
+    :return: string message league's playoff bracket
+    """
     league = League(league_id)
     bracket = league.get_playoff_winners_bracket()
     return bracket
@@ -100,7 +137,7 @@ def get_playoff_bracket(league_id):
 def get_current_week():
     """
     Gets the current week.
-    :return: Int
+    :return: Int current week
     """
     today = pendulum.today()
     starting_week = pendulum.datetime(2019, 6, 5)
@@ -121,7 +158,7 @@ if __name__ == "__main__":
     elif bot_type == "discord":
         bot = Discord(bot_id)
 
-    schedule.every(1).minutes.do(bot.send, get_scoreboards, 356572479369535488)
+    schedule.every(1).minutes.do(bot.send, get_scores, 356572479369535488)
 
     while True:
         schedule.run_pending()

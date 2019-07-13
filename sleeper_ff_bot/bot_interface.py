@@ -3,7 +3,12 @@ class BotInterface:
         self.bot_id = bot_id
 
     def send_message(self, message):
-        """Will be implemented by each bot class differently"""
+        """
+        Will be implemented in each derived class differently. Sends a message to the chat. NotImplemented error
+        if the method is not implemented in a subclass.
+        :param message: The message to send
+        :return: None
+        """
         raise NotImplementedError('A send message method has not been implemented')
 
     def send(self, callback, *args):
