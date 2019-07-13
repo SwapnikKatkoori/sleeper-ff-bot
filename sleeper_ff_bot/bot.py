@@ -158,12 +158,13 @@ if __name__ == "__main__":
     bot = None
 
     bot_type = os.environ["BOT_TYPE"]
-    bot_id = os.environ["BOT_ID"]
 
     if bot_type == "groupme":
+        bot_id = os.environ["BOT_ID"]
         bot = GroupMe(bot_id)
     elif bot_type == "slack":
-        bot = Slack(bot_id)
+        webhook = os.environ["WEBHOOK_URL"]
+        bot = Slack(webhook)
     elif bot_type == "discord":
         bot = Discord(bot_id)
 
