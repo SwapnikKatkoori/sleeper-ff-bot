@@ -8,15 +8,17 @@ from slack import Slack
 from discord import Discord
 from sleeper_wrapper import League
 
-
-def get_matchups(league_id, week):
-	this_week = week[0]
+def get_league_scoreboards(league_id, week):
 	league = League(league_id)
-	matchups = league.get_matchups(this_week)
+	matchups = league.get_matchups(week)
 	users = league.get_users()
 	rosters = league.get_rosters()
 	scoreboards = league.get_scoreboards(rosters, matchups, users)
+	return scoreboards
 
+def get_matchups(league_id):
+	week = get_current_test_week()
+	scoreboards = get_league_scoreboards(league_id, week)
 	final_message_string = "WEEKLY MATCHUPS\n\n"
 
 	for matchup_id in scoreboards:
@@ -42,13 +44,10 @@ def get_standings(league_id):
 		final_message_string += string_to_add
 	return final_message_string
 
-def get_close_games( league_id, week, close_num):
-	this_week = week[0]
+def get_close_games( league_id, close_num):
 	league = League(league_id)
-	matchups = league.get_matchups(this_week)
-	users = league.get_users()
-	rosters = league.get_rosters()
-	scoreboards = league.get_scoreboards(rosters, matchups, users)
+	week = get_current_test_week()
+	scoreboards = get_league_scoreboards(league_id, week)
 	close_games = league.get_close_games(scoreboards, close_num)
 
 	final_message_string = "CLOSE GAMES \n\n"
@@ -59,33 +58,23 @@ def get_close_games( league_id, week, close_num):
 	return final_message_string
 
 
-def get_scoreboards(league_id, week):
-	this_week = week[0]
-	league = League(league_id)
-	matchups = league.get_matchups(this_week)
-	users = league.get_users()
-	rosters = league.get_rosters()
-	scoreboards = league.get_scoreboards(rosters, matchups, users)
-
+def get_scoreboards(league_id):
+	week = get_current_test_week()
+	scoreboards = get_league_scoreboards(league_id, week)
 	final_message_string = "SCORES \n\n"
 	for i,matchup_id in enumerate(scoreboards):
 		matchup = scoreboards[matchup_id]
 		string_to_add = "Matchup {}\n{:<8} {:<8.2f}\n{:<8} {:<8.2f}\n\n".format(i+1, matchup[0][0], matchup[0][1], matchup[1][0], matchup[1][1])
 		final_message_string += string_to_add
 
-	week[0] = this_week+1
 	return final_message_string
 
-def get_highest_score(league_id, week):
+def get_highest_score(league_id):
+	week = get_current_test_week()
+	scoreboards = get_league_scoreboards(league_id, week)
 	max_score = [0, None]
-	league = League(league_id)
-	matchups = league.get_matchups(week[0])
-	users = league.get_users()
-	rosters = league.get_rosters()
-	scoreboards = league.get_scoreboards(rosters, matchups, users)
 
 	for matchup_id in scoreboards:
-		print(matchup_id)
 		matchup = scoreboards[matchup_id]
 		if float(matchup[0][1]) > max_score[0]:
 			max_score[0] = matchup[0][1]
@@ -105,27 +94,36 @@ def get_current_week():
 	Gets the current week.
 	Returns: Int 
 	'''
-	print(datetime.today())
+	today = pendulum.today()
+	starting_week = pendulum.datetime(2019, 6, 5)
+	week = today.diff(starting_week).in_weeks()
+	return week+1
 
+def get_current_test_week():
+	'''
+	Gets the current week.
+	Returns: Int 
+	'''
+	now = pendulum.now()
+	dt = pendulum.local(2019, 7, 13, 0, 54, 0)
+	test_week = dt.diff(now).in_minutes()
+	print(test_week)
+	return test_week+1
 
 if __name__ == "__main__":
 	bot = None
-	try:
-		bot_type = os.environ["BOT_TYPE"]
-	except:
-		throw()
 
+	bot_type = os.environ["BOT_TYPE"]
 	bot_id = os.environ["BOT_ID"]
 
 	if bot_type == "groupme":
 		bot = GroupMe(bot_id)
 	elif bot_type == "slack":
 		bot = Slack(bot_id)
-	else:
+	elif bot_type == "discord":
 		bot = Discord(bot_id)
 
-	print(get_current_week())
-	#schedule.every(10).seconds.do(bot.send_message, get_scoreboards(356572479369535488))
+	schedule.every(1).minutes.do(bot.send, get_scoreboards, 356572479369535488)
 
 	while True:
 		schedule.run_pending()

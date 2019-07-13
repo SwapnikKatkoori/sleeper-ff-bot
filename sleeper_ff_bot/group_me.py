@@ -1,6 +1,7 @@
 import requests
+from bot_interface import botInterface
 
-class GroupMe:
+class GroupMe(botInterface):
 	def __init__(self, bot_id):
 		self.bot_id = bot_id
 

@@ -1,5 +1,6 @@
+from bot_interface import botInterface
 
-class Discord:
+class Discord(botInterface):
 	def __init__(self):
 		pass
 
