@@ -1,8 +1,9 @@
-from bot_interface import botInterface
+from bot_interface import BotInterface
 
-class Discord(botInterface):
-	def __init__(self):
-		pass
 
-	def send_message(self, message):
-		pass
+class Discord(BotInterface):
+    def __init__(self):
+        pass
+
+    def send_message(self, message):
+        pass
