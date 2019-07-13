@@ -6,6 +6,7 @@ from group_me import GroupMe
 from slack import Slack
 from discord import Discord
 from sleeper_wrapper import League
+from constants import STARTING_MONTH, STARTING_YEAR, STARTING_DAY
 
 
 def get_league_scoreboards(league_id, week):
@@ -145,7 +146,7 @@ def get_current_week():
     :return: Int current week
     """
     today = pendulum.today()
-    starting_week = pendulum.datetime(2019, 6, 5)
+    starting_week = pendulum.datetime(STARTING_YEAR, STARTING_MONTH, STARTING_DAY)
     week = today.diff(starting_week).in_weeks()
     return week + 1
 
