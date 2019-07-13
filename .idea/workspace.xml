@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8890968a-af9c-4e43-83ba-d5ada43bb1d7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sleeper_ff_bot/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/sleeper_ff_bot/bot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sleeper_ff_bot/bot_interface.py" beforeDir="false" afterPath="$PROJECT_DIR$/sleeper_ff_bot/bot_interface.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sleeper_ff_bot/discord.py" beforeDir="false" afterPath="$PROJECT_DIR$/sleeper_ff_bot/discord.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sleeper_ff_bot/group_me.py" beforeDir="false" afterPath="$PROJECT_DIR$/sleeper_ff_bot/group_me.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sleeper_ff_bot/slack.py" beforeDir="false" afterPath="$PROJECT_DIR$/sleeper_ff_bot/slack.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_bot.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,8 +15,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sleeper_ff_bot/bot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="15" lean-forward="true" selection-start-column="15" selection-end-column="15" />
+            <state relative-caret-position="1172">
+              <caret line="99" column="23" lean-forward="true" selection-start-line="99" selection-start-column="23" selection-end-line="99" selection-end-column="23" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -67,17 +62,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/test_bot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="29" column="28" lean-forward="true" selection-start-line="29" selection-start-column="28" selection-end-line="29" selection-end-column="28" />
+            <state relative-caret-position="300">
+              <caret line="20" column="63" lean-forward="true" selection-start-line="20" selection-start-column="63" selection-end-line="20" selection-end-column="63" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="28" column="22" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
+        <entry file="file://$PROJECT_DIR$/requirements.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="822">
-              <caret line="107" column="5" selection-start-line="107" selection-start-column="5" selection-end-line="107" selection-end-column="5" />
+            <state relative-caret-position="45">
+              <caret line="3" column="15" selection-start-line="3" selection-start-column="15" selection-end-line="3" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -92,18 +96,18 @@
       <list>
         <option value="$PROJECT_DIR$/sleeper_ff_bot/discord.py" />
         <option value="$PROJECT_DIR$/sleeper_ff_bot/group_me.py" />
-        <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/sleeper_ff_bot/slack.py" />
         <option value="$PROJECT_DIR$/tests/test_bot.py" />
         <option value="$PROJECT_DIR$/sleeper_ff_bot/bot_interface.py" />
         <option value="$PROJECT_DIR$/sleeper_ff_bot/bot.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/requirements.txt" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="873" />
-    <option name="y" value="36" />
+    <option name="x" value="255" />
+    <option name="y" value="23" />
     <option name="width" value="1550" />
     <option name="height" value="983" />
   </component>
@@ -165,7 +169,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="873" y="36" width="1550" height="983" extended-state="0" />
+    <frame x="196" y="94" width="1550" height="983" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
@@ -188,20 +192,40 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="15" lean-forward="true" selection-start-line="1" selection-start-column="15" selection-end-line="1" selection-end-column="15" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/tests/test_discord.py">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/sleeper_ff_bot/slack.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/tests/test_bot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="63" lean-forward="true" selection-start-line="20" selection-start-column="63" selection-end-line="20" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/sleeper_ff_bot/bot.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1172">
+          <caret line="99" column="23" lean-forward="true" selection-start-line="99" selection-start-column="23" selection-end-line="99" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sleeper_ff_bot/bot_interface.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sleeper_ff_bot/discord.py">
+      <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="15" lean-forward="true" selection-start-column="15" selection-end-column="15" />
+          <caret column="18" selection-start-column="18" selection-end-column="18" />
         </state>
       </provider>
     </entry>
@@ -215,34 +239,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sleeper_ff_bot/discord.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="18" selection-start-column="18" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sleeper_ff_bot/bot_interface.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/test_discord.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/test_bot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="29" column="28" lean-forward="true" selection-start-line="29" selection-start-column="28" selection-end-line="29" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="822">
-          <caret line="107" column="5" selection-start-line="107" selection-start-column="5" selection-end-line="107" selection-end-column="5" />
+        <state relative-caret-position="420">
+          <caret line="28" column="22" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="15" selection-start-line="3" selection-start-column="15" selection-end-line="3" selection-end-column="15" />
         </state>
       </provider>
     </entry>
