@@ -114,12 +114,17 @@ def get_highest_score(league_id):
 
     for matchup_id in scoreboards:
         matchup = scoreboards[matchup_id]
+        # check both teams in the matchup to see if they have the highest score in the league
         if float(matchup[0][1]) > max_score[0]:
-            max_score[0] = matchup[0][1]
-            max_score[1] = matchup[0][0]
+            score = matchup[0][1]
+            team_name = matchup[0][0]
+            max_score[0] = score
+            max_score[1] = team_name
         if float(matchup[1][1]) > max_score[0]:
-            max_score[0] = matchup[1][1]
-            max_score[1] = matchup[1][0]
+            score = matchup[1][1]
+            team_name = matchup[1][0]
+            max_score[0] = score
+            max_score[1] = team_name
     return max_score
 
 
@@ -146,6 +151,9 @@ def get_current_week():
 
 
 if __name__ == "__main__":
+    """
+    Main script for the bot
+    """
     bot = None
 
     bot_type = os.environ["BOT_TYPE"]
