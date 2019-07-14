@@ -158,6 +158,9 @@ if __name__ == "__main__":
     bot = None
 
     bot_type = os.environ["BOT_TYPE"]
+    start_date = os.environ["START_DATE"]
+    league_id = os.environ["LEAGUE_ID"]
+    start_date_string = pendulum.parse(start_date, strict=False).to_datetime_string()
 
     if bot_type == "groupme":
         bot_id = os.environ["BOT_ID"]
@@ -169,8 +172,13 @@ if __name__ == "__main__":
         webhook = os.environ["DISCORD_WEBHOOK"]
         bot = Discord(webhook)
 
-    schedule.every(1).minutes.do(bot.send, get_scores, 356572479369535488)
+    schedule.every().sunday.at(":30").do(bot.send, get_close_games, league_id, 30)
+    schedule.every().sunday.at("19:00").do(bot.send, get_close_games, league_id, 30)  # Close games on 7:00
+    schedule.every().monday.at("8:00").do(bot.send, get_scores, league_id)  # Miracle Monday at 12:00 pm on Monday
+    schedule.every().tuesday.at("6:30").do(bot.send, get_standings, league_id)  # Standings at 6:30 am on Tuesday
+    schedule.every().wednesday.at("19:30").do(bot.send, get_matchups, league_id)  # Matchups at 7:30 pm on Wednesday
 
     while True:
-        schedule.run_pending()
+        if start_date_string == pendulum.today().to_datetime_string():
+            schedule.run_pending()
         time.sleep(1)
