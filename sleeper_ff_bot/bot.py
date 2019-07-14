@@ -172,10 +172,10 @@ if __name__ == "__main__":
         webhook = os.environ["DISCORD_WEBHOOK"]
         bot = Discord(webhook)
 
-    schedule.every().sunday.at("0:35").do(bot.send, get_close_games, league_id, 30)
+    schedule.every().sunday.at("00:37").do(bot.send, get_close_games, league_id, 30)
     schedule.every().sunday.at("19:00").do(bot.send, get_close_games, league_id, 30)  # Close games on 7:00
-    schedule.every().monday.at("8:00").do(bot.send, get_scores, league_id)  # Miracle Monday at 12:00 pm on Monday
-    schedule.every().tuesday.at("6:30").do(bot.send, get_standings, league_id)  # Standings at 6:30 am on Tuesday
+    schedule.every().monday.at("08:00").do(bot.send, get_scores, league_id)  # Miracle Monday at 12:00 pm on Monday
+    schedule.every().tuesday.at("06:30").do(bot.send, get_standings, league_id)  # Standings at 6:30 am on Tuesday
     schedule.every().wednesday.at("19:30").do(bot.send, get_matchups, league_id)  # Matchups at 7:30 pm on Wednesday
 
     while True:
