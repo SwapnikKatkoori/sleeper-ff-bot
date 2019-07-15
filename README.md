@@ -14,6 +14,21 @@ A GroupMe/Slack/Discord Bot for Sleeper fantasy leagues
      - 11am ET Matchups for the week.
 - Sunday:
      - 7pm ET Close games. 
+
+## Setup
+1. [ GroupMe ](#groupme) 
+2. [ Slack ](#slack)
+3. [ Discord ](#discord)
+
+<a name="groupme"></a>
+### GroupMe
+
+<a name="slack"></a>
+### Slack
+
+<a name="discord"></a>
+### Discord
+
 ## Author
 
 👤 **Swapnik Katkoori**
