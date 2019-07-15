@@ -129,6 +129,27 @@ def get_highest_score(league_id):
     return max_score
 
 
+def get_lowest_score(league_id):
+    week = get_current_week()
+    scoreboards = get_league_scoreboards(league_id, week)
+    min_score = [999, None]
+
+    for matchup_id in scoreboards:
+        matchup = scoreboards[matchup_id]
+        # check both teams in the matchup to see if they have the lowest score in the league
+        if float(matchup[0][1]) < min_score[0]:
+            score = matchup[0][1]
+            team_name = matchup[0][0]
+            min_score[0] = score
+            min_score[1] = team_name
+        if float(matchup[1][1]) < min_score[0]:
+            score = matchup[1][1]
+            team_name = matchup[1][0]
+            min_score[0] = score
+            min_score[1] = team_name
+    return min_score
+
+
 def get_playoff_bracket(league_id):
     """
     Creates and returns a message of the league's playoff bracket.
@@ -172,9 +193,10 @@ if __name__ == "__main__":
         webhook = os.environ["DISCORD_WEBHOOK"]
         bot = Discord(webhook)
 
-    schedule.every().sunday.at("19:00").do(bot.send, get_close_games, league_id, 30)  # Close games on 7:00
-    schedule.every().monday.at("08:00").do(bot.send, get_scores, league_id)  # Miracle Monday at 12:00 pm on Monday
-    schedule.every().tuesday.at("06:30").do(bot.send, get_standings, league_id)  # Standings at 6:30 am on Tuesday
+    schedule.every().sunday.at("23:00").do(bot.send, get_close_games, league_id, 30)  # Close games on 7:00 pm ET
+    schedule.every().monday.at("12:00").do(bot.send, get_scores, league_id)  # Scores at 8:00 am ET on Monday
+    schedule.every().tuesday.at("10:30").do(bot.send, )
+    schedule.every().tuesday.at("10:31").do(bot.send, get_standings, league_id)  # Standings at 6:31 am ET on Tuesday
     schedule.every().wednesday.at("19:30").do(bot.send, get_matchups, league_id)  # Matchups at 7:30 pm on Wednesday
 
     while True:
