@@ -22,9 +22,10 @@ A GroupMe/Slack/Discord Bot for Sleeper fantasy leagues. Still a WIP.
 
 <a name="groupme"></a>
 ### GroupMe
-Step 1: Go to https://dev.groupme.com/ and log in using your groupme account.
-Step 2: Click the bots tab.
+- Step 1: Go to https://dev.groupme.com/ and log in using your groupme account.
+- Step 2: Click the bots tab.
 <img src="/Media/groupme/groupme1.jpeg" width="400"/>
+
 <a name="slack"></a>
 ### Slack
 
