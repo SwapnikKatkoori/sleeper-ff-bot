@@ -10,8 +10,8 @@ A GroupMe/Slack/Discord Bot for Sleeper fantasy leagues. Still a WIP.
 - Tuesday: 
      - 11am ET league standing.
      - 11am ET Highest scoring team, Lowest scoring team, Closest Win. Running tally of each of these.
-- Wednesday: 
-     - 11am ET Matchups for the week.
+- Thursday: 
+     - 7pm ET Matchups for the week.
 - Sunday:
      - 7pm ET Close games. 
 
