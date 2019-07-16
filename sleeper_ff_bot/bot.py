@@ -155,14 +155,16 @@ def get_best_and_worst_string(league_id):
 
     :return:
     """
-    highest_scorer = str(get_highest_score(league_id)[1])
-    highest_score = str(get_highest_score(league_id)[0])
+    highest_scorer = get_highest_score(league_id)[1]
+    highest_score = get_highest_score(league_id)[0]
     fire_emojis = "🔥🔥"
-    lowest_scorer = str(get_lowest_score(league_id)[1])
-    lowest_score = str(get_lowest_score(league_id)[0])
-    smiley_emojis = "😂😂"
-    final_string = "{} {} {}\n {} {} {}".format(highest_scorer, highest_score, fire_emojis, lowest_scorer, lowest_score,
-                                                smiley_emojis)
+    lowest_scorer = get_lowest_score(league_id)[1]
+    lowest_score = get_lowest_score(league_id)[0]
+    sad_emojis = "😢😢"
+    final_string = "{} Highest Scorer\n{}\n{:.2f}\n\n{} Lowest Scorer\n {}\n{:.2f}".format(fire_emojis, highest_scorer,
+                                                                                           highest_score,
+                                                                                           sad_emojis, lowest_scorer,
+                                                                                           lowest_score)
     return final_string
 
 
@@ -236,7 +238,7 @@ if __name__ == "__main__":
 
     schedule.every().sunday.at("23:00").do(bot.send, get_close_games, league_id, 30)  # Close games on 7:00 pm ET
     schedule.every().monday.at("12:00").do(bot.send, get_scores, league_id)  # Scores at 8:00 am ET on Monday
-    schedule.every().tuesday.at("02:38").do(bot.sens, get_standings, league_id)
+    schedule.every().tuesday.at("02:55").do(bot.send, get_standings, league_id)
     schedule.every().tuesday.at("10:31").do(bot.send, get_standings, league_id)  # Standings at 6:31 am ET on Tuesday
     schedule.every().wednesday.at("19:30").do(bot.send, get_matchups, league_id)  # Matchups at 7:30 pm on Wednesday
 
