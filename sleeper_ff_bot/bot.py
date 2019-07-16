@@ -161,7 +161,7 @@ def get_best_and_worst_string(league_id):
     lowest_scorer = get_lowest_score(league_id)[1]
     lowest_score = get_lowest_score(league_id)[0]
     sad_emojis = "😢😢"
-    final_string = "{} Highest Scorer\n{}\n{:.2f}\n\n{} Lowest Scorer\n {}\n{:.2f}".format(fire_emojis, highest_scorer,
+    final_string = "{} Highest Scorer:\n{}\n{:.2f}\n\n{} Lowest Scorer:\n {}\n{:.2f}".format(fire_emojis, highest_scorer,
                                                                                            highest_score,
                                                                                            sad_emojis, lowest_scorer,
                                                                                            lowest_score)
@@ -243,6 +243,6 @@ if __name__ == "__main__":
     schedule.every().wednesday.at("19:30").do(bot.send, get_matchups, league_id)  # Matchups at 7:30 pm on Wednesday
 
     while True:
-        if start_date_string == pendulum.today().to_datetime_string():
+        if start_date_string < pendulum.today().to_datetime_string():
             schedule.run_pending()
         time.sleep(1)
