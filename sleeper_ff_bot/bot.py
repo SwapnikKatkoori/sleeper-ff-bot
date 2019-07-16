@@ -32,7 +32,7 @@ def get_matchups(league_id):
     """
     week = get_current_week()
     scoreboards = get_league_scoreboards(league_id, week)
-    final_message_string = "WEEKLY MATCHUPS\n\n"
+    final_message_string = "Matchups for week {}:\n\n".format(week)
 
     for matchup_id in scoreboards:
         matchup = scoreboards[matchup_id]
@@ -53,7 +53,7 @@ def get_standings(league_id):
     users = league.get_users()
     standings = league.get_standings(rosters, users)
 
-    final_message_string = "STANDINGS \n{0:<8} {1:<8} {2:<8} {3:<15}\n\n".format("rank", "team", "wins", "poInts")
+    final_message_string = "STANDINGS \n{0:<8} {1:<8} {2:<8} {3:<15}\n\n".format("rank", "team", "wins", "points")
 
     for i, standing in enumerate(standings):
         team = standing[0]
@@ -150,6 +150,22 @@ def get_lowest_score(league_id):
     return min_score
 
 
+def get_best_and_worst_string(league_id):
+    """
+
+    :return:
+    """
+    highest_scorer = str(get_highest_score(league_id)[1])
+    highest_score = str(get_highest_score(league_id)[0]) +
+    fire_emojis = "🔥🔥"
+    lowest_scorer = str(get_lowest_score(league_id)[1])
+    lowest_score = str(get_lowest_score(league_id)[0])
+    smiley_emojis = "😂😂"
+    final_string = "{} {} {}\n {} {} {}".format(highest_scorer, highest_score, fire_emojis, lowest_scorer, lowest_score,
+                                                smiley_emojis)
+    return final_string
+
+
 def get_playoff_bracket(league_id):
     """
     Creates and returns a message of the league's playoff bracket.
@@ -170,6 +186,29 @@ def get_current_week():
     starting_week = pendulum.datetime(STARTING_YEAR, STARTING_MONTH, STARTING_DAY)
     week = today.diff(starting_week).in_weeks()
     return week + 1
+
+
+def get_welcome_string():
+    """
+    Creates and returns the welcome message
+    :return: String welcome message
+    """
+    welcome_message = "👋 Hello, I am Sleeper Bot! \n\nThe bot schedule for the {} ff season can be found here: ".format(
+        STARTING_YEAR)
+    welcome_message += "https://github.com/SwapnikKatkoori/sleeper-ff-bot#current-schedule \n\n"
+    welcome_message += "Any feature requests, contributions, or issues for the bot can be added here: " \
+                       "https://github.com/SwapnikKatkoori/sleeper-ff-bot \n\n"
+
+    return welcome_message
+
+
+def send_string(string_to_send):
+    """
+    Send any string to the bot.
+    :param string_to_send: The string to send a bot
+    :return: string to send
+    """
+    return string_to_send
 
 
 if __name__ == "__main__":
@@ -193,9 +232,11 @@ if __name__ == "__main__":
         webhook = os.environ["DISCORD_WEBHOOK"]
         bot = Discord(webhook)
 
+    bot.send(get_best_and_worst_string, league_id)  # inital message to send
+
     schedule.every().sunday.at("23:00").do(bot.send, get_close_games, league_id, 30)  # Close games on 7:00 pm ET
     schedule.every().monday.at("12:00").do(bot.send, get_scores, league_id)  # Scores at 8:00 am ET on Monday
-    schedule.every().tuesday.at("10:30").do(bot.send, )
+    schedule.every().tuesday.at("02:38").do(bot.sens, get_standings, league_id)
     schedule.every().tuesday.at("10:31").do(bot.send, get_standings, league_id)  # Standings at 6:31 am ET on Tuesday
     schedule.every().wednesday.at("19:30").do(bot.send, get_matchups, league_id)  # Matchups at 7:30 pm on Wednesday
 
