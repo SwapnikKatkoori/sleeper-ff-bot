@@ -156,7 +156,7 @@ def get_best_and_worst_string(league_id):
     :return:
     """
     highest_scorer = str(get_highest_score(league_id)[1])
-    highest_score = str(get_highest_score(league_id)[0]) +
+    highest_score = str(get_highest_score(league_id)[0])
     fire_emojis = "🔥🔥"
     lowest_scorer = str(get_lowest_score(league_id)[1])
     lowest_score = str(get_lowest_score(league_id)[0])
