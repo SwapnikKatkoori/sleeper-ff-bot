@@ -5,7 +5,7 @@ import pendulum
 from group_me import GroupMe
 from slack import Slack
 from discord import Discord
-from sleeper_wrapper import League
+from sleeper_wrapper import League, Stats
 from constants import STARTING_MONTH, STARTING_YEAR, STARTING_DAY
 
 
@@ -32,8 +32,9 @@ def get_matchups(league_id):
     """
     week = get_current_week()
     scoreboards = get_league_scoreboards(league_id, week)
-    final_message_string = "Matchups for week {}:\n\n".format(week)
-
+    final_message_string = "________________________________\n"
+    final_message_string += "Matchups for week {}:\n".format(week)
+    final_message_string += "________________________________\n"
     for matchup_id in scoreboards:
         matchup = scoreboards[matchup_id]
         matchup_string = "{} VS. {} \n".format(matchup[0][0], matchup[1][0])
@@ -52,14 +53,15 @@ def get_standings(league_id):
     rosters = league.get_rosters()
     users = league.get_users()
     standings = league.get_standings(rosters, users)
-
-    final_message_string = "STANDINGS \n{0:<8} {1:<8} {2:<8} {3:<15}\n\n".format("rank", "team", "wins", "points")
+    final_message_string = "________________________________\n"
+    final_message_string += "Standings \n|{0:^7}|{1:^7}|{2:^7}|{3:^7}".format("rank", "team", "wins", "points")
+    final_message_string += "________________________________\n\n"
 
     for i, standing in enumerate(standings):
         team = standing[0]
         if team is None:
             team = "Team NA"
-        string_to_add = "{0:<8} {1:<8} {2:<8} {3:<8}\n".format(i + 1, team, standing[1], standing[2])
+        string_to_add = "{0:^7} {1:^10} {2:>7} {3:>7}\n".format(i + 1, team[:7], standing[1], standing[2])
         final_message_string += string_to_add
     return final_message_string
 
@@ -76,7 +78,10 @@ def get_close_games(league_id, close_num):
     scoreboards = get_league_scoreboards(league_id, week)
     close_games = league.get_close_games(scoreboards, close_num)
 
-    final_message_string = "CLOSE GAMES \n\n"
+    final_message_string = "___________________\n"
+    final_message_string += "Close games😰😰\n"
+    final_message_string += "___________________\n\n"
+
     for i, matchup_id in enumerate(close_games):
         matchup = close_games[matchup_id]
         string_to_add = "Matchup {}\n{:<8} {:<8.2f}\n{:<8} {:<8.2f}\n\n".format(i + 1, matchup[0][0], matchup[0][1],
@@ -150,22 +155,115 @@ def get_lowest_score(league_id):
     return min_score
 
 
-def get_best_and_worst_string(league_id):
+def get_best_and_worst(league_id):
     """
 
     :return:
     """
     highest_scorer = get_highest_score(league_id)[1]
     highest_score = get_highest_score(league_id)[0]
-    fire_emojis = "🔥🔥"
+    highest_score_emojis = "🏆🏆"
     lowest_scorer = get_lowest_score(league_id)[1]
     lowest_score = get_lowest_score(league_id)[0]
-    sad_emojis = "😢😢"
-    final_string = "{} Highest Scorer:\n{}\n{:.2f}\n\n{} Lowest Scorer:\n {}\n{:.2f}".format(fire_emojis, highest_scorer,
-                                                                                           highest_score,
-                                                                                           sad_emojis, lowest_scorer,
-                                                                                           lowest_score)
+    lowest_score_emojis = "😢😢"
+    final_string = "{} Highest Scorer:\n{}\n{:.2f}\n\n{} Lowest Scorer:\n {}\n{:.2f}\n\n".format(highest_score_emojis,
+                                                                                                 highest_scorer,
+                                                                                                 highest_score,
+                                                                                                 lowest_score_emojis,
+                                                                                                 lowest_scorer,
+                                                                                                 lowest_score)
+    highest_bench_score_emojis = " 😂😂"
+    bench_points = get_bench_points(league_id)
+    largest_scoring_bench = get_highest_bench_points(bench_points)
+    final_string += "{} Most points left on the bench:\n{}\n{} in standard".format(highest_bench_score_emojis,
+                                                                                   largest_scoring_bench[0],
+                                                                                   largest_scoring_bench[1])
     return final_string
+
+
+def get_highest_bench_points(bench_points):
+    """
+
+    :param bench_points: List [(team_name, std_points)]
+    :return:
+    """
+    max_tup = ("team_name", 0)
+    for tup in bench_points:
+        if tup[1] > max_tup[1]:
+            max_tup = tup
+    return max_tup
+
+
+def map_users_to_team_name(users):
+    """ returns dict {user_id:team_name}"""
+    users_dict = {}
+
+    # Maps the user_id to team name for easy lookup
+    for user in users:
+        try:
+            users_dict[user["user_id"]] = user["metadata"]["team_name"]
+        except:
+            users_dict[user["user_id"]] = user["display_name"]
+    return users_dict
+
+
+def map_roster_id_to_owner_id(league_id):
+    """
+
+    :return: Dict {roster_id: owner_id, ...}
+    """
+    league = League(league_id)
+    rosters = league.get_rosters()
+    result_dict = {}
+    for roster in rosters:
+        roster_id = roster["roster_id"]
+        owner_id = roster["owner_id"]
+        result_dict[roster_id] = owner_id
+
+    return result_dict
+
+
+def get_bench_points(league_id):
+    """
+
+    :param league_id: Int league_id
+    :return: List [(team_name, score), ...]
+    """
+    week = get_current_week()
+
+    league = League(league_id)
+    users = league.get_users()
+    rosters = league.get_rosters()
+    matchups = league.get_matchups(week)
+
+    stats = Stats()
+    week_stats = stats.get_week_stats("regular", 2018, week)
+
+    owner_id_to_team_dict = map_users_to_team_name(users)
+    roster_id_to_owner_id_dict = map_roster_id_to_owner_id(league_id)
+    result_list = []
+
+    for matchup in matchups:
+        starters = matchup["starters"]
+        all_players = matchup["players"]
+        bench = []
+        for player in all_players:
+            if player not in starters:
+                bench.append(player)
+        std_points = 0
+        for player in bench:
+            try:
+                std_points += week_stats[str(player)]["pts_std"]
+            except:
+                continue
+        owner_id = roster_id_to_owner_id_dict[matchup["roster_id"]]
+        if owner_id is None:
+            team_name = "Team name not available"
+        else:
+            team_name = owner_id_to_team_dict[owner_id]
+        result_list.append((team_name, std_points))
+
+    return result_list
 
 
 def get_playoff_bracket(league_id):
@@ -234,8 +332,8 @@ if __name__ == "__main__":
         webhook = os.environ["DISCORD_WEBHOOK"]
         bot = Discord(webhook)
 
-    bot.send(get_best_and_worst_string, league_id)  # inital message to send
-
+    bot.send(get_welcome_string)  # inital message to send
+    bot.send(get_best_and_worst, league_id)
     schedule.every().sunday.at("23:00").do(bot.send, get_close_games, league_id, 30)  # Close games on 7:00 pm ET
     schedule.every().monday.at("12:00").do(bot.send, get_scores, league_id)  # Scores at 8:00 am ET on Monday
     schedule.every().tuesday.at("02:55").do(bot.send, get_standings, league_id)
