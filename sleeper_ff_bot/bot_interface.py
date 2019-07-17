@@ -18,5 +18,9 @@ class BotInterface:
         :param args: The arguments to the callback function
         :return: None
         """
-        message = callback(*args)
+        try:
+            message = callback(*args)
+        except Exception as err:
+            message = "There was an error that occurred with the bot: {}\n\n".format(err)
+            message += "Please report it at https://github.com/SwapnikKatkoori/sleeper-ff-bot/issues"
         self.send_message(message)
