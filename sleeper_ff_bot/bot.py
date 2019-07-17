@@ -242,7 +242,6 @@ def get_bench_points(league_id):
 
     league = League(league_id)
     users = league.get_users()
-    rosters = league.get_rosters()
     matchups = league.get_matchups(week)
 
     stats = Stats()
