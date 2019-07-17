@@ -135,6 +135,11 @@ def get_highest_score(league_id):
 
 
 def get_lowest_score(league_id):
+    """
+    Gets the lowest score of the week
+    :param league_id: Int league_id
+    :return: List[score, team_name]
+    """
     week = get_current_week()
     scoreboards = get_league_scoreboards(league_id, week)
     min_score = [999, None]
@@ -157,8 +162,8 @@ def get_lowest_score(league_id):
 
 def get_best_and_worst(league_id):
     """
-
-    :return:
+    :param league_id: Int league_id
+    :return: String of the highest Scorer, lowest scorer, most points left on the bench, and Why bother section.
     """
     highest_scorer = get_highest_score(league_id)[1]
     highest_score = get_highest_score(league_id)[0]
@@ -185,7 +190,7 @@ def get_highest_bench_points(bench_points):
     """
 
     :param bench_points: List [(team_name, std_points)]
-    :return:
+    :return: Tuple (team_name, std_points) of the team with most std_points
     """
     max_tup = ("team_name", 0)
     for tup in bench_points:
@@ -195,7 +200,11 @@ def get_highest_bench_points(bench_points):
 
 
 def map_users_to_team_name(users):
-    """ returns dict {user_id:team_name}"""
+    """
+    Maps user_id to team_name
+    :param users:  https://docs.sleeper.app/#getting-users-in-a-league
+    :return: Dict {user_id:team_name}
+    """
     users_dict = {}
 
     # Maps the user_id to team name for easy lookup
