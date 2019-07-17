@@ -254,10 +254,8 @@ def get_bench_points(league_id):
     for matchup in matchups:
         starters = matchup["starters"]
         all_players = matchup["players"]
-        bench = []
-        for player in all_players:
-            if player not in starters:
-                bench.append(player)
+        bench = set(all_players) - set(starters)
+
         std_points = 0
         for player in bench:
             try:
