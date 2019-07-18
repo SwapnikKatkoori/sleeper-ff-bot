@@ -5,7 +5,7 @@ import pendulum
 from group_me import GroupMe
 from slack import Slack
 from discord import Discord
-from sleeper_wrapper import League, Stats
+from sleeper_wrapper import League, Stats, Players
 from constants import STARTING_MONTH, STARTING_YEAR, STARTING_DAY
 
 
@@ -34,10 +34,12 @@ def get_matchups(league_id):
     scoreboards = get_league_scoreboards(league_id, week)
     final_message_string = "________________________________\n"
     final_message_string += "Matchups for week {}:\n".format(week)
-    final_message_string += "________________________________\n"
-    for matchup_id in scoreboards:
+    final_message_string += "________________________________\n\n"
+
+    for i, matchup_id in enumerate(scoreboards):
         matchup = scoreboards[matchup_id]
-        matchup_string = "{} VS. {} \n".format(matchup[0][0], matchup[1][0])
+        matchup_string = "Matchup {}:\n".format(i + 1)
+        matchup_string += "{} VS. {} \n\n".format(matchup[0][0], matchup[1][0])
         final_message_string += matchup_string
 
     return final_message_string
@@ -180,9 +182,19 @@ def get_best_and_worst(league_id):
     highest_bench_score_emojis = " 😂😂"
     bench_points = get_bench_points(league_id)
     largest_scoring_bench = get_highest_bench_points(bench_points)
-    final_string += "{} Most points left on the bench:\n{}\n{} in standard".format(highest_bench_score_emojis,
+    final_string += "{} Most points left on the bench:\n{}\n{:.2f} in standard\n\n".format(highest_bench_score_emojis,
                                                                                    largest_scoring_bench[0],
                                                                                    largest_scoring_bench[1])
+    negative_starters = get_negative_starters(league_id)
+    if negative_starters:
+        final_string += "🤔🤔Why bother?\n"
+
+    for key in negative_starters:
+        negative_starters_list = negative_starters[key]
+        final_string += "{} Started:\n".format(key)
+        for negative_starter_tup in negative_starters_list:
+            final_string+="{} who had {} in standard\n".format(negative_starter_tup[0], negative_starter_tup[1])
+        final_string+="\n"
     return final_string
 
 
@@ -245,7 +257,8 @@ def get_bench_points(league_id):
     matchups = league.get_matchups(week)
 
     stats = Stats()
-    week_stats = stats.get_week_stats("regular", 2018, week)
+    # WEEK STATS NEED TO BE FIXED
+    week_stats = stats.get_week_stats("regular", 2018, 10)
 
     owner_id_to_team_dict = map_users_to_team_name(users)
     roster_id_to_owner_id_dict = map_roster_id_to_owner_id(league_id)
@@ -281,6 +294,53 @@ def get_playoff_bracket(league_id):
     league = League(league_id)
     bracket = league.get_playoff_winners_bracket()
     return bracket
+
+
+def get_negative_starters(league_id):
+    """
+    Finds all of the players that scores negative points in standard and
+    :param league_id: Int league_id
+    :return: Dict {"owner_name":[("player_name", std_score), ...], "owner_name":...}
+    """
+    week = get_current_week()
+
+    league = League(league_id)
+    users = league.get_users()
+    matchups = league.get_matchups(week)
+
+    stats = Stats()
+    #WEEK STATS NEED TO BE FIXED
+    week_stats = stats.get_week_stats("regular", 2018, 11)
+
+    players = Players()
+    players_dict = players.get_all_players()
+    owner_id_to_team_dict = map_users_to_team_name(users)
+    roster_id_to_owner_id_dict = map_roster_id_to_owner_id(league_id)
+
+    result_dict = {}
+
+    for i, matchup in enumerate(matchups):
+        starters = matchup["starters"]
+        negative_players = []
+        for starter_id in starters:
+            try:
+                std_pts = week_stats[str(starter_id)]["pts_std"]
+            except KeyError:
+                std_pts = 0
+            if std_pts < 0:
+                player_info = players_dict[starter_id]
+                player_name = "{} {}".format(player_info["first_name"], player_info["last_name"])
+                negative_players.append((player_name, std_pts))
+
+        if len(negative_players) > 0:
+            owner_id = roster_id_to_owner_id_dict[matchup["roster_id"]]
+
+            if owner_id is None:
+                team_name = "Team name not available" + str(i)
+            else:
+                team_name = owner_id_to_team_dict[owner_id]
+            result_dict[team_name] = negative_players
+    return result_dict
 
 
 def get_current_week():
