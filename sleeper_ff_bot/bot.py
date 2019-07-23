@@ -6,7 +6,7 @@ from group_me import GroupMe
 from slack import Slack
 from discord import Discord
 from sleeper_wrapper import League, Stats, Players
-from constants import STARTING_MONTH, STARTING_YEAR, STARTING_DAY
+from constants import STARTING_MONTH, STARTING_YEAR, STARTING_DAY, START_DATE_STRING
 
 
 def get_league_scoreboards(league_id, week):
@@ -33,7 +33,7 @@ def get_matchups(league_id):
     week = get_current_week()
     scoreboards = get_league_scoreboards(league_id, week)
     final_message_string = "________________________________\n"
-    final_message_string += "Matchups for week {}:\n".format(week)
+    final_message_string += "Matchups for Week {}:\n".format(week)
     final_message_string += "________________________________\n\n"
 
     for i, matchup_id in enumerate(scoreboards):
@@ -63,7 +63,13 @@ def get_standings(league_id):
         team = standing[0]
         if team is None:
             team = "Team NA"
-        string_to_add = "{0:^7} {1:^10} {2:>7} {3:>7}\n".format(i + 1, team[:7], standing[1], standing[2])
+        if len(team) >= 7:
+            team_name = team[:7]
+        else:
+            team_name = team
+        string_to_add = "{0:^7} {1:^10} {2:>7} {3:>7}\n".format(i + 1, team_name, standing[1], standing[2])
+        if i == 5:
+            string_to_add += "________________________________\n\n"
         final_message_string += string_to_add
     return final_message_string
 
@@ -100,7 +106,7 @@ def get_scores(league_id):
     """
     week = get_current_week()
     scoreboards = get_league_scoreboards(league_id, week)
-    final_message_string = "SCORES \n\n"
+    final_message_string = "Scores \n____________________\n\n"
     for i, matchup_id in enumerate(scoreboards):
         matchup = scoreboards[matchup_id]
         string_to_add = "Matchup {}\n{:<8} {:<8.2f}\n{:<8} {:<8.2f}\n\n".format(i + 1, matchup[0][0], matchup[0][1],
@@ -183,8 +189,8 @@ def get_best_and_worst(league_id):
     bench_points = get_bench_points(league_id)
     largest_scoring_bench = get_highest_bench_points(bench_points)
     final_string += "{} Most points left on the bench:\n{}\n{:.2f} in standard\n\n".format(highest_bench_score_emojis,
-                                                                                   largest_scoring_bench[0],
-                                                                                   largest_scoring_bench[1])
+                                                                                           largest_scoring_bench[0],
+                                                                                           largest_scoring_bench[1])
     negative_starters = get_negative_starters(league_id)
     if negative_starters:
         final_string += "🤔🤔Why bother?\n"
@@ -193,8 +199,8 @@ def get_best_and_worst(league_id):
         negative_starters_list = negative_starters[key]
         final_string += "{} Started:\n".format(key)
         for negative_starter_tup in negative_starters_list:
-            final_string+="{} who had {} in standard\n".format(negative_starter_tup[0], negative_starter_tup[1])
-        final_string+="\n"
+            final_string += "{} who had {} in standard\n".format(negative_starter_tup[0], negative_starter_tup[1])
+        final_string += "\n"
     return final_string
 
 
@@ -258,7 +264,7 @@ def get_bench_points(league_id):
 
     stats = Stats()
     # WEEK STATS NEED TO BE FIXED
-    week_stats = stats.get_week_stats("regular", 2018, 10)
+    week_stats = stats.get_week_stats("regular", STARTING_YEAR, week)
 
     owner_id_to_team_dict = map_users_to_team_name(users)
     roster_id_to_owner_id_dict = map_roster_id_to_owner_id(league_id)
@@ -309,8 +315,8 @@ def get_negative_starters(league_id):
     matchups = league.get_matchups(week)
 
     stats = Stats()
-    #WEEK STATS NEED TO BE FIXED
-    week_stats = stats.get_week_stats("regular", 2018, 11)
+    # WEEK STATS NEED TO BE FIXED
+    week_stats = stats.get_week_stats("regular", STARTING_YEAR, week)
 
     players = Players()
     players_dict = players.get_all_players()
@@ -384,9 +390,15 @@ if __name__ == "__main__":
     bot = None
 
     bot_type = os.environ["BOT_TYPE"]
-    start_date = os.environ["START_DATE"]
     league_id = os.environ["LEAGUE_ID"]
-    start_date_string = pendulum.parse(start_date, strict=False).to_datetime_string()
+
+    # Check if the user specified the close game num. Default is 20.
+    try:
+        close_num = os.environ["CLOSE_NUM"]
+    except:
+        close_num = 20
+
+    starting_date = pendulum.datetime(STARTING_YEAR, STARTING_MONTH, STARTING_DAY)
 
     if bot_type == "groupme":
         bot_id = os.environ["BOT_ID"]
@@ -399,14 +411,16 @@ if __name__ == "__main__":
         bot = Discord(webhook)
 
     bot.send(get_welcome_string)  # inital message to send
-    bot.send(get_best_and_worst, league_id)
-    schedule.every().sunday.at("23:00").do(bot.send, get_close_games, league_id, 30)  # Close games on 7:00 pm ET
-    schedule.every().monday.at("12:00").do(bot.send, get_scores, league_id)  # Scores at 8:00 am ET on Monday
-    schedule.every().tuesday.at("02:55").do(bot.send, get_standings, league_id)
-    schedule.every().tuesday.at("10:31").do(bot.send, get_standings, league_id)  # Standings at 6:31 am ET on Tuesday
-    schedule.every().wednesday.at("19:30").do(bot.send, get_matchups, league_id)  # Matchups at 7:30 pm on Wednesday
+    schedule.every().thursday.at("19:00").do(bot.send, get_matchups, league_id)  # Matchups Thursday at 4:00 pm ET
+    schedule.every().friday.at("12:00").do(bot.send, get_scores, league_id)  # Scores Friday at 12 pm ET
+    schedule.every().sunday.at("23:00").do(bot.send, get_close_games, league_id,
+                                           int(close_num))  # Close games Sunday on 7:00 pm ET
+    schedule.every().monday.at("12:00").do(bot.send, get_scores, league_id)  # Scores Monday at 12 pm ET
+    schedule.every().tuesday.at("15:00").do(bot.send, get_standings, league_id)  # Standings Tuesday at 11:00 am ET
+    schedule.every().tuesday.at("15:01").do(bot.send, get_best_and_worst,
+                                            league_id)  # Standings Tuesday at 11:01 am ET
 
     while True:
-        if start_date_string < pendulum.today().to_datetime_string():
+        if starting_date <= pendulum.today():
             schedule.run_pending()
-        time.sleep(1)
+        time.sleep(50)
