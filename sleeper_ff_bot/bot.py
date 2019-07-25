@@ -167,6 +167,23 @@ def get_lowest_score(league_id):
             min_score[1] = team_name
     return min_score
 
+def make_roster_dict(starters_list, bench_list):
+    """
+    Takes in a teams starter list and bench list and makes a dictionary with positions
+    :param starters_list: List of a teams starters
+    :param bench_list: List of a teams bench players
+    :return: {starters:{position: []} , bench:{ position: []} }
+    """
+    pass
+
+def get_bench_beats_starters(league_id):
+    """
+    Gets all bench players that outscored starters at their position.
+    :param league_id: Int league_id
+    :return: String teams which had bench players outscore their starters in a position.
+    """
+    pass
+
 
 def get_best_and_worst(league_id):
     """
