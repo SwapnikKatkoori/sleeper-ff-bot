@@ -31,7 +31,7 @@ A GroupMe/Slack/Discord Bot for Sleeper fantasy leagues. Still a WIP.
 <img src="/Media/groupme/groupme1.jpeg" width="400"/>
 - Step 3: Click the "Create Bot button"
 - Step 4: Choose the groupchat that the bot will be in and the Name of the bot. Everything else can be left empty.
-- Step 5: [ Follow directions to launch the bot on a Heroku server ](#heroku).
+- Step 5: Follow directions to launch the bot on a Heroku server [here](#heroku)
 
 <a name="slack"></a>
 ### Slack
