@@ -28,12 +28,12 @@ def test_get_close_games():
     assert isinstance(close_game_string, str)
 
 
-def test_get_highest_score_string():
+def test_get_highest_score():
     """
     Tests the get_highest_score method
     :return:
     """
-    high_score_list = bot.get_highest_score_string(355526480094113792)
+    high_score_list = bot.get_highest_score(355526480094113792)
     assert isinstance(high_score_list, list)
     assert isinstance(high_score_list[0], float)
     assert isinstance(high_score_list[1], str)
