@@ -1,0 +1,7 @@
+{
+  "name": "sleeper-ff-bot",
+  "description": "A GroupMe/Slack/Discord Bot for Sleeper fantasy leagues",
+  "repository": "https://github.com/SwapnikKatkoori/sleeper-ff-bot",
+  "logo": "",
+  "keywords": ["Bot", "Sleeper", "fantasy-football", "Python", "Heroku", "Groupme", "Slack", "Discord"]
+}
