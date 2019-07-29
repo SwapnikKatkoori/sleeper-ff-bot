@@ -90,7 +90,12 @@ For Discord fill out the following (The BOT_TYPE needs to be discord):
 
 <img src="/Media/discord/enviornment_setup.jpeg" width="400"/>
 
-- Step 5: Click "Deploy app". You are all done!
+- Step 5: Click "Deploy app".
+- Step 6: After the deployment process is done, click "Manage app" and go to the "Resources" tab.
+- Step 7: Click the pencil icon next to worker and toggle it to the on position, and click "confirm".
+<img src="/Media/deployment/toggle.jpeg" width="400"/>
+
+And you are all done! The bot should now be deployed an you should get a welcome message.
 
 ## Author
 
