@@ -499,8 +499,6 @@ if __name__ == "__main__":
         webhook = os.environ["DISCORD_WEBHOOK"]
         bot = Discord(webhook)
 
-    get_bench_beats_starters_string(league_id)
-
     bot.send(get_welcome_string)  # inital message to send
     schedule.every().thursday.at("19:00").do(bot.send, get_matchups_string,
                                              league_id)  # Matchups Thursday at 4:00 pm ET
