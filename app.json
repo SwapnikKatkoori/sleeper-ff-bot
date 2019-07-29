@@ -16,7 +16,7 @@
   "env": {
     "BOT_TYPE": {
       "description": "The type of Bot. Options are groupme, slack, or discord.",
-      "generator": "groupme"
+      "value": "groupme"
     },
     "LEAGUE_ID": {
       "description": "The Sleeper league id.",
