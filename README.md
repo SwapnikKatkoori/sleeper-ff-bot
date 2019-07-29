@@ -61,10 +61,10 @@ A GroupMe/Slack/Discord Bot for Sleeper fantasy leagues. Still a WIP.
 <img src="/Media/discord/server_settings.jpeg" width="400"/>
 
 - Step 3: Click "Webhooks" in the side menu.
-<img src="/Media/discord/webhook.jpeg" width="400"/>
-
 - Step 4: Click "Create Webhook" and fill out the information.
 - Step 5: Copy the "Webhook Url" as you will need it in step 7.
+<img src="/Media/discord/webhook.jpeg" width="400"/>
+
 - Step 6: Click "Save".
 
 - Step 7: Follow directions to launch the bot on a Heroku server [here](#heroku)
