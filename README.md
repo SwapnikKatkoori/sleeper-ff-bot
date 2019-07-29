@@ -49,12 +49,15 @@ A GroupMe/Slack/Discord Bot for Sleeper fantasy leagues. Still a WIP.
 - Step 4:
 
 For Groupme fill out the following (The BOT_TYPE needs to be groupme):
+
 <img src="/Media/groupme/enviornment_setup.jpeg" width="400"/>
 
 For Slack fill out the following (The BOT_TYPE needs to be slack):
+
 <img src="/Media/Slack/enviornment_setup.jpeg" width="400"/>
 
 For Discord fill out the following (The BOT_TYPE needs to be discord):
+
 <img src="/Media/discord/enviornment_setup.jpeg" width="400"/>
 
 
