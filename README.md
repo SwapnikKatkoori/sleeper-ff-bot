@@ -90,6 +90,7 @@ For Discord fill out the following (The BOT_TYPE needs to be discord):
 
 <img src="/Media/discord/enviornment_setup.jpeg" width="400"/>
 
+- Step 5: Click "Deploy app". You are all done!
 
 ## Author
 
