@@ -2,7 +2,7 @@
 <p>
 </p>
 
-A GroupMe/Slack/Discord Bot for Sleeper fantasy leagues. Still a WIP.
+A GroupMe/Slack/Discord Bot for Sleeper fantasy leagues. It sends messages on the schedule below.
 
 ## Current Schedule
 - Thursday: 
@@ -101,5 +101,6 @@ And you are all done! The bot should now be deployed an you should get a welcome
 
 👤 **Swapnik Katkoori**
 
-
+## License 
+This project is licensed under the terms of the MIT license.
 
