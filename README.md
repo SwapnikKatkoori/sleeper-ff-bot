@@ -40,10 +40,17 @@ A GroupMe/Slack/Discord Bot for Sleeper fantasy leagues. Still a WIP.
 - Step 1: Go to https://api.slack.com/apps and click "Create New App".
 - Step 2: Choose the name you want to call the FF bot, choose your workspace, and click "Create App".
 - Step 3: Click the "Incoming Webhooks" button.
+<img src="/Media/Slack/incoming_webhooks.jpeg" width="400"/>
+
 - Step 4: Click the "Off" toggle button so it says "On".
+<img src="/Media/Slack/toggle.jpeg" width="400"/>
+
 - Step 5: Click the "Add New Webhook to Workspace" button.
+<img src="/Media/Slack/add_new_webhook.jpeg" width="400"/>
+
 - Step 6: Select the channel to post to and click "Install".
 - Step 7: Remember the webhook that appears under the "Webhook URL" section as you will need it for the next step.
+<img src="/Media/Slack/copy_webhook.jpeg" width="400"/>
 
 - Step 8: Follow directions to launch the bot on a Heroku server [here](#heroku)
 
