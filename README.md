@@ -47,10 +47,15 @@ A GroupMe/Slack/Discord Bot for Sleeper fantasy leagues. Still a WIP.
 - Step 2: Click this button to deploy the Bot:
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/SwapnikKatkoori/sleeper-ff-bot)
 - Step 3: Choose an app name
-- For groupme fill out the following:
+
+- For Groupme fill out the following (The BOT_TYPE needs to be groupme):
 <img src="/Media/groupme/enviornment_setup.jpeg" width="400"/>
 
-- The BOT_TYPE needs to be groupme
+- For Slack fill out the following (The BOT_TYPE needs to be slack):
+<img src="/Media/slack/enviornment_setup.jpeg" width="400"/>
+
+- For Discord fill out the following (The BOT_TYPE needs to be discord):
+<img src="/Media/discord/enviornment_setup.jpeg" width="400"/>
 
 ## Author
 
