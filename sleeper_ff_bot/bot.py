@@ -5,6 +5,7 @@ import time
 import os
 import pendulum
 import logging
+import random
 from phrases import phrases
 from group_me import GroupMe
 from slack import Slack
