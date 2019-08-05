@@ -14,12 +14,11 @@ A GroupMe/Slack/Discord Bot for Sleeper fantasy leagues. It sends messages on th
 - Thursday:
      - 7pm ET Matchups for the week.
 - Friday:
-     - 12pm ET Scores
+     - 9am ET Scores
 - Sunday:
      - 7pm ET Close games.
 - Monday:
-     - 12pm ET Scores
-     - 3pm ET Miracle Monday! Displays the close games with the number of playes remaining for each roster.
+     - 9am ET Scores
 - Tuesday:
      - 11am ET league standing.
      - 11:01am ET Highest scoring team, lowest scoring team, most points left on the bench, and teams that started players that scored negative.
