@@ -592,7 +592,7 @@ if __name__ == "__main__":
     pre_season_start_str = os.environ["PRE_SEASON_START_DATE"]
     logging.warning(pre_season_start_str[0:4])
     pre_season_year = int(pre_season_start_str[0:4])
-    logging.warning(pre_season_start_str)
+    logging.warning(pre_season_start_str[6:2])
     pre_season_month = int(pre_season_start_str[6:2])
     logging.warning(pre_season_start_str)
     pre_season_day = int(pre_season_start_str[9:2])
