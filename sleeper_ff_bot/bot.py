@@ -649,7 +649,7 @@ if __name__ == "__main__":
         if pre_season_start_date == pendulum.today():
             schedule1.run_pending()
             schedule2.run_pending()
-            schedule1.CancelJob('once')
+            schedule1.clear('once')
         elif pre_season_start_date <= pendulum.today():
             schedule2.run_pending()
         elif starting_date <= pendulum.today():
