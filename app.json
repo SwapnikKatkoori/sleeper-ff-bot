@@ -28,6 +28,7 @@
     },
     "NUMBER_OF_PLAYOFF_TEAMS": {
       "description": "The number of playoff teams in the league."
+      "value": "6"
     },
     "BOT_ID": {
       "description": "The Groupme bot_id. Required if the bot type is groupme.",
