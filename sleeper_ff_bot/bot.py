@@ -7,7 +7,7 @@ from group_me import GroupMe
 from slack import Slack
 from discord import Discord
 from sleeper_wrapper import League, Stats, Players
-#from constants import STARTING_MONTH, STARTING_YEAR, STARTING_DAY, START_DATE_STRING, STARTING_YEAR_2, STARTING_MONTH_2, STARTING_DAY_2, START_DATE_STRING_2
+from constants import STARTING_MONTH, STARTING_YEAR, STARTING_DAY, START_DATE_STRING, PRE_STARTING_YEAR, PRE_STARTING_MONTH, PRE_STARTING_DAY, PRE_START_DATE_STRING
 
 """
 These are all of the utility functions.
@@ -589,19 +589,9 @@ if __name__ == "__main__":
         close_num = os.environ["CLOSE_NUM"]
     except:
         close_num = 20
-    pre_season_start_str = os.environ["PRE_SEASON_START_DATE"]
-    pre_season_year = int(pre_season_start_str[0:4])
-    pre_season_month = int(pre_season_start_str[6:7])
-    pre_season_day = int(pre_season_start_str[9:10])
 
-    pre_season_start_date = pendulum.datetime(pre_season_year, pre_season_month,pre_season_day)
-
-    season_start_str = os.environ["SEASON_START_DATE"]
-    starting_year = int(season_start_str[0:4])
-    starting_month = int(season_start_str[6:7])
-    starting_day = int(season_start_str[9:10])
-
-    starting_date = pendulum.datetime(starting_year, starting_month, starting_day)
+    pre_season_start_date = pendulum.datetime(PRE_STARTING_YEAR, PRE_STARTING_MONTH, PRE_STARTING_DAY)
+    starting_date = pendulum.datetime(STARTING_YEAR, STARTING_MONTH, STARTING_DAY)
 
     if bot_type == "groupme":
         bot_id = os.environ["BOT_ID"]
