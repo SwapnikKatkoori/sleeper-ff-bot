@@ -589,8 +589,8 @@ if __name__ == "__main__":
     except:
         close_num = 20
 
-    pre_season_start_date = pendulum.datetime(os.environ["PRE_SEASON_START_DATE"][0:4], os.environ["PRE_SEASON_START_DATE"][6:2],os.environ["PRE_SEASON_START_DATE"][9:2])
-    starting_date = pendulum.datetime(os.environ["SEASON_START_DATE"][0:4], os.environ["SEASON_START_DATE"][6:2],os.environ["SEASON_START_DATE"][9:2])
+    pre_season_start_date = pendulum.datetime(int(os.environ["PRE_SEASON_START_DATE"][0:4],2), int(os.environ["PRE_SEASON_START_DATE"][6:2],2), int(os.environ["PRE_SEASON_START_DATE"][9:2],2))
+    starting_date = pendulum.datetime(int(os.environ["SEASON_START_DATE"][0:4],2), int(os.environ["SEASON_START_DATE"][6:2],2), int(os.environ["SEASON_START_DATE"][9:2],2))
 
     if bot_type == "groupme":
         bot_id = os.environ["BOT_ID"]
