@@ -590,8 +590,11 @@ if __name__ == "__main__":
     except:
         close_num = 20
 
+    logger.debug(int(os.environ["PRE_SEASON_START_DATE"][0:4]))
     pre_season_year = int(os.environ["PRE_SEASON_START_DATE"][0:4])
+    logger.debug(int(os.environ["PRE_SEASON_START_DATE"][6:2]))
     pre_season_month = int(os.environ["PRE_SEASON_START_DATE"][6:2])
+    logger.debug(int(os.environ["PRE_SEASON_START_DATE"][9:2]))
     pre_season_day = int(os.environ["PRE_SEASON_START_DATE"][9:2])
     
     pre_season_start_date = pendulum.datetime(pre_season_year, pre_season_month,pre_season_day)
