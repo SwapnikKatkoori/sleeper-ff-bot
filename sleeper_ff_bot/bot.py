@@ -545,8 +545,8 @@ if __name__ == "__main__":
 
     # Fun fact
     schedule2.every().day.at("09:20").do(bot.send, get_fun_fact).tag('fact')
-    schedule2.every().day.at("15:20").do(bot.send, get_fun_fact).tag('fact')
-    schedule2.every().day.at("21:20").do(bot.send, get_fun_fact).tag('fact')
+    schedule2.every().day.at("13:35").do(bot.send, get_fun_fact).tag('fact')
+    schedule2.every().day.at("21:45").do(bot.send, get_fun_fact).tag('fact')
 
     # Weekly Predictions
     schedule3.every().thursday.at("08:30").do(bot.send, get_td_predict).tag('weekly', 'prediction')
