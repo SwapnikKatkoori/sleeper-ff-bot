@@ -627,9 +627,12 @@ if __name__ == "__main__":
 
 
     while True:
-        if starting_date <= pendulum.today():
-            schedule.run_pending('weekly')
+        if pre_season_start_date == pendulum.today():
             schedule.run_pending('fact')
             schedule.run_pending('once')
             schedule.clear('once')
+        else if pre_season_start_date <= pendulum.today():
+            schedule.run_pending('fact')
+        else if starting_date <= pendulum.today():
+            schedule.run_pending('weekly')
         time.sleep(50)
