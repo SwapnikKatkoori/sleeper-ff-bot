@@ -592,16 +592,17 @@ if __name__ == "__main__":
     pre_season_start_str = os.environ["PRE_SEASON_START_DATE"]
     logging.warning(pre_season_start_str[0:4])
     pre_season_year = int(pre_season_start_str[0:4])
-    logging.warning(pre_season_start_str[6:2])
-    pre_season_month = int(pre_season_start_str[6:2])
+    logging.warning(pre_season_start_str[6:7])
+    pre_season_month = int(pre_season_start_str[6:7])
     logging.warning(pre_season_start_str)
-    pre_season_day = int(pre_season_start_str[9:2])
+    pre_season_day = int(pre_season_start_str[9:10])
 
     pre_season_start_date = pendulum.datetime(pre_season_year, pre_season_month,pre_season_day)
 
-    starting_year = int(os.environ["SEASON_START_DATE"][0:4])
-    starting_month = int(os.environ["SEASON_START_DATE"][6:2])
-    starting_day = int(os.environ["SEASON_START_DATE"][9:2])
+    season_start_str = os.environ["SEASON_START_DATE"]
+    starting_year = int(season_start_str[0:4])
+    starting_month = int(season_start_str[6:7])
+    starting_day = int(season_start_str[9:10])
 
     starting_date = pendulum.datetime(starting_year, starting_month, starting_day)
 
