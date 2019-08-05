@@ -11,7 +11,7 @@ from constants import STARTING_MONTH, STARTING_YEAR, STARTING_DAY, START_DATE_ST
 """
 These are all of the utility functions.
 """
-def get_random_phrase():
+def get_fun_fact():
     phrases = [
                ##Bot Phrases
                'Is this all there is to my existence?',
@@ -101,6 +101,19 @@ def get_player_name():
     names = ['Adam','Alex','Boof','Cody','Derek','Devon','Jamie','Josh','Keller','Kendall']
     text = [random.choice(names)]
     return '\n'.join(text)
+
+def get_td_predict():
+    text = "I predict the person who scores the most touchdowns this week will be..."
+    return text
+
+def get_high_predict():
+    text = "I predict the person who scores the most points this week will be..."
+def get_low_predict():
+    text = "I predict the person who scores the fewest points this week will be..."
+def get_champ_predict():
+    text = "I predict the champion this season will be..."
+def get_spoob_predict():
+    text = "I predict the spooby this season will be..."
 
 def get_league_scoreboards(league_id, week):
     """
@@ -618,21 +631,21 @@ if __name__ == "__main__":
     schedule.every().thursday.at("08:42").do(bot.send, get_palyer_name).tag('weekly', 'prediction')
 
     #Season Prediction
-    while True:
-        if pre_season_start_date == pendulum.today():
-            schedule.every().day.at("06:30").do(bot.send, get_td_predict).tag('once', 'prediction')
-            schedule.every().day.at("06:32").do(bot.send, get_palyer_name).tag('once', 'prediction')
-            schedule.every().day.at("06:30").do(bot.send, get_champ_predict).tag('once', 'prediction')
-            schedule.every().day.at("06:32").do(bot.send, get_spoob_name).tag('once', 'prediction')
+    schedule.every().day.at("06:30").do(bot.send, get_spoob_predict).tag('once', 'prediction')
+    schedule.every().day.at("06:32").do(bot.send, get_player_name).tag('once', 'prediction')
+    schedule.every().day.at("06:30").do(bot.send, get_champ_predict).tag('once', 'prediction')
+    schedule.every().day.at("06:32").do(bot.send, get_player_name).tag('once', 'prediction')
 
 
     while True:
-        if pre_season_start_date == pendulum.today():
+        if pre_season_start_date <= pendulum.today():
             schedule.run_pending('fact')
+        elif starting_date == pendulum.today():
             schedule.run_pending('once')
             schedule.clear('once')
-        elif pre_season_start_date <= pendulum.today():
             schedule.run_pending('fact')
+            schedule.run_pending('weekly')
         elif starting_date <= pendulum.today():
+            schedule.run_pending('fact')
             schedule.run_pending('weekly')
         time.sleep(50)
