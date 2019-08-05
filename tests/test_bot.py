@@ -1,5 +1,5 @@
 from sleeper_ff_bot import bot
-
+import pytest
 
 def test_get_matchups_string():
     """
@@ -18,7 +18,7 @@ def test_get_standings():
     standings_string = bot.get_standings_string(355526480094113792)
     assert isinstance(standings_string, str)
 
-
+@pytest.mark.skip(reason="no way of currently testing this. Should be easier next season")
 def test_get_close_games():
     """
     Tests the get_close_games method
@@ -27,7 +27,7 @@ def test_get_close_games():
     close_game_string = bot.get_close_games_string(355526480094113792, 20)
     assert isinstance(close_game_string, str)
 
-
+@pytest.mark.skip(reason="no way of currently testing this. Should be easier next season")
 def test_get_highest_score():
     """
     Tests the get_highest_score method
