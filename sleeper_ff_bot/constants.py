@@ -1,3 +1,5 @@
+import os
+
 STARTING_YEAR = int(os.environ["SEASON_START_DATE"][0:4])
 STARTING_MONTH = int(os.environ["SEASON_START_DATE"][6:7])
 STARTING_DAY = int(os.environ["SEASON_START_DATE"][9:10])
