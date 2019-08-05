@@ -19,6 +19,7 @@ A GroupMe/Slack/Discord Bot for Sleeper fantasy leagues. It sends messages on th
      - 7pm ET Close games.
 - Monday:
      - 9am ET Scores
+     - 8pm ET Close games
 - Tuesday:
      - 11am ET league standing.
      - 11:01am ET Highest scoring team, lowest scoring team, most points left on the bench, and teams that started players that scored negative.
