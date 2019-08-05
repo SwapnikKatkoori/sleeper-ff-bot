@@ -613,7 +613,7 @@ if __name__ == "__main__":
         webhook = os.environ["DISCORD_WEBHOOK"]
         bot = Discord(webhook)
 
-    if os.environ["INIT_MESSAGE"] == True:
+    if os.environ["INIT_MESSAGE"] == "True":
         bot.send(get_welcome_string)  # inital message to send
 
     if starting_date <= pendulum.today():
