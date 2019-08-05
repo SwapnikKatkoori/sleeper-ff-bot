@@ -11,13 +11,15 @@ phrases = [
            ##MISC.
            'After visiting the Arizona Cardinals on 9/23/2012 Mike Vick, of the Philadelphia Eagles, had 6 interceptions, 5 fumbles, and 4 touchdowns on the season, a stat line that was coined \'The Classic 6-5-4\'. The details of the stat line were forgotten by the group until Alex did the research on 10/15/2018, 2,213 days later.',
            ##Champions
+           'Alex won The Deyton in 2018.',
            'Alex won The Deyton in 2017.',
            'Boof won The Deyton in 2016.',
            'Jamie won The Deyton in 2015.',
            ##Shitters
            'Derek was the Spooby Shitter in 2015.',
            'Josh was the Spooby Shitter in 2016.',
-           'Jamie Was the Spooby Shitter in 2017.',
+           'Jamie was the Spooby Shitter in 2017.',
+           'Jamie was the Spooby Shitter in 2018.',
            ##Division Winners
            'Jamie won the East in 2015 with a 9-4 record.',
            'Josh won the West in 2015 with a 11-2 record.',
@@ -26,8 +28,10 @@ phrases = [
            'Alex won the East in 2017 with a 10-3 record.',
            'Adam won the West in 2017 with a 9-4 record.',
            'Alex won the East in 2018 with a 9-4 record.',
-           'Adam won the West in 2017 with a 9-4 record.',
+           'Adam won the West in 2018 with a 9-4 record.',
            ##Things that wont change
+           'Alex won back to back titles in 2017/2018',
+           'Jamie won back to back Spooby Shitters in 2017/2018'
            'Josh opened the 2017 season with a bang by setting the (at the time) league record in points in a single week at 181.3 only to be beaten in week 12 of that season by Keller. Josh would reclaim the scoring title in the next season with a whopping 202.7.',
            'Colin was removed from the Sweater Vest League for winning a championship in 2016.',
            'All Hail the Deyton was once known as the Sweater Vest League and has three unrecognized champions.',
