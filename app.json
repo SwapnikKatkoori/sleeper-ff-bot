@@ -1,7 +1,7 @@
 {
   "name": "sleeper-ff-bot",
   "description": "A GroupMe/Slack/Discord Bot for Sleeper fantasy leagues",
-  "repository": "https://github.com/SwapnikKatkoori/sleeper-ff-bot",
+  "repository": "https://github.com/AlexHawkins1/sleeper-ff-bot",
   "logo": "",
   "keywords": [
     "Bot",
@@ -41,6 +41,18 @@
     "DISCORD_WEBHOOK": {
       "description": "The Discord Webhook. Required if the bot type is discord.",
       "value": "1"
+    },
+    "PRE_SEASON_START_DATE": {
+      "description": "The date the bot starts the pre-season (yyyy-mm-dd).",
+      "value": "2019-08-05"
+    },
+    "SEASON_START_DATE": {
+      "description": "The date of the first Thursday of the regular season (yyyy-mm-dd).",
+      "value": "2019-09-05"
+    },
+    "INIT_MESSAGE": {
+      "description": "True/False should the bot send the initialize message.",
+      "value": true
     }
   }
 }

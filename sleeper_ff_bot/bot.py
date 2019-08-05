@@ -6,7 +6,7 @@ from group_me import GroupMe
 from slack import Slack
 from discord import Discord
 from sleeper_wrapper import League, Stats, Players
-from constants import STARTING_MONTH, STARTING_YEAR, STARTING_DAY, START_DATE_STRING, STARTING_YEAR_2, STARTING_MONTH_2, STARTING_DAY_2, START_DATE_STRING_2
+#from constants import STARTING_MONTH, STARTING_YEAR, STARTING_DAY, START_DATE_STRING, STARTING_YEAR_2, STARTING_MONTH_2, STARTING_DAY_2, START_DATE_STRING_2
 
 """
 These are all of the utility functions.
@@ -589,8 +589,8 @@ if __name__ == "__main__":
     except:
         close_num = 20
 
-    starting_date = pendulum.datetime(STARTING_YEAR, STARTING_MONTH, STARTING_DAY)
-    pre_season_start_date = pendulum.datetime(STARTING_YEAR_2, STARTING_MONTH_2,STARTING_DAY_2)
+    pre_season_start_date = pendulum.datetime(os.environ["PRE_SEASON_START_DATE"][0:4], os.environ["PRE_SEASON_START_DATE"][6:2],os.environ["PRE_SEASON_START_DATE"][9:2])
+    starting_date = pendulum.datetime(os.environ["SEASON_START_DATE"][0:4], os.environ["SEASON_START_DATE"][6:2],os.environ["SEASON_START_DATE"][9:2])
 
     if bot_type == "groupme":
         bot_id = os.environ["BOT_ID"]
@@ -602,7 +602,8 @@ if __name__ == "__main__":
         webhook = os.environ["DISCORD_WEBHOOK"]
         bot = Discord(webhook)
 
-    bot.send(get_welcome_string)  # inital message to send
+    if os.environ["INIT_MESSAGE"] == True:
+        bot.send(get_welcome_string)  # inital message to send
 
     # Matchups Thursday at 7:00 pm ET
     schedule.every().thursday.at("19:00").do(bot.send, get_matchups_string, league_id).tag('weekly', 'update')
@@ -624,11 +625,11 @@ if __name__ == "__main__":
 
     # Weekly Predictions
     schedule.every().thursday.at("08:30").do(bot.send, get_td_predict).tag('weekly', 'prediction')
-    schedule.every().thursday.at("08:32").do(bot.send, get_palyer_name).tag('weekly', 'prediction')
+    schedule.every().thursday.at("08:32").do(bot.send, get_player_name).tag('weekly', 'prediction')
     schedule.every().thursday.at("08:35").do(bot.send, get_high_predict).tag('weekly', 'prediction')
-    schedule.every().thursday.at("08:37").do(bot.send, get_palyer_name).tag('weekly', 'prediction')
+    schedule.every().thursday.at("08:37").do(bot.send, get_player_name).tag('weekly', 'prediction')
     schedule.every().thursday.at("08:40").do(bot.send, get_low_predict).tag('weekly', 'prediction')
-    schedule.every().thursday.at("08:42").do(bot.send, get_palyer_name).tag('weekly', 'prediction')
+    schedule.every().thursday.at("08:42").do(bot.send, get_player_name).tag('weekly', 'prediction')
 
     #Season Prediction
     schedule.every().day.at("06:30").do(bot.send, get_spoob_predict).tag('once', 'prediction')
