@@ -590,11 +590,8 @@ if __name__ == "__main__":
     except:
         close_num = 20
     pre_season_start_str = os.environ["PRE_SEASON_START_DATE"]
-    logging.warning(pre_season_start_str[0:4])
     pre_season_year = int(pre_season_start_str[0:4])
-    logging.warning(pre_season_start_str[6:7])
     pre_season_month = int(pre_season_start_str[6:7])
-    logging.warning(pre_season_start_str)
     pre_season_day = int(pre_season_start_str[9:10])
 
     pre_season_start_date = pendulum.datetime(pre_season_year, pre_season_month,pre_season_day)
