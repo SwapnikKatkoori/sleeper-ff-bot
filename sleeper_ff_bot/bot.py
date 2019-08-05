@@ -595,7 +595,7 @@ if __name__ == "__main__":
     logging.warning(pre_season_start_str)
     pre_season_month = int(pre_season_start_str[6:2])
     logging.warning(pre_season_start_str)
-    pre_season_day = intpre_season_start_str[9:2])
+    pre_season_day = int(pre_season_start_str[9:2])
 
     pre_season_start_date = pendulum.datetime(pre_season_year, pre_season_month,pre_season_day)
 
