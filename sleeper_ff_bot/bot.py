@@ -593,16 +593,17 @@ if __name__ == "__main__":
     schedule4.every().thursday.at("20:40").do(bot.send, get_draft_order).tag('preseason')
 
     while True:
-        if pre_season_start_date == pendulum.today():
+        if starting_date <= pendulum.today():
+            schedule2.run_pending()
+            schedule3.run_pending()
+        elif pre_season_start_date < pendulum.today():
+            schedule2.run_pending()
+        elif pre_season_start_date == pendulum.today():
             schedule1.run_pending()
             schedule2.run_pending()
             schedule1.clear('once')
-        elif starting_date <= pendulum.today():
-            schedule2.run_pending()
-            schedule3.run_pending()
-        elif pre_season_start_date <= pendulum.today():
-            schedule2.run_pending()
         elif off_season_start_date <= pendulum.today():
+            warnings.warn("I Ran")
             schedule4.run_pending()
 
         time.sleep(50)
