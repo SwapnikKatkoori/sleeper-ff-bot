@@ -51,7 +51,7 @@ def get_spoob_predict():
 def get_draft_order():
     # use creds to create a client to interact with the Google Drive API
     scope = ['https://spreadsheets.google.com/feeds']
-    creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
+    creds = ServiceAccountCredentials.from_json_keyfile_name(os.environ["KEY"], scope)
     client = gspread.authorize(creds)
     sh = client.open("New Market")
     sheet = sh.worksheet("League Info")
@@ -590,7 +590,7 @@ if __name__ == "__main__":
     schedule1.every().day.at("22:32").do(bot.send, get_player_name).tag('once', 'prediction')
 
     # Off-Season
-    schedule4.every().thursday.at("18:05").do(bot.send, get_draft_order).tag('preseason')
+    schedule4.every().thursday.at("20:35").do(bot.send, get_draft_order).tag('preseason')
 
     while True:
         if pre_season_start_date == pendulum.today():
