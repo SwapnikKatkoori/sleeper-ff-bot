@@ -33,25 +33,32 @@ def get_td_predict():
 
 def get_high_predict():
     text = "I predict the person who scores the most points this week will be..."
+    return text
+
 def get_low_predict():
     text = "I predict the person who scores the fewest points this week will be..."
+    return text
+
 def get_champ_predict():
     text = "I predict the champion this season will be..."
+    return text
+
 def get_spoob_predict():
     text = "I predict the spooby this season will be..."
+    return text
 
 def get_draft_order():
     # use creds to create a client to interact with the Google Drive API
-scope = ['https://spreadsheets.google.com/feeds']
-creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
-client = gspread.authorize(creds)
+    scope = ['https://spreadsheets.google.com/feeds']
+    creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
+    client = gspread.authorize(creds)
 
-# Find a workbook by name and open the first sheet
-# Make sure you use the right name here.
-sheet = client.open("New Market").'League Info'
-# Extract and print all of the values
-list_of_hashes = sheet.get_all_records()
-return list_of_hashes
+    # Find a workbook by name and open the first sheet
+    # Make sure you use the right name here.
+    sheet = client.open("New Market").'League Info'
+    # Extract and print all of the values
+    list_of_hashes = sheet.get_all_records()
+    return list_of_hashes
 
 def get_league_scoreboards(league_id, week):
     """
@@ -580,7 +587,7 @@ if __name__ == "__main__":
     schedule1.every().day.at("22:32").do(bot.send, get_player_name).tag('once', 'prediction')
 
     # Off-Season
-    schedule4.every().thursday.at("17:47").do(bot.send, get_draft_order).tag('preseason')
+    schedule4.every().thursday.at("17:50").do(bot.send, get_draft_order).tag('preseason')
 
     while True:
         if pre_season_start_date == pendulum.today():
