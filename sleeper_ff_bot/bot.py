@@ -49,6 +49,7 @@ def get_spoob_predict():
     return text
 
 def get_draft_order():
+    logging.error("I Ran")
     # use creds to create a client to interact with the Google Drive API
     scope = ['https://spreadsheets.google.com/feeds']
     creds = ServiceAccountCredentials.from_json_keyfile_name(os.environ["KEY"], scope)
@@ -61,6 +62,7 @@ def get_draft_order():
     # Make sure you use the right name here
     # Extract and print all of the values
     list_of_hashes = sheet.get_all_records()
+    logging.error(list_of_hashes)
     return list_of_hashes
 
 def get_league_scoreboards(league_id, week):
@@ -590,7 +592,7 @@ if __name__ == "__main__":
     schedule1.every().day.at("22:32").do(bot.send, get_player_name).tag('once', 'prediction')
 
     # Off-Season
-    schedule4.every().thursday.at("20:50").do(bot.send, get_draft_order).tag('preseason')
+    schedule4.every().thursday.at("20:53").do(bot.send, get_draft_order).tag('preseason')
 
     while True:
         if starting_date <= pendulum.today():
@@ -603,7 +605,6 @@ if __name__ == "__main__":
             schedule2.run_pending()
             schedule1.clear('once')
         elif off_season_start_date <= pendulum.today():
-            logging.error("I Ran")
             schedule4.run_pending()
 
         time.sleep(50)
