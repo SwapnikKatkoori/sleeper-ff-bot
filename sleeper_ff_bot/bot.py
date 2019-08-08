@@ -52,10 +52,12 @@ def get_draft_order():
     scope = ['https://spreadsheets.google.com/feeds']
     creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
     client = gspread.authorize(creds)
+    sh = client.open("New Market")
+    sheet = sh.worksheet("League Info")
+
 
     # Find a workbook by name and open the first sheet
-    # Make sure you use the right name here.
-    sheet = client.open("New Market").("League Info")
+    # Make sure you use the right name here
     # Extract and print all of the values
     list_of_hashes = sheet.get_all_records()
     return list_of_hashes
