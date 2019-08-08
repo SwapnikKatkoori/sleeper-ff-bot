@@ -52,7 +52,8 @@ def get_draft_order():
     logging.error("I Ran")
     # use creds to create a client to interact with the Google Drive API
     scope = ['https://spreadsheets.google.com/feeds']
-    creds = ServiceAccountCredentials.from_json_keyfile_name(os.environ["KEY"], scope)
+    creds = ServiceAccountCredentials.from_json(os.environ["KEY"])
+    logging.error(creds)
     client = gspread.authorize(creds)
     sh = client.open("New Market")
     sheet = sh.worksheet("League Info")
@@ -592,7 +593,7 @@ if __name__ == "__main__":
     schedule1.every().day.at("22:32").do(bot.send, get_player_name).tag('once', 'prediction')
 
     # Off-Season
-    schedule4.every().thursday.at("20:53").do(bot.send, get_draft_order).tag('preseason')
+    schedule4.every().thursday.at("20:58").do(bot.send, get_draft_order).tag('preseason')
 
     while True:
         if starting_date <= pendulum.today():
