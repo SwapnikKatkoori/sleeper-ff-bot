@@ -590,7 +590,7 @@ if __name__ == "__main__":
     schedule1.every().day.at("22:32").do(bot.send, get_player_name).tag('once', 'prediction')
 
     # Off-Season
-    schedule4.every().thursday.at("20:48").do(bot.send, get_draft_order).tag('preseason')
+    schedule4.every().thursday.at("20:50").do(bot.send, get_draft_order).tag('preseason')
 
     while True:
         if starting_date <= pendulum.today():
@@ -603,7 +603,7 @@ if __name__ == "__main__":
             schedule2.run_pending()
             schedule1.clear('once')
         elif off_season_start_date <= pendulum.today():
-            warnings.warn("I Ran")
+            logging.error("I Ran")
             schedule4.run_pending()
 
         time.sleep(50)
