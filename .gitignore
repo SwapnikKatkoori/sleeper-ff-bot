@@ -106,3 +106,6 @@ venv.bak/
 #Pycharm stuff
 .idea
 *.iml
+
+#API Secret
+sleeper_ff_bot/client_secret.json

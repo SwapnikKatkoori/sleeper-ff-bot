@@ -6,12 +6,14 @@ import os
 import pendulum
 import logging
 import random
+import gspread
+from oauth2client.service_account import ServiceAccountCreentials
 from phrases import phrases
 from group_me import GroupMe
 from slack import Slack
 from discord import Discord
 from sleeper_wrapper import League, Stats, Players
-from constants import STARTING_MONTH, STARTING_YEAR, STARTING_DAY, START_DATE_STRING, PRE_STARTING_YEAR, PRE_STARTING_MONTH, PRE_STARTING_DAY, PRE_START_DATE_STRING
+from constants import STARTING_MONTH, STARTING_YEAR, STARTING_DAY, START_DATE_STRING, OFF_STARTING_YEAR, OFF_STARTING_MONTH, OFF_STARTING_DAY, OFF_START_DATE_STRING, PRE_STARTING_YEAR, PRE_STARTING_MONTH, PRE_STARTING_DAY, PRE_START_DATE_STRING
 
 """
 These are all of the utility functions.
@@ -37,6 +39,19 @@ def get_champ_predict():
     text = "I predict the champion this season will be..."
 def get_spoob_predict():
     text = "I predict the spooby this season will be..."
+
+def get_draft_order():
+    # use creds to create a client to interact with the Google Drive API
+scope = ['https://spreadsheets.google.com/feeds']
+creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
+client = gspread.authorize(creds)
+
+# Find a workbook by name and open the first sheet
+# Make sure you use the right name here.
+sheet = client.open("New Market").'League Info'
+# Extract and print all of the values
+list_of_hashes = sheet.get_all_records()
+return list_of_hashes
 
 def get_league_scoreboards(league_id, week):
     """
@@ -512,6 +527,7 @@ if __name__ == "__main__":
     except:
         close_num = 20
 
+    off_season_start_date = pendulum.datetime(OFF_STARTING_YEAR, OFF_STARTING_MONTH, OFF_STARTING_DAY)
     pre_season_start_date = pendulum.datetime(PRE_STARTING_YEAR, PRE_STARTING_MONTH, PRE_STARTING_DAY)
     starting_date = pendulum.datetime(STARTING_YEAR, STARTING_MONTH, STARTING_DAY)
 
@@ -557,21 +573,26 @@ if __name__ == "__main__":
     schedule3.every().thursday.at("12:40").do(bot.send, get_low_predict).tag('weekly', 'prediction')
     schedule3.every().thursday.at("12:42").do(bot.send, get_player_name).tag('weekly', 'prediction')
 
-    #Season Prediction
+    # Season Prediction
     schedule1.every().day.at("22:30").do(bot.send, get_spoob_predict).tag('once', 'prediction')
     schedule1.every().day.at("22:32").do(bot.send, get_player_name).tag('once', 'prediction')
     schedule1.every().day.at("22:30").do(bot.send, get_champ_predict).tag('once', 'prediction')
     schedule1.every().day.at("22:32").do(bot.send, get_player_name).tag('once', 'prediction')
 
+    # Off-Season
+    schedule4.every().thursday.at("17:47").do(bot.send, get_draft_order).tag('preseason')
 
     while True:
         if pre_season_start_date == pendulum.today():
             schedule1.run_pending()
             schedule2.run_pending()
             schedule1.clear('once')
-        elif pre_season_start_date <= pendulum.today():
-            schedule2.run_pending()
         elif starting_date <= pendulum.today():
             schedule2.run_pending()
             schedule3.run_pending()
+        elif pre_season_start_date <= pendulum.today():
+            schedule2.run_pending()
+        elif off_season_start_date <= pendulum.today():
+            schedule4.run_pending()
+
         time.sleep(50)
