@@ -55,7 +55,7 @@ def get_draft_order():
 
     # Find a workbook by name and open the first sheet
     # Make sure you use the right name here.
-    sheet = client.open("New Market").'League Info'
+    sheet = client.open("New Market").("League Info")
     # Extract and print all of the values
     list_of_hashes = sheet.get_all_records()
     return list_of_hashes
@@ -587,7 +587,7 @@ if __name__ == "__main__":
     schedule1.every().day.at("22:32").do(bot.send, get_player_name).tag('once', 'prediction')
 
     # Off-Season
-    schedule4.every().thursday.at("17:50").do(bot.send, get_draft_order).tag('preseason')
+    schedule4.every().thursday.at("17:53").do(bot.send, get_draft_order).tag('preseason')
 
     while True:
         if pre_season_start_date == pendulum.today():
