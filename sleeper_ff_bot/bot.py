@@ -589,7 +589,7 @@ if __name__ == "__main__":
     schedule1.every().day.at("22:32").do(bot.send, get_player_name).tag('once', 'prediction')
 
     # Off-Season
-    schedule4.every().thursday.at("17:53").do(bot.send, get_draft_order).tag('preseason')
+    schedule4.every().thursday.at("17:59").do(bot.send, get_draft_order).tag('preseason')
 
     while True:
         if pre_season_start_date == pendulum.today():
