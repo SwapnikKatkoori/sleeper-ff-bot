@@ -7,7 +7,7 @@ import pendulum
 import logging
 import random
 import gspread
-from oauth2client.service_account import ServiceAccountCreentials
+from oauth2client.service_account import ServiceAccountCredentials
 from phrases import phrases
 from group_me import GroupMe
 from slack import Slack
