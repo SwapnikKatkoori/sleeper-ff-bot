@@ -73,7 +73,7 @@ def get_draft_order():
 
     final_string = "current draft order "
 
-    for i in draft_order_data
+    for i in draft_order_data:
         user_name = draft_order_data["Name"]
         draft_slot = draft_order_data["Draft Slot"]
         account_balance = draft_order_data["Account"]
@@ -611,7 +611,7 @@ if __name__ == "__main__":
     schedule.every().day.at("22:36").do(bot.send, get_player_name).tag('schedule-1')
 
     # Off-Season
-    schedule.every().day.at("17:34").do(bot.send, get_draft_order).tag('schedule-4')
+    schedule.every().day.at("17:37").do(bot.send, get_draft_order).tag('schedule-4')
 
     while True:
         if starting_date <= pendulum.today():
