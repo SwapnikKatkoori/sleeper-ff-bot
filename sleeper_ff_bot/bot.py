@@ -46,6 +46,7 @@ def get_spoob_predict():
     return text
 
 def get_draft_order():
+    logging.error("Running Draft Order")
     # use creds to create a client to interact with the Google Drive API
     scope = ['https://spreadsheets.google.com/feeds']
     json_creds = os.environ["KEY"]
@@ -55,6 +56,7 @@ def get_draft_order():
     creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scopes)
     client = gspread.authorize(creds)
     sh = client.open("New Market")
+    logging.error(sh)
     sheet = sh.worksheet("League Info")
 
 
@@ -589,11 +591,11 @@ if __name__ == "__main__":
         # Season Prediction
         schedule.every().day.at("22:30").do(bot.send, get_spoob_predict).tag('once', 'prediction', 'schedule-1')
         schedule.every().day.at("22:32").do(bot.send, get_player_name).tag('once', 'prediction', 'schedule-1')
-        schedule.every().day.at("22:30").do(bot.send, get_champ_predict).tag('once', 'prediction', 'schedule-1')
-        schedule.every().day.at("22:32").do(bot.send, get_player_name).tag('once', 'prediction', 'schedule-1')
+        schedule.every().day.at("22:34").do(bot.send, get_champ_predict).tag('once', 'prediction', 'schedule-1')
+        schedule.every().day.at("22:36").do(bot.send, get_player_name).tag('once', 'prediction', 'schedule-1')
 
         # Off-Season
-        schedule.every().friday.at("14:40").do(bot.send, get_draft_order).tag('preseason', 'schedule-4')
+        schedule.every().friday.at("14:45").do(bot.send, get_draft_order).tag('preseason', 'schedule-4')
 
         if starting_date <= pendulum.today():
             logging.error("Running Sequence 1")
