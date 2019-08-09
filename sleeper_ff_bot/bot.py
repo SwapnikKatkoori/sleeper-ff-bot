@@ -67,7 +67,7 @@ def get_draft_order():
     # Extract and print all of the values
     draft_order_data = sheet.get_all_records()
 
-    final_string = "current draft order\n\n"
+    final_string = "Current Draft Order\n\n"
     data = json.dumps(draft_order_data)
     data_clean = json.loads(data)
     #draft_order_data = json.loads(draft_order_data_string)
