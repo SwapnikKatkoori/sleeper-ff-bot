@@ -17,17 +17,6 @@ from constants import STARTING_MONTH, STARTING_YEAR, STARTING_DAY, START_DATE_ST
 """
 These are all of the utility functions.
 """
-class color:
-   PURPLE = '\033[95m'
-   CYAN = '\033[96m'
-   DARKCYAN = '\033[36m'
-   BLUE = '\033[94m'
-   GREEN = '\033[92m'
-   YELLOW = '\033[93m'
-   RED = '\033[91m'
-   BOLD = '\033[1m'
-   UNDERLINE = '\033[4m'
-   END = '\033[0m'
 
 def get_fun_fact():
     text = [random.choice(phrases)]
@@ -78,7 +67,7 @@ def get_draft_order():
     # Extract and print all of the values
     draft_order_data = sheet.get_all_records()
 
-    final_string = color.BOLD + "current draft order\n" + color.END
+    final_string = "current draft order\n\n"
     data = json.dumps(draft_order_data)
     data_clean = json.loads(data)
     #draft_order_data = json.loads(draft_order_data_string)
@@ -618,7 +607,7 @@ if __name__ == "__main__":
     schedule.every().day.at("22:36").do(bot.send, get_player_name).tag('schedule-1')
 
     # Off-Season
-    schedule.every().day.at("18:34").do(bot.send, get_draft_order).tag('schedule-4')
+    schedule.every(1).minutes.do(bot.send, get_draft_order).tag('schedule-4')
 
     while True:
         if starting_date <= pendulum.today():
