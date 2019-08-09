@@ -559,6 +559,7 @@ if __name__ == "__main__":
         bot.send(get_welcome_string)  # inital message to send
 
     while True:
+        logging.error('scheduling')
         # Schedule on UTC (Eastern is -4)
         # Matchups Thursday at 7:00 pm ET
         schedule.every().thursday.at("23:00").do(bot.send, get_matchups_string, league_id).tag('weekly', 'update', 'schedule-3')
@@ -595,7 +596,7 @@ if __name__ == "__main__":
         schedule.every().day.at("22:36").do(bot.send, get_player_name).tag('once', 'prediction', 'schedule-1')
 
         # Off-Season
-        schedule.every().friday.at("14:45").do(bot.send, get_draft_order).tag('preseason', 'schedule-4')
+        schedule.every().friday.at("14:48").do(bot.send, get_draft_order).tag('preseason', 'schedule-4')
 
         if starting_date <= pendulum.today():
             logging.error("Running Sequence 1")
