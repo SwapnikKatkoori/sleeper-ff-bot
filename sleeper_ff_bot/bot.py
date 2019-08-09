@@ -573,78 +573,85 @@ if __name__ == "__main__":
     logging.error('scheduling')
     # Schedule on UTC (Eastern is -4)
     # Matchups Thursday at 7:00 pm ET
-    schedule.every().thursday.at("23:00").do(bot.send, get_matchups_string, league_id).tag('schedule-3')
-    # Scores Friday at 9 am ET
-    schedule.every().friday.at("13:00").do(bot.send, get_scores_string, league_id).tag('schedule-3')
-    # Close games Sunday on 7:00 pm ET
-    schedule.every().sunday.at("23:00").do(bot.send, get_close_games_string, league_id, int(close_num)).tag('schedule-3')
-    # Scores Monday at 9 am ET
-    schedule.every().monday.at("13:00").do(bot.send, get_scores_string, league_id).tag('schedule-3')
-    # Close games Monday at 7:00 pm ET
-    schedule.every().monday.at("23:00").do(bot.send, get_close_games_string, league_id, int(close_num)).tag('schedule-3')
-    # Standings Tuesday at 11:00 am ET
-    schedule.every().tuesday.at("15:00").do(bot.send, get_standings_string, league_id).tag('schedule-3')
-    # Best/Worst Tuesday at 11:01 am ET
-    schedule.every().tuesday.at("15:01").do(bot.send, get_best_and_worst_string, league_id).tag('schedule-3')
+    # schedule.every().thursday.at("23:00").do(bot.send, get_matchups_string, league_id).tag('schedule-3')
+    # # Scores Friday at 9 am ET
+    # schedule.every().friday.at("13:00").do(bot.send, get_scores_string, league_id).tag('schedule-3')
+    # # Close games Sunday on 7:00 pm ET
+    # schedule.every().sunday.at("23:00").do(bot.send, get_close_games_string, league_id, int(close_num)).tag('schedule-3')
+    # # Scores Monday at 9 am ET
+    # schedule.every().monday.at("13:00").do(bot.send, get_scores_string, league_id).tag('schedule-3')
+    # # Close games Monday at 7:00 pm ET
+    # schedule.every().monday.at("23:00").do(bot.send, get_close_games_string, league_id, int(close_num)).tag('schedule-3')
+    # # Standings Tuesday at 11:00 am ET
+    # schedule.every().tuesday.at("15:00").do(bot.send, get_standings_string, league_id).tag('schedule-3')
+    # # Best/Worst Tuesday at 11:01 am ET
+    # schedule.every().tuesday.at("15:01").do(bot.send, get_best_and_worst_string, league_id).tag('schedule-3')
+    #
+    # # Fun fact
+    # schedule.every().day.at("13:20").do(bot.send, get_fun_fact).tag('schedule-2')
+    # schedule.every().day.at("17:20").do(bot.send, get_fun_fact).tag('schedule-2')
+    # schedule.every().day.at("00:20").do(bot.send, get_fun_fact).tag('schedule-2')
+    #
+    # # Weekly Predictions
+    # schedule.every().thursday.at("12:30").do(bot.send, get_td_predict).tag('schedule-3')
+    # schedule.every().thursday.at("12:32").do(bot.send, get_player_name).tag('schedule-3')
+    # schedule.every().thursday.at("12:35").do(bot.send, get_high_predict).tag('schedule-3')
+    # schedule.every().thursday.at("12:37").do(bot.send, get_player_name).tag('schedule-3')
+    # schedule.every().thursday.at("12:40").do(bot.send, get_low_predict).tag('schedule-3')
+    # schedule.every().thursday.at("12:42").do(bot.send, get_player_name).tag('schedule-3')
+    #
+    # # Season Prediction
+    # schedule.every().day.at("22:30").do(bot.send, get_spoob_predict).tag('schedule-1')
+    # schedule.every().day.at("22:32").do(bot.send, get_player_name).tag('schedule-1')
+    # schedule.every().day.at("22:34").do(bot.send, get_champ_predict).tag('schedule-1')
+    # schedule.every().day.at("22:36").do(bot.send, get_player_name).tag('schedule-1')
+    #
+    # # Off-Season
+    # schedule.every().monday.at("14:00").do(bot.send, get_draft_order).tag('schedule-4')
 
-    # Fun fact
-    schedule.every().day.at("13:20").do(bot.send, get_fun_fact).tag('schedule-2')
-    schedule.every().day.at("17:20").do(bot.send, get_fun_fact).tag('schedule-2')
-    schedule.every().day.at("00:20").do(bot.send, get_fun_fact).tag('schedule-2')
+    # Testing
+    schedule.every().minute.at(":00").do(bot.send, send_any_string, "sechedule-1").tag('schedule-1')
+    schedule.every().minute.at(":00").do(bot.send, send_any_string, "sechedule-2").tag('schedule-2')
+    schedule.every().minute.at(":00").do(bot.send, send_any_string, "sechedule-3").tag('schedule-3')
+    schedule.every().minute.at(":00").do(bot.send, send_any_string, "sechedule-4").tag('schedule-4')
 
-    # Weekly Predictions
-    schedule.every().thursday.at("12:30").do(bot.send, get_td_predict).tag('schedule-3')
-    schedule.every().thursday.at("12:32").do(bot.send, get_player_name).tag('schedule-3')
-    schedule.every().thursday.at("12:35").do(bot.send, get_high_predict).tag('schedule-3')
-    schedule.every().thursday.at("12:37").do(bot.send, get_player_name).tag('schedule-3')
-    schedule.every().thursday.at("12:40").do(bot.send, get_low_predict).tag('schedule-3')
-    schedule.every().thursday.at("12:42").do(bot.send, get_player_name).tag('schedule-3')
-
-    # Season Prediction
-    schedule.every().day.at("22:30").do(bot.send, get_spoob_predict).tag('schedule-1')
-    schedule.every().day.at("22:32").do(bot.send, get_player_name).tag('schedule-1')
-    schedule.every().day.at("22:34").do(bot.send, get_champ_predict).tag('schedule-1')
-    schedule.every().day.at("22:36").do(bot.send, get_player_name).tag('schedule-1')
-
-    # Off-Season
-    schedule.every().monday.at("14:00").do(bot.send, get_draft_order).tag('schedule-4')
 
     while True:
         if starting_date <= pendulum.today():
             logging.error("Running Sequence 1")
-            #schedule.clear('schedule-1')
-            #schedule.clear('schedule-4')
+            schedule.clear('schedule-1')
+            schedule.clear('schedule-4')
             logging.error("Running Schedule-2 & schedule-3")
             schedule.run_pending()
             time.sleep(30)
-            #schedule.clear('schedule-2')
-            #schedule.clear('schedule-3')
+            schedule.clear('schedule-2')
+            schedule.clear('schedule-3')
         elif pre_season_start_date < pendulum.today():
             logging.error("Running Sequence 2")
-            #schedule.clear('schedule-1')
-            #schedule.clear('schedule-3')
-            #schedule.clear('schedule-4')
+            schedule.clear('schedule-1')
+            schedule.clear('schedule-3')
+            schedule.clear('schedule-4')
             logging.error("Running Schedule 2")
             schedule.run_pending()
             time.sleep(30)
-            #schedule.clear('schedule-2')
+            schedule.clear('schedule-2')
         elif pre_season_start_date == pendulum.today():
             logging.error("Running Sequence 3")
-            #schedule.clear('schedule-3')
-            #schedule.clear('schedule-4')
+            schedule.clear('schedule-3')
+            schedule.clear('schedule-4')
             logging.error("Running Schedule-1 & schedule-2")
             schedule.run_pending()
             time.sleep(30)
-            #schedule.clear('schedule-1')
-            #schedule.clear('schedule-2')
+            schedule.clear('schedule-1')
+            schedule.clear('schedule-2')
         elif off_season_start_date <= pendulum.today():
             logging.error("Running Sequence 4")
             logging.error("Running Schedule 4")
-            #schedule.clear('schedule-1')
-            #schedule.clear('schedule-2')
-            #schedule.clear('schedule-3')
+            schedule.clear('schedule-1')
+            schedule.clear('schedule-2')
+            schedule.clear('schedule-3')
             schedule.run_pending()
             time.sleep(30)
-            #schedule.clear('schedule-4')
+            schedule.clear('schedule-4')
 
         time.sleep(20)
