@@ -68,9 +68,19 @@ def get_draft_order():
     # Find a workbook by name and open the first sheet
     # Make sure you use the right name here
     # Extract and print all of the values
-    list_of_hashes = sheet.get_all_records()
-    logging.error(list_of_hashes)
-    return list_of_hashes
+    draft_order_data = sheet.get_all_records()
+    logging.error(draft_order_data)
+
+    final_string = "current draft order "
+
+    for i in draft_order_data
+        user_name = draft_order_data["Name"]
+        draft_slot = draft_order_data["Draft Slot"]
+        account_balance = draft_order_data["Account"]
+        final_string += "{} \n{}\n{:.2f}\n\n{}".format(user_name,
+                                                       draft_slot,
+                                                       account_balance)
+    return final_string
 
 def get_league_scoreboards(league_id, week):
     """
@@ -601,7 +611,7 @@ if __name__ == "__main__":
     schedule.every().day.at("22:36").do(bot.send, get_player_name).tag('schedule-1')
 
     # Off-Season
-    schedule.every().day.at("17:20").do(bot.send, get_draft_order).tag('schedule-4')
+    schedule.every().day.at("17:34").do(bot.send, get_draft_order).tag('schedule-4')
 
     while True:
         if starting_date <= pendulum.today():
