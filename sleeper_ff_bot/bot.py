@@ -597,15 +597,26 @@ if __name__ == "__main__":
 
     while True:
         if starting_date <= pendulum.today():
+            logging.error("Running Sequence 1")
+            logging.error("Running Schedule 2")
             schedule2.run_pending()
+            logging.error("Running Schedule 3")
             schedule3.run_pending()
         elif pre_season_start_date < pendulum.today():
+            logging.error("Running Sequence 2")
+            logging.error("Running Schedule 2")
             schedule2.run_pending()
         elif pre_season_start_date == pendulum.today():
+            logging.error("Running Sequence 3")
+            logging.error("Running Schedule 1")
             schedule1.run_pending()
+            logging.error("Running Schedule 2")
             schedule2.run_pending()
+            logging.error("Clearing Schedule 1")
             schedule1.clear('once')
         elif off_season_start_date <= pendulum.today():
+            logging.error("Running Sequence 4")
+            logging.error("Running Schedule 4")
             schedule4.run_pending()
 
         time.sleep(50)
