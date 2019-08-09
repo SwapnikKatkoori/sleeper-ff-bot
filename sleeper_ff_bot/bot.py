@@ -51,9 +51,11 @@ def get_draft_order():
     # use creds to create a client to interact with the Google Drive API
     scope = ['https://spreadsheets.google.com/feeds' + ' ' +'https://www.googleapis.com/auth/drive']
     json_creds = os.environ["KEY"]
-
+    logging.error(json_creds)
     creds_dict = json.loads(json_creds)
+    logging.error(creds_dict)
     creds_dict["private_key"] = creds_dict["private_key"].replace("\\\\n", "\n")
+    logging.error(creds_dict)
     creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
     client = gspread.authorize(creds)
 
