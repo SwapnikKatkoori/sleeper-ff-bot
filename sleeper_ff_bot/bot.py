@@ -5,6 +5,7 @@ import pendulum
 import logging
 import random
 import gspread
+import json
 from oauth2client.service_account import ServiceAccountCredentials
 from phrases import phrases
 from group_me import GroupMe
@@ -596,7 +597,7 @@ if __name__ == "__main__":
     schedule.every().day.at("22:36").do(bot.send, get_player_name).tag('schedule-1')
 
     # Off-Season
-    schedule.every().day.at("15:15").do(bot.send, get_draft_order).tag('schedule-4')
+    schedule.every().day.at("15:20").do(bot.send, get_draft_order).tag('schedule-4')
 
     while True:
         if starting_date <= pendulum.today():
