@@ -60,9 +60,9 @@ def get_draft_order():
     client = gspread.authorize(creds)
 
     logging.error(client)
-    sh = client.open_by_url("https://docs.google.com//dspreadsheets/185PXeVLTFaCHt_m3Mw3XeE1w0UGCmzVhZHMKw3UJeHE/edit#gid=1327629526")
+    sh = client.open_by_url("https://docs.google.com/spreadsheets/d/1ZFv0u8KYoXdoKMhjloK6EhIJlmzZsn91BidnGHwkRT4/edit#gid=0")
     #logging.error(sh)
-    sheet = sh.worksheet("League Info")
+    sheet = sh.sheet1
 
 
     # Find a workbook by name and open the first sheet
@@ -601,7 +601,7 @@ if __name__ == "__main__":
     schedule.every().day.at("22:36").do(bot.send, get_player_name).tag('schedule-1')
 
     # Off-Season
-    schedule.every().day.at("17:05").do(bot.send, get_draft_order).tag('schedule-4')
+    schedule.every().day.at("17:14").do(bot.send, get_draft_order).tag('schedule-4')
 
     while True:
         if starting_date <= pendulum.today():
