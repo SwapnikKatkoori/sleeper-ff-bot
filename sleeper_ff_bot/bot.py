@@ -46,11 +46,13 @@ def get_spoob_predict():
     return text
 
 def get_draft_order():
-    logging.error("I Ran")
     # use creds to create a client to interact with the Google Drive API
     scope = ['https://spreadsheets.google.com/feeds']
-    creds = ServiceAccountCredentials.from_json(os.environ["KEY"])
-    logging.error(creds)
+    json_creds = os.environ["KEY"]
+
+    creds_dict = json.load(json_creds)
+    creds_dict["private_key"] = creds_dict["private_key"].replace("\\\\n", "\n")
+    creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scopes)
     client = gspread.authorize(creds)
     sh = client.open("New Market")
     sheet = sh.worksheet("League Info")
