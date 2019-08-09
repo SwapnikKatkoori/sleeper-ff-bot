@@ -79,6 +79,9 @@ def get_draft_order():
         user_name = i["Name"]
         draft_slot = i["Draft Slot"]
         account_balance = i["Account"]
+        logging.error(user_name)
+        logging.error(draft_slot)
+        logging.error(account_balance)
         final_string += "{} \n{}\n{:.2f}\n\n{}".format(user_name,
                                                        draft_slot,
                                                        account_balance)
@@ -613,7 +616,7 @@ if __name__ == "__main__":
     schedule.every().day.at("22:36").do(bot.send, get_player_name).tag('schedule-1')
 
     # Off-Season
-    schedule.every().day.at("18:13").do(bot.send, get_draft_order).tag('schedule-4')
+    schedule.every().day.at("18:17").do(bot.send, get_draft_order).tag('schedule-4')
 
     while True:
         if starting_date <= pendulum.today():
