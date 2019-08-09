@@ -71,7 +71,7 @@ def get_draft_order():
     draft_order_data = sheet.get_all_records()
     logging.error(draft_order_data)
 
-    final_string = "current draft order "
+    final_string = "current draft order\n"
     data = json.dumps(draft_order_data)
     data_clean = json.loads(data)
     #draft_order_data = json.loads(draft_order_data_string)
@@ -82,9 +82,7 @@ def get_draft_order():
         logging.error(user_name)
         logging.error(draft_slot)
         logging.error(account_balance)
-        final_string += "{} {} {}\n".format(draft slot,
-                                            user_name,
-                                            account_balance)
+        final_string += "{} {} {}\n".format(draft slot, user_name, account_balance)
     return final_string
 
 def get_league_scoreboards(league_id, week):
@@ -616,7 +614,7 @@ if __name__ == "__main__":
     schedule.every().day.at("22:36").do(bot.send, get_player_name).tag('schedule-1')
 
     # Off-Season
-    schedule.every().day.at("18:22").do(bot.send, get_draft_order).tag('schedule-4')
+    schedule.every().day.at("18:25").do(bot.send, get_draft_order).tag('schedule-4')
 
     while True:
         if starting_date <= pendulum.today():
