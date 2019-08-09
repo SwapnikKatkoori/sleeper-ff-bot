@@ -76,9 +76,9 @@ def get_draft_order():
     data_clean = json.loads(data)
     #draft_order_data = json.loads(draft_order_data_string)
     for i in data_clean:
-        user_name = i[0]
-        draft_slot = i[1]
-        account_balance = i[2]
+        user_name = i["Name"]
+        draft_slot = i["Draft Slot"]
+        account_balance = i["Account"]
         final_string += "{} \n{}\n{:.2f}\n\n{}".format(user_name,
                                                        draft_slot,
                                                        account_balance)
@@ -613,7 +613,7 @@ if __name__ == "__main__":
     schedule.every().day.at("22:36").do(bot.send, get_player_name).tag('schedule-1')
 
     # Off-Season
-    schedule.every().day.at("18:10").do(bot.send, get_draft_order).tag('schedule-4')
+    schedule.every().day.at("18:13").do(bot.send, get_draft_order).tag('schedule-4')
 
     while True:
         if starting_date <= pendulum.today():
