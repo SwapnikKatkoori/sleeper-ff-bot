@@ -596,9 +596,9 @@ if __name__ == "__main__":
         schedule.every().day.at("22:36").do(bot.send, get_player_name).tag('schedule-1')
 
         # Off-Season
-        schedule.every().friday.at("14:58").do(bot.send, get_draft_order).tag('schedule-4')
+        schedule.every().friday.at("15:00").do(bot.send, get_draft_order).tag('schedule-4')
 
-    while True
+    while True:
         if starting_date <= pendulum.today():
             logging.error("Running Sequence 1")
             #schedule.clear('schedule-1')
