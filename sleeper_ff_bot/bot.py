@@ -69,7 +69,7 @@ def get_draft_order():
     # Make sure you use the right name here
     # Extract and print all of the values
     draft_order_data_string = sheet.get_all_records()
-    logging.error(draft_order_data)
+    logging.error(draft_order_data_string)
 
     final_string = "current draft order "
 
@@ -612,7 +612,7 @@ if __name__ == "__main__":
     schedule.every().day.at("22:36").do(bot.send, get_player_name).tag('schedule-1')
 
     # Off-Season
-    schedule.every().day.at("17:53").do(bot.send, get_draft_order).tag('schedule-4')
+    schedule.every().day.at("17:56").do(bot.send, get_draft_order).tag('schedule-4')
 
     while True:
         if starting_date <= pendulum.today():
