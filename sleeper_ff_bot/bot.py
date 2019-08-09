@@ -82,7 +82,7 @@ def get_draft_order():
         logging.error(user_name)
         logging.error(draft_slot)
         logging.error(account_balance)
-        final_string += "{} {} {}\n".format(draft slot, user_name, account_balance)
+        final_string += "{} {} {}\n".format(draft_slot, user_name, account_balance)
     return final_string
 
 def get_league_scoreboards(league_id, week):
