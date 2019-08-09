@@ -1,7 +1,4 @@
-import schedule as schedule1
-import schedule as schedule2
-import schedule as schedule3
-import schedule as schedule4
+import schedule
 import time
 import os
 import pendulum
@@ -560,38 +557,38 @@ if __name__ == "__main__":
     while True:
         # Schedule on UTC (Eastern is -4)
         # Matchups Thursday at 7:00 pm ET
-        schedule3.every().thursday.at("23:00").do(bot.send, get_matchups_string, league_id).tag('weekly', 'update', 'schedule-3')
+        schedule.every().thursday.at("23:00").do(bot.send, get_matchups_string, league_id).tag('weekly', 'update', 'schedule-3')
         # Scores Friday at 9 am ET
-        schedule3.every().friday.at("13:00").do(bot.send, get_scores_string, league_id).tag('weekly', 'update', 'schedule-3')
+        schedule.every().friday.at("13:00").do(bot.send, get_scores_string, league_id).tag('weekly', 'update', 'schedule-3')
         # Close games Sunday on 7:00 pm ET
-        schedule3.every().sunday.at("23:00").do(bot.send, get_close_games_string, league_id, int(close_num)).tag('weekly', 'update', 'schedule-3')
+        schedule.every().sunday.at("23:00").do(bot.send, get_close_games_string, league_id, int(close_num)).tag('weekly', 'update', 'schedule-3')
         # Scores Monday at 9 am ET
-        schedule3.every().monday.at("13:00").do(bot.send, get_scores_string, league_id).tag('weekly', 'update', 'schedule-3')
+        schedule.every().monday.at("13:00").do(bot.send, get_scores_string, league_id).tag('weekly', 'update', 'schedule-3')
         # Close games Monday at 7:00 pm ET
-        schedule3.every().monday.at("23:00").do(bot.send, get_close_games_string, league_id, int(close_num)).tag('weekly', 'update', 'schedule-3')
+        schedule.every().monday.at("23:00").do(bot.send, get_close_games_string, league_id, int(close_num)).tag('weekly', 'update', 'schedule-3')
         # Standings Tuesday at 11:00 am ET
-        schedule3.every().tuesday.at("15:00").do(bot.send, get_standings_string, league_id).tag('weekly', 'update', 'schedule-3')
+        schedule.every().tuesday.at("15:00").do(bot.send, get_standings_string, league_id).tag('weekly', 'update', 'schedule-3')
         # Best/Worst Tuesday at 11:01 am ET
-        schedule3.every().tuesday.at("15:01").do(bot.send, get_best_and_worst_string, league_id).tag('weekly', 'update', 'schedule-3')
+        schedule.every().tuesday.at("15:01").do(bot.send, get_best_and_worst_string, league_id).tag('weekly', 'update', 'schedule-3')
 
         # Fun fact
-        schedule2.every().day.at("13:20").do(bot.send, get_fun_fact).tag('fact', 'schedule-2')
-        schedule2.every().day.at("17:20").do(bot.send, get_fun_fact).tag('fact', 'schedule-2')
-        schedule2.every().day.at("00:20").do(bot.send, get_fun_fact).tag('fact', 'schedule-2')
+        schedule.every().day.at("13:20").do(bot.send, get_fun_fact).tag('fact', 'schedule-2')
+        schedule.every().day.at("17:20").do(bot.send, get_fun_fact).tag('fact', 'schedule-2')
+        schedule.every().day.at("00:20").do(bot.send, get_fun_fact).tag('fact', 'schedule-2')
 
         # Weekly Predictions
-        schedule3.every().thursday.at("12:30").do(bot.send, get_td_predict).tag('weekly', 'prediction', 'schedule-3')
-        schedule3.every().thursday.at("12:32").do(bot.send, get_player_name).tag('weekly', 'prediction', 'schedule-3')
-        schedule3.every().thursday.at("12:35").do(bot.send, get_high_predict).tag('weekly', 'prediction', 'schedule-3')
-        schedule3.every().thursday.at("12:37").do(bot.send, get_player_name).tag('weekly', 'prediction', 'schedule-3')
-        schedule3.every().thursday.at("12:40").do(bot.send, get_low_predict).tag('weekly', 'prediction', 'schedule-3')
-        schedule3.every().thursday.at("12:42").do(bot.send, get_player_name).tag('weekly', 'prediction', 'schedule-3')
+        schedule.every().thursday.at("12:30").do(bot.send, get_td_predict).tag('weekly', 'prediction', 'schedule-3')
+        schedule.every().thursday.at("12:32").do(bot.send, get_player_name).tag('weekly', 'prediction', 'schedule-3')
+        schedule.every().thursday.at("12:35").do(bot.send, get_high_predict).tag('weekly', 'prediction', 'schedule-3')
+        schedule.every().thursday.at("12:37").do(bot.send, get_player_name).tag('weekly', 'prediction', 'schedule-3')
+        schedule.every().thursday.at("12:40").do(bot.send, get_low_predict).tag('weekly', 'prediction', 'schedule-3')
+        schedule.every().thursday.at("12:42").do(bot.send, get_player_name).tag('weekly', 'prediction', 'schedule-3')
 
         # Season Prediction
-        schedule1.every().day.at("22:30").do(bot.send, get_spoob_predict).tag('once', 'prediction', 'schedule-1')
-        schedule1.every().day.at("22:32").do(bot.send, get_player_name).tag('once', 'prediction', 'schedule-1')
-        schedule1.every().day.at("22:30").do(bot.send, get_champ_predict).tag('once', 'prediction', 'schedule-1')
-        schedule1.every().day.at("22:32").do(bot.send, get_player_name).tag('once', 'prediction', 'schedule-1')
+        schedule.every().day.at("22:30").do(bot.send, get_spoob_predict).tag('once', 'prediction', 'schedule-1')
+        schedule.every().day.at("22:32").do(bot.send, get_player_name).tag('once', 'prediction', 'schedule-1')
+        schedule.every().day.at("22:30").do(bot.send, get_champ_predict).tag('once', 'prediction', 'schedule-1')
+        schedule.every().day.at("22:32").do(bot.send, get_player_name).tag('once', 'prediction', 'schedule-1')
 
         # Off-Season
         schedule4.every().thursday.at("20:58").do(bot.send, get_draft_order).tag('preseason', 'schedule-4')
