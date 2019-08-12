@@ -574,20 +574,6 @@ if __name__ == "__main__":
     str_day_after_start = str(start_day).zfill(2)
     str_day_after_start_final = os.environ["SEASON_START_DATE"][0:8] + str_day_after_start
 
-    logging.error(STARTING_MONTH)
-    logging.error(STARTING_YEAR)
-    logging.error(STARTING_DAY)
-    logging.error(START_DATE_STRING)
-    logging.error(OFF_STARTING_YEAR)
-    logging.error(OFF_STARTING_MONTH)
-    logging.error(OFF_STARTING_DAY)
-    logging.error(OFF_START_DATE_STRING)
-    logging.error(PRE_STARTING_YEAR)
-    logging.error(PRE_STARTING_MONTH)
-    logging.error(PRE_STARTING_DAY)
-    logging.error(PRE_START_DATE_STRING)
-
-
     if bot_type == "groupme":
         bot_id = os.environ["BOT_ID"]
         bot = GroupMe(bot_id)
@@ -650,15 +636,15 @@ if __name__ == "__main__":
 
     # Season Prediction
     sched.add_job(bot.send, 'cron', [get_spoob_predict], id='fun_fact',
-        day_of_week='mon,tue,wed,thu,fri,sat,sun', hour=22, minute=30, start_date=starting_date, end_date=starting_date,
+        day_of_week='mon,tue,wed,thu,fri,sat,sun', hour=22, minute=30, start_date=starting_date, end_date=str_day_after_start_final,
         replace_existing=True)
 
     sched.add_job(bot.send, 'cron', [get_champ_predict], id='fun_fact',
-        day_of_week='mon,tue,wed,thu,fri,sat,sun', hour=22, minute=34, start_date=starting_date, end_date=starting_date,
+        day_of_week='mon,tue,wed,thu,fri,sat,sun', hour=22, minute=34, start_date=starting_date, end_date=str_day_after_start_final,
         replace_existing=True)
 
     sched.add_job(bot.send, 'cron', [get_player_name], id='fun_fact',
-        day_of_week='thu', hour=22, minute='32,36', start_date=starting_date, end_date=starting_date,
+        day_of_week='thu', hour=22, minute='32,36', start_date=starting_date, end_date=str_day_after_start_final,
         replace_existing=True)
 
     # Rule Changes Update
@@ -666,12 +652,9 @@ if __name__ == "__main__":
         day_of_week='mon,tue,wed,thu,fri,sat,sun', hour=13, minute=30, start_date=pre_season_start_date, end_date=pre_season_start_date,
         replace_existing=True)
 
-    # # Off-Season
+    # # Off-Season draft order
     sched.add_job(bot.send, 'cron', [get_draft_order], id='fun_fact',
-        day_of_week='wed', hour=19, minute=30, start_date=off_season_start_date, end_date=pre_season_start_date,
+        day_of_week='mon', hour=20, minute=10, start_date=off_season_start_date, end_date=pre_season_start_date,
         replace_existing=True)
-
-    sched.add_job(bot.send, 'interval', minutes=1, start_date=starting_date, end_date=str_day_after_start_final, args=[get_fun_fact])
-
 
     sched.start()
