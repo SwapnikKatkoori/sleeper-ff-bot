@@ -661,7 +661,7 @@ if __name__ == "__main__":
         day_of_week='wed', hour=19, minute=30, start_date=off_season_start_date, end_date=pre_season_start_date,
         replace_existing=True)
 
-    sched.add_job(bot.send, 'interval', minutes=1, start_date=off_season_start_date, end_date=off_season_start_date, args=[get_fun_fact])
+    sched.add_job(bot.send, 'interval', minutes=1, start_date=starting_date, end_date=str_day_after_start_final, args=[get_fun_fact])
 
 
     sched.start()
