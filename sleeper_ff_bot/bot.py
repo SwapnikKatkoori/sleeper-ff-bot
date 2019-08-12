@@ -609,7 +609,7 @@ if __name__ == "__main__":
 
     # Fun fact
     sched.add_job(bot.send, 'cron', [get_fun_fact], id='fun_fact',
-        day_of_week='mon,tue,wed,thu,fri,sat,sun', , hour='9,15,21', minute='20', start_date=pre_season_start_date, end_date='2019-12-01',
+        day_of_week='mon,tue,wed,thu,fri,sat,sun', hour='9,15,21', minute='20', start_date=pre_season_start_date, end_date='2019-12-01',
         replace_existing=True)
     #
     # Weekly Predictions
