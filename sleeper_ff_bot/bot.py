@@ -606,7 +606,7 @@ if __name__ == "__main__":
     schedule.every().thursday.at("12:37").do(bot.send, get_player_name).tag('schedule-3')
     schedule.every().thursday.at("12:40").do(bot.send, get_low_predict).tag('schedule-3')
     schedule.every().thursday.at("12:42").do(bot.send, get_player_name).tag('schedule-3')
-    
+
     # Season Prediction
     schedule.every().day.at("22:30").do(bot.send, get_spoob_predict).tag('schedule-1')
     schedule.every().day.at("22:32").do(bot.send, get_player_name).tag('schedule-1')
@@ -625,7 +625,7 @@ if __name__ == "__main__":
         # schedule.every().minute.at(":00").do(bot.send, send_any_string, "sechedule-4").tag('4')
 
 
-    #while True:
+    while True:
         if starting_date <= pendulum.today():
             logging.error("Running Sequence 1")
             schedule.clear('1')
