@@ -8,6 +8,7 @@ import gspread
 import json
 from oauth2client.service_account import ServiceAccountCredentials
 from phrases import phrases
+from rule_changes import changes
 from group_me import GroupMe
 from slack import Slack
 from discord import Discord
@@ -21,6 +22,12 @@ These are all of the utility functions.
 def get_fun_fact():
     text = [random.choice(phrases)]
     return '\n'.join(text)
+
+def get_rule_changes():
+    text = "Rule changes taking effect this season: \n\n"
+    for i in changes:
+        text += i +"\n"
+    return text
 
 def get_player_name():
     names = ['Adam','Alex','Boof','Cody','Derek','Devon','Jamie','Josh','Keller','Kendall']
@@ -605,6 +612,8 @@ if __name__ == "__main__":
     # schedule.every().day.at("22:32").do(bot.send, get_player_name).tag('schedule-1')
     # schedule.every().day.at("22:34").do(bot.send, get_champ_predict).tag('schedule-1')
     # schedule.every().day.at("22:36").do(bot.send, get_player_name).tag('schedule-1')
+    # # Rule Changes Update
+    # schedule.every().day.at("22:00").do(bot.send, get_rule_changes).tag('schedule-1')
     #
     # # Off-Season
     # schedule.every().monday.at("14:00").do(bot.send, get_draft_order).tag('schedule-4')
