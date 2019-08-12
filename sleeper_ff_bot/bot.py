@@ -6,6 +6,7 @@ import logging
 import random
 import gspread
 import json
+from apscheduler.schedulers.blocking import BlockingScheduler
 from oauth2client.service_account import ServiceAccountCredentials
 from phrases import phrases
 from rule_changes import changes
@@ -618,49 +619,16 @@ if __name__ == "__main__":
     # # Off-Season
     # schedule.every().monday.at("14:00").do(bot.send, get_draft_order).tag('schedule-4')
 
-        # Testing
-        schedule.every().minute.at(":00").do(bot.send, send_any_string, "sechedule-1").tag('1')
-        schedule.every().minute.at(":00").do(bot.send, send_any_string, "sechedule-2").tag('2')
-        schedule.every().minute.at(":00").do(bot.send, send_any_string, "sechedule-3").tag('3')
-        schedule.every().minute.at(":00").do(bot.send, send_any_string, "sechedule-4").tag('4')
+        # # Testing
+        # schedule.every().minute.at(":00").do(bot.send, send_any_string, "sechedule-1").tag('1')
+        # schedule.every().minute.at(":00").do(bot.send, send_any_string, "sechedule-2").tag('2')
+        # schedule.every().minute.at(":00").do(bot.send, send_any_string, "sechedule-3").tag('3')
+        # schedule.every().minute.at(":00").do(bot.send, send_any_string, "sechedule-4").tag('4')
 
+    sched = BlockingScheduler(job_defaults={'misfire_grace_time': 15*60})
 
-    #while True:
-        if starting_date <= pendulum.today():
-            logging.error("Running Sequence 1")
-            schedule.clear('1')
-            schedule.clear('4')
-            logging.error("Running Schedule-2 & schedule-3")
-            schedule.run_pending()
-            time.sleep(30)
-            schedule.clear('2')
-            schedule.clear('3')
-        elif pre_season_start_date < pendulum.today():
-            logging.error("Running Sequence 2")
-            schedule.clear('1')
-            schedule.clear('3')
-            schedule.clear('4')
-            logging.error("Running Schedule 2")
-            schedule.run_pending()
-            time.sleep(30)
-            schedule.clear('schedule-2')
-        elif pre_season_start_date == pendulum.today():
-            logging.error("Running Sequence 3")
-            schedule.clear('3')
-            schedule.clear('4')
-            logging.error("Running Schedule-1 & schedule-2")
-            schedule.run_pending()
-            time.sleep(30)
-            schedule.clear('1')
-            schedule.clear('2')
-        elif off_season_start_date <= pendulum.today():
-            logging.error("Running Sequence 4")
-            logging.error("Running Schedule 4")
-            schedule.clear('1')
-            schedule.clear('2')
-            schedule.clear('3')
-            schedule.run_pending()
-            time.sleep(30)
-            schedule.clear('4')
+    sched.add_job(bot.send, 'cron', ['get_fun_fact'], id='fact',
+        day_of_week='mon', hour=6, minute=20, start_date=off_season_start_date, end_date=starting_date,
+        timezone='utc', replace_existing=True)
 
-        time.sleep(20)
+    sched.start()
