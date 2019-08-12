@@ -6,6 +6,7 @@ import logging
 import random
 import gspread
 import json
+from apscheduler.schedulers.blocking import BlockingScheduler
 from oauth2client.service_account import ServiceAccountCredentials
 from phrases import phrases
 from rule_changes import changes
@@ -21,6 +22,7 @@ These are all of the utility functions.
 
 def get_fun_fact():
     text = [random.choice(phrases)]
+    #bot.send(text)
     return '\n'.join(text)
 
 def get_rule_changes():
@@ -559,9 +561,18 @@ if __name__ == "__main__":
     except:
         close_num = 20
 
-    off_season_start_date = pendulum.datetime(OFF_STARTING_YEAR, OFF_STARTING_MONTH, OFF_STARTING_DAY)
-    pre_season_start_date = pendulum.datetime(PRE_STARTING_YEAR, PRE_STARTING_MONTH, PRE_STARTING_DAY)
-    starting_date = pendulum.datetime(STARTING_YEAR, STARTING_MONTH, STARTING_DAY)
+    # off_season_start_date = pendulum.datetime(OFF_STARTING_YEAR, OFF_STARTING_MONTH, OFF_STARTING_DAY)
+    # pre_season_start_date = pendulum.datetime(PRE_STARTING_YEAR, PRE_STARTING_MONTH, PRE_STARTING_DAY)
+    # starting_date = pendulum.datetime(STARTING_YEAR, STARTING_MONTH, STARTING_DAY)
+
+    off_season_start_date = os.environ["OFF_SEASON_START_DATE"]
+    pre_season_start_date = os.environ["PRE_SEASON_START_DATE"]
+    starting_date = os.environ["SEASON_START_DATE"]
+
+    start_day = int(os.environ["SEASON_START_DATE"][8:10])
+    start_day += 1
+    str_day_after_start = str(start_day).zfill(2)
+    str_day_after_start_final = os.environ["SEASON_START_DATE"][0:8] + str_day_after_start
 
     if bot_type == "groupme":
         bot_id = os.environ["BOT_ID"]
@@ -576,91 +587,73 @@ if __name__ == "__main__":
     if os.environ["INIT_MESSAGE"] == "true":
         bot.send(get_welcome_string)  # inital message to send
 
-    # while True:
-    logging.error('scheduling')
+    sched = BlockingScheduler(job_defaults={'misfire_grace_time': 15*60})
+
     # Schedule on UTC (Eastern is -4)
     # Matchups Thursday at 7:00 pm ET
-    schedule.every().thursday.at("23:00").do(bot.send, get_matchups_string, league_id).tag('schedule-3')
+    sched.add_job(bot.send, 'cron', [get_matchups_string, league_id], id='matchups',
+        day_of_week='thu', hour=23, start_date=starting_date, end_date='2019-12-01',
+        replace_existing=True)
     # Scores Friday at 9 am ET
-    schedule.every().friday.at("13:00").do(bot.send, get_scores_string, league_id).tag('schedule-3')
+    sched.add_job(bot.send, 'cron', [get_scores_string, league_id], id='scores',
+        day_of_week='fri,mon', hour=13, start_date=starting_date, end_date='2019-12-01',
+        replace_existing=True)
     # Close games Sunday on 7:00 pm ET
-    schedule.every().sunday.at("23:00").do(bot.send, get_close_games_string, league_id, int(close_num)).tag('schedule-3')
-    # Scores Monday at 9 am ET
-    schedule.every().monday.at("13:00").do(bot.send, get_scores_string, league_id).tag('schedule-3')
-    # Close games Monday at 7:00 pm ET
-    schedule.every().monday.at("23:00").do(bot.send, get_close_games_string, league_id, int(close_num)).tag('schedule-3')
+    sched.add_job(bot.send, 'cron', [get_close_games_string, league_id], id='close-game',
+        day_of_week='sun,mon', hour=23, start_date=starting_date, end_date='2019-12-01',
+        replace_existing=True)
     # Standings Tuesday at 11:00 am ET
-    schedule.every().tuesday.at("15:00").do(bot.send, get_standings_string, league_id).tag('schedule-3')
+    sched.add_job(bot.send, 'cron', [get_standings_string, league_id], id='standings',
+        day_of_week='tue', hour=15, start_date=starting_date, end_date='2019-12-01',
+        replace_existing=True)
     # Best/Worst Tuesday at 11:01 am ET
-    schedule.every().tuesday.at("15:01").do(bot.send, get_best_and_worst_string, league_id).tag('schedule-3')
+    sched.add_job(bot.send, 'cron', [get_best_and_worst_string, league_id], id='best-and-worst',
+        day_of_week='tue', hour=15, minute=1, start_date=starting_date, end_date='2019-12-01',
+        replace_existing=True)
 
     # Fun fact
-    schedule.every().day.at("13:20").do(bot.send, get_fun_fact).tag('schedule-2')
-    schedule.every().day.at("17:20").do(bot.send, get_fun_fact).tag('schedule-2')
-    schedule.every().day.at("00:20").do(bot.send, get_fun_fact).tag('schedule-2')
-
+    sched.add_job(bot.send, 'cron', [get_fun_fact], id='fun_fact',
+        day_of_week='mon,tue,wed,thu,fri,sat,sun', hour='9,15,21', minute='20', start_date=pre_season_start_date, end_date='2019-12-01',
+        replace_existing=True)
+    #
     # Weekly Predictions
-    schedule.every().thursday.at("12:30").do(bot.send, get_td_predict).tag('schedule-3')
-    schedule.every().thursday.at("12:32").do(bot.send, get_player_name).tag('schedule-3')
-    schedule.every().thursday.at("12:35").do(bot.send, get_high_predict).tag('schedule-3')
-    schedule.every().thursday.at("12:37").do(bot.send, get_player_name).tag('schedule-3')
-    schedule.every().thursday.at("12:40").do(bot.send, get_low_predict).tag('schedule-3')
-    schedule.every().thursday.at("12:42").do(bot.send, get_player_name).tag('schedule-3')
+    sched.add_job(bot.send, 'cron', [get_td_predict], id='td-predict',
+        day_of_week='thu', hour=12, minute=30, start_date=starting_date, end_date='2019-12-01',
+        replace_existing=True)
+
+    sched.add_job(bot.send, 'cron', [get_high_predict], id='fun_fact',
+        day_of_week='thu', hour=12, minute=35, start_date=starting_date, end_date='2019-12-01',
+        replace_existing=True)
+
+    sched.add_job(bot.send, 'cron', [get_low_predict], id='fun_fact',
+        day_of_week='thu', hour=12, minute=40, start_date=starting_date, end_date='2019-12-01',
+        replace_existing=True)
+
+    sched.add_job(bot.send, 'cron', [get_player_name], id='fun_fact',
+        day_of_week='thu', hour=12, minute='32,37,42', start_date=starting_date, end_date='2019-12-01',
+        replace_existing=True)
 
     # Season Prediction
-    schedule.every().day.at("22:30").do(bot.send, get_spoob_predict).tag('schedule-1')
-    schedule.every().day.at("22:32").do(bot.send, get_player_name).tag('schedule-1')
-    schedule.every().day.at("22:34").do(bot.send, get_champ_predict).tag('schedule-1')
-    schedule.every().day.at("22:36").do(bot.send, get_player_name).tag('schedule-1')
+    sched.add_job(bot.send, 'cron', [get_spoob_predict], id='fun_fact',
+        day_of_week='mon,tue,wed,thu,fri,sat,sun', hour=22, minute=30, start_date=starting_date, end_date=str_day_after_start_final,
+        replace_existing=True)
+
+    sched.add_job(bot.send, 'cron', [get_champ_predict], id='fun_fact',
+        day_of_week='mon,tue,wed,thu,fri,sat,sun', hour=22, minute=34, start_date=starting_date, end_date=str_day_after_start_final,
+        replace_existing=True)
+
+    sched.add_job(bot.send, 'cron', [get_player_name], id='fun_fact',
+        day_of_week='thu', hour=22, minute='32,36', start_date=starting_date, end_date=str_day_after_start_final,
+        replace_existing=True)
+
     # Rule Changes Update
-    schedule.every().day.at("22:00").do(bot.send, get_rule_changes).tag('schedule-1')
+    sched.add_job(bot.send, 'cron', [get_rule_changes], id='fun_fact',
+        day_of_week='mon,tue,wed,thu,fri,sat,sun', hour=13, minute=30, start_date=pre_season_start_date, end_date=pre_season_start_date,
+        replace_existing=True)
 
-    # Off-Season
-    schedule.every().monday.at("14:00").do(bot.send, get_draft_order).tag('schedule-4')
+    # # Off-Season draft order
+    sched.add_job(bot.send, 'cron', [get_draft_order], id='fun_fact',
+        day_of_week='mon', hour=20, minute=10, start_date=off_season_start_date, end_date=pre_season_start_date,
+        replace_existing=True)
 
-        # # Testing
-        # schedule.every().minute.at(":00").do(bot.send, send_any_string, "sechedule-1").tag('1')
-        # schedule.every().minute.at(":00").do(bot.send, send_any_string, "sechedule-2").tag('2')
-        # schedule.every().minute.at(":00").do(bot.send, send_any_string, "sechedule-3").tag('3')
-        # schedule.every().minute.at(":00").do(bot.send, send_any_string, "sechedule-4").tag('4')
-
-
-    while True:
-        if starting_date <= pendulum.today():
-            logging.error("Running Sequence 1")
-            schedule.clear('1')
-            schedule.clear('4')
-            logging.error("Running Schedule-2 & schedule-3")
-            schedule.run_pending()
-            time.sleep(30)
-            schedule.clear('2')
-            schedule.clear('3')
-        elif pre_season_start_date < pendulum.today():
-            logging.error("Running Sequence 2")
-            schedule.clear('1')
-            schedule.clear('3')
-            schedule.clear('4')
-            logging.error("Running Schedule 2")
-            schedule.run_pending()
-            time.sleep(30)
-            schedule.clear('schedule-2')
-        elif pre_season_start_date == pendulum.today():
-            logging.error("Running Sequence 3")
-            schedule.clear('3')
-            schedule.clear('4')
-            logging.error("Running Schedule-1 & schedule-2")
-            schedule.run_pending()
-            time.sleep(30)
-            schedule.clear('1')
-            schedule.clear('2')
-        elif off_season_start_date <= pendulum.today():
-            logging.error("Running Sequence 4")
-            logging.error("Running Schedule 4")
-            schedule.clear('1')
-            schedule.clear('2')
-            schedule.clear('3')
-            schedule.run_pending()
-            time.sleep(30)
-            schedule.clear('4')
-
-        time.sleep(20)
+    sched.start()
