@@ -569,7 +569,7 @@ if __name__ == "__main__":
     pre_season_start_date = os.environ["PRE_SEASON_START_DATE"]
     starting_date = os.environ["SEASON_START_DATE"]
 
-    start_day = int(os.environ["SEASON_START_DATE"][9:10])
+    start_day = int(os.environ["SEASON_START_DATE"][8:9])
     logging.error(start_day)
     start_day += 1
     logging.error(start_day)
