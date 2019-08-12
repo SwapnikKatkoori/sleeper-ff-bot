@@ -636,7 +636,8 @@ if __name__ == "__main__":
 
     sched.add_job(bot.send, 'cron', id='fun_fact',
         day_of_week='mon', hour=7, minute=0, start_date=off_season_start_date, end_date=start_date,
-        replace_existing=True)
+        replace_existing=True,
+        args=[get_fun_fact])
 
 
     #sched.add_job(get_fun_fact, 'cron', id='fact',
