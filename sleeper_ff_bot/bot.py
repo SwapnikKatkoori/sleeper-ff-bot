@@ -628,7 +628,7 @@ if __name__ == "__main__":
 
     sched = BlockingScheduler(job_defaults={'misfire_grace_time': 15*60})
 
-    sched.add_job(bot.send, args=[get_fun_fact] 'interval', minutes=1, id='my_job_id')
+    sched.add_job(bot.send, args=[get_fun_fact], 'interval', minutes=1, id='my_job_id')
 
     #sched.add_job(get_fun_fact, 'cron', id='fact',
     #    day_of_week='mon', hour=6, minute=25, start_date=off_season_start_date, end_date=starting_date,
