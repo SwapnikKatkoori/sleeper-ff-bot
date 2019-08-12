@@ -14,7 +14,7 @@ from group_me import GroupMe
 from slack import Slack
 from discord import Discord
 from sleeper_wrapper import League, Stats, Players
-from constants import STARTING_MONTH, STARTING_YEAR, STARTING_DAY, START_DATE_STRING, OFF_STARTING_YEAR, OFF_STARTING_MONTH, OFF_STARTING_DAY, OFF_START_DATE_STRING, PRE_STARTING_YEAR, PRE_STARTING_MONTH, PRE_STARTING_DAY, PRE_START_DATE_STRING
+#from constants import STARTING_MONTH, STARTING_YEAR, STARTING_DAY, START_DATE_STRING, OFF_STARTING_YEAR, OFF_STARTING_MONTH, OFF_STARTING_DAY, OFF_START_DATE_STRING, PRE_STARTING_YEAR, PRE_STARTING_MONTH, PRE_STARTING_DAY, PRE_START_DATE_STRING
 
 """
 These are all of the utility functions.
@@ -561,9 +561,13 @@ if __name__ == "__main__":
     except:
         close_num = 20
 
-    off_season_start_date = pendulum.datetime(OFF_STARTING_YEAR, OFF_STARTING_MONTH, OFF_STARTING_DAY)
-    pre_season_start_date = pendulum.datetime(PRE_STARTING_YEAR, PRE_STARTING_MONTH, PRE_STARTING_DAY)
-    starting_date = pendulum.datetime(STARTING_YEAR, STARTING_MONTH, STARTING_DAY)
+    # off_season_start_date = pendulum.datetime(OFF_STARTING_YEAR, OFF_STARTING_MONTH, OFF_STARTING_DAY)
+    # pre_season_start_date = pendulum.datetime(PRE_STARTING_YEAR, PRE_STARTING_MONTH, PRE_STARTING_DAY)
+    # starting_date = pendulum.datetime(STARTING_YEAR, STARTING_MONTH, STARTING_DAY)
+
+    off_season_start_date = os.environ["OFF_SEASON_START_DATE"]
+    pre_season_start_date = os.environ["PRE_SEASON_START_DATE"]
+    starting_date = os.environ["SEASON_START_DATE"]
 
     if bot_type == "groupme":
         bot_id = os.environ["BOT_ID"]
@@ -628,7 +632,12 @@ if __name__ == "__main__":
 
     sched = BlockingScheduler(job_defaults={'misfire_grace_time': 15*60})
 
-    sched.add_job(bot.send, 'interval', minutes=1, id='my_job_id',args=[get_fun_fact])
+    #sched.add_job(bot.send, 'interval', minutes=1, id='my_job_id',args=[get_fun_fact], start_date=off_season_start_date, end_date=start_date)
+
+    sched.add_job(bot.send, 'cron', id='fun_fact',
+        day_of_week='mon', hour=7, minute=0, start_date=off_season_start_date, end_date=start_date,
+        replace_existing=True)
+
 
     #sched.add_job(get_fun_fact, 'cron', id='fact',
     #    day_of_week='mon', hour=6, minute=25, start_date=off_season_start_date, end_date=starting_date,
