@@ -569,6 +569,15 @@ if __name__ == "__main__":
     pre_season_start_date = os.environ["PRE_SEASON_START_DATE"]
     starting_date = os.environ["SEASON_START_DATE"]
 
+    start_day = int(os.environ["SEASON_START_DATE"][9:10])
+    logging.error(start_day)
+    start_day += 1
+    logging.error(start_day)
+    str_day_after_start = str(start_day)
+    str_day_after_start_final = os.environ["SEASON_START_DATE"][1:8] + str_day_after_start
+    logging.error(str_day_after_start)
+
+
     if bot_type == "groupme":
         bot_id = os.environ["BOT_ID"]
         bot = GroupMe(bot_id)
