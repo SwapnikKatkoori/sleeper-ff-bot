@@ -22,7 +22,8 @@ These are all of the utility functions.
 
 def get_fun_fact():
     text = [random.choice(phrases)]
-    return '\n'.join(text)
+    bot.send(text)
+    #return '\n'.join(text)
 
 def get_rule_changes():
     text = "Rule changes taking effect this season: \n\n"
@@ -627,8 +628,8 @@ if __name__ == "__main__":
 
     sched = BlockingScheduler(job_defaults={'misfire_grace_time': 15*60})
 
-    sched.add_job(bot.send, 'cron', ['get_fun_fact'], id='fact',
-        day_of_week='mon', hour=6, minute=20, start_date=off_season_start_date, end_date=starting_date,
+    sched.add_job(get_fun_fact, 'cron', id='fact',
+        day_of_week='mon', hour=6, minute=25, start_date=off_season_start_date, end_date=starting_date,
         timezone='utc', replace_existing=True)
 
     sched.start()
