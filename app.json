@@ -50,6 +50,18 @@
       "description": "The date of the first Thursday of the regular season (yyyy-mm-dd).",
       "value": "2019-09-05"
     },
+    "OFF_SEASON_START_DATE": {
+      "description": "The date draft order updates start (yyyy-mm-dd).",
+      "value": "2019-07-15"
+    },
+    "STOP_DATE": {
+      "description": "The date messages should stop (yyyy-mm-dd).",
+      "value": "2019-12-31"
+    },
+    "KEY": {
+      "description": "json object for google drive api to get draft order data",
+      "value":"key"
+    },
     "INIT_MESSAGE": {
       "description": "True/False should the bot send the initialize message.",
       "value": true
