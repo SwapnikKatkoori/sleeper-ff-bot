@@ -573,8 +573,8 @@ if __name__ == "__main__":
     logging.error(start_day)
     start_day += 1
     logging.error(start_day)
-    str_day_after_start = str(start_day)
-    str_day_after_start_final = os.environ["SEASON_START_DATE"][1:8] + str_day_after_start
+    str_day_after_start = str(start_day).zfill(2)
+    str_day_after_start_final = os.environ["SEASON_START_DATE"][0:8] + str_day_after_start
     logging.error(str_day_after_start_final)
 
 
