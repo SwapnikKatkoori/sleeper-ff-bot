@@ -575,7 +575,7 @@ if __name__ == "__main__":
     logging.error(start_day)
     str_day_after_start = str(start_day)
     str_day_after_start_final = os.environ["SEASON_START_DATE"][1:8] + str_day_after_start
-    logging.error(str_day_after_start)
+    logging.error(str_day_after_start_final)
 
 
     if bot_type == "groupme":
