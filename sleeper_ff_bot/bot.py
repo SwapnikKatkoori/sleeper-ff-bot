@@ -577,8 +577,8 @@ if __name__ == "__main__":
     if os.environ["INIT_MESSAGE"] == "true":
         bot.send(get_welcome_string)  # inital message to send
 
-    while True:
-        logging.error('scheduling')
+    #while True:
+    #    logging.error('scheduling')
     # Schedule on UTC (Eastern is -4)
     # Matchups Thursday at 7:00 pm ET
     # schedule.every().thursday.at("23:00").do(bot.send, get_matchups_string, league_id).tag('schedule-3')
