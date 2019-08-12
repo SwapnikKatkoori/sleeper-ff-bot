@@ -570,12 +570,22 @@ if __name__ == "__main__":
     starting_date = os.environ["SEASON_START_DATE"]
 
     start_day = int(os.environ["SEASON_START_DATE"][8:10])
-    logging.error(start_day)
     start_day += 1
-    logging.error(start_day)
     str_day_after_start = str(start_day).zfill(2)
     str_day_after_start_final = os.environ["SEASON_START_DATE"][0:8] + str_day_after_start
-    logging.error(str_day_after_start_final)
+
+    logging.error('starting month ' + STARTING_MONTH)
+    logging.error('starting year ' + STARTING_YEAR)
+    logging.error('starting day ' + STARTING_DAY)
+    logging.error(START_DATE_STRING)
+    logging.error('off year ' + OFF_STARTING_YEAR)
+    logging.error('off month ' + OFF_STARTING_MONTH)
+    logging.error('off day ' + OFF_STARTING_DAY)
+    logging.error(OFF_START_DATE_STRING)
+    logging.error('pre year ' + PRE_STARTING_YEAR)
+    logging.error('pre month ' + PRE_STARTING_MONTH)
+    logging.error('pre day ' + PRE_STARTING_DAY)
+    logging.error(PRE_START_DATE_STRING)
 
 
     if bot_type == "groupme":
