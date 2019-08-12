@@ -634,10 +634,9 @@ if __name__ == "__main__":
 
     #sched.add_job(bot.send, 'interval', minutes=1, id='my_job_id',args=[get_fun_fact], start_date=off_season_start_date, end_date=start_date)
 
-    sched.add_job(bot.send, 'cron', id='fun_fact',
-        day_of_week='mon', hour=7, minute=0, start_date=off_season_start_date, end_date=start_date,
-        replace_existing=True,
-        args=[get_fun_fact])
+    sched.add_job(bot.send, 'cron', [get_fun_fact], id='fun_fact',
+        day_of_week='mon', hour=7, minute=01, start_date=off_season_start_date, end_date=start_date,
+        replace_existing=True)
 
 
     #sched.add_job(get_fun_fact, 'cron', id='fact',
