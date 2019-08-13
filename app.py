@@ -1,4 +1,4 @@
-from sleeper_ff_bot.bot import get_draft_order
+from sleeper_ff_bot.bot import get_draft_order, send_any_string
 from sleeper_ff_bot.group_me import GroupMe
 from sleeper_ff_bot.slack import Slack
 from sleeper_ff_bot.discord import Discord
@@ -36,8 +36,11 @@ elif bot_type == "discord":
 def webhook():
     # 'message' is an object that represents a single GroupMe message.
     message = request.get_json()
-    if 'draft order' in message['text'].lower()  and not sender_is_bot(message):
-        bot.send(get_draft_order)
+    if '@bot' in message['text'].lower()  and not sender_is_bot(message):
+        if 'draft order' in message['text'].lower():
+            bot.send(get_draft_order)
+        if 'alex' in message['name'].lower():
+            bot.send(send_any_string,'fuck off Alex')
 
     return "ok",200
 
