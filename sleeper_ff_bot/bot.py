@@ -674,7 +674,6 @@ if __name__ == "__main__":
 	    # TODO: Your bot's logic here
 
         return "ok", 200
-    if something===something:
 
 
 ################################################################################
