@@ -36,7 +36,7 @@ elif bot_type == "discord":
 def webhook():
     # 'message' is an object that represents a single GroupMe message.
     message = request.get_json()
-    if 'draft order' in message['text'].lower():#  and not sender_is_bot(message):
+    if 'draft order' in message['text'].lower()  and not sender_is_bot(message):
         bot.send(get_draft_order)
 
     return "ok",200
