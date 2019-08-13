@@ -23,7 +23,6 @@ These are all of the utility functions.
 
 def get_fun_fact():
     text = [random.choice(phrases)]
-    #bot.send(text)
     return '\n'.join(text)
 
 def get_rule_changes():
