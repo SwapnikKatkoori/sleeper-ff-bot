@@ -31,10 +31,7 @@ elif bot_type == "discord":
     webhook = os.environ["DISCORD_WEBHOOK"]
     bot = Discord(webhook)
 
-if os.environ["INIT_MESSAGE"] == "true":
-    bot.send(get_welcome_string)  # inital message to send
-# Called whenever the app's callback URL receives a POST request
-# That'll happen every time a message is sent in the group
+
 @app.route('/', methods=['POST'])
 def webhook():
 	# 'message' is an object that represents a single GroupMe message.
