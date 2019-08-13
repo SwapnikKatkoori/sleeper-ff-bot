@@ -8,6 +8,7 @@ import gspread
 import json
 from apscheduler.schedulers.blocking import BlockingScheduler
 from oauth2client.service_account import ServiceAccountCredentials
+from people import names
 from phrases import phrases
 from rule_changes import changes
 from group_me import GroupMe
@@ -22,7 +23,6 @@ These are all of the utility functions.
 
 def get_fun_fact():
     text = [random.choice(phrases)]
-    #bot.send(text)
     return '\n'.join(text)
 
 def get_rule_changes():
@@ -32,7 +32,6 @@ def get_rule_changes():
     return text
 
 def get_player_name():
-    names = ['Adam','Alex','Boof','Cody','Derek','Devon','Jamie','Josh','Keller','Kendall']
     text = [random.choice(names)]
     return '\n'.join(text)
 

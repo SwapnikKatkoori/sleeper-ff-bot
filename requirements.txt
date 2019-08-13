@@ -6,3 +6,5 @@ requests==2.22.0
 gspread
 oauth2client
 apscheduler>=3.3.0
+Flask==0.12
+gunicorn==19.6.0
