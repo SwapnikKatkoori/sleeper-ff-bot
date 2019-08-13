@@ -1,4 +1,4 @@
-from bot import get_draft_order
+from sleeper_ff_bot.bot import get_draft_order
 import os
 import json
 from urllib.parse import urlencode
