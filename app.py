@@ -40,9 +40,7 @@ def webhook():
     if 'draft order' in message['text'].lower() and not sender_is_bot(message):
         bot.send(get_draft_order)
 
-	return "ok", 200
-
-
+    return "ok",200
 
 # Checks whether the message sender is a bot
 def sender_is_bot(message):
