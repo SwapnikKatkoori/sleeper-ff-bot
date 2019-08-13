@@ -16,6 +16,9 @@ from slack import Slack
 from discord import Discord
 from sleeper_wrapper import League, Stats, Players
 from constants import STARTING_MONTH, STARTING_YEAR, STARTING_DAY, START_DATE_STRING, OFF_STARTING_YEAR, OFF_STARTING_MONTH, OFF_STARTING_DAY, OFF_START_DATE_STRING, PRE_STARTING_YEAR, PRE_STARTING_MONTH, PRE_STARTING_DAY, PRE_START_DATE_STRING
+from urllib.parse import urlencode
+from urllib.request import Request, urlopen
+from flask import Flask, request
 
 """
 These are all of the utility functions.
@@ -657,3 +660,21 @@ if __name__ == "__main__":
         replace_existing=True)
 
     sched.start()
+
+    app = Flask(__name__)
+
+    # Called whenever the app's callback URL receives a POST request
+    # That'll happen every time a message is sent in the group
+    @app.route('/', methods=['POST'])
+    def webhook():
+	    # 'message' is an object that represents a single GroupMe message.
+        message = request.get_json()
+        if "draft order" in message.text:
+            bot.send(get_draft_order)
+	    # TODO: Your bot's logic here
+
+        return "ok", 200
+    if something===something:
+
+
+################################################################################
