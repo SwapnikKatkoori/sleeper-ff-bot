@@ -1,4 +1,4 @@
-from sleeper_ff_bot.bot import get_draft_order, send_any_string, get_player_name, get_fun_fact
+from sleeper_ff_bot.bot import get_draft_order, send_any_string, get_player_name, get_fun_fact, get_rule_changes
 from sleeper_ff_bot.group_me import GroupMe
 from sleeper_ff_bot.slack import Slack
 from sleeper_ff_bot.discord import Discord
@@ -50,6 +50,9 @@ def webhook():
         elif 'fun fact' in message['text'].lower():
             time.sleep(2)
             bot.send(get_fun_fact)
+        elif 'rule changes' in message['text'].lower():
+            time.sleep(2)
+            bot.send(get_rule_changes)
 
     return "ok",200
 
