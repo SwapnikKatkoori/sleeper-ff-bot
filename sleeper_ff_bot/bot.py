@@ -6,6 +6,7 @@ import logging
 import random
 import gspread
 import json
+from prettytable import PrettyTable
 from apscheduler.schedulers.blocking import BlockingScheduler
 from oauth2client.service_account import ServiceAccountCredentials
 from people import names
@@ -463,12 +464,13 @@ def get_standings_string(league_id):
     :param league_id: Int league_id
     :return: string message of the leagues standings.
     """
+    t = PrettyTable(['rank', 'team', 'wins', 'points'])
     league = League(league_id)
     rosters = league.get_rosters()
     users = league.get_users()
     standings = league.get_standings(rosters, users)
     final_message_string = "________________________________\n"
-    final_message_string += "Standings \n|{0:^7}|{1:^7}|{2:^7}|{3:^7}\n".format("rank", "team", "wins", "points")
+    final_message_string += "Standings\n"
     final_message_string += "________________________________\n\n"
     try:
         playoff_line = os.environ["NUMBER_OF_PLAYOFF_TEAMS"] - 1
@@ -482,11 +484,13 @@ def get_standings_string(league_id):
             team_name = team[:7]
         else:
             team_name = team
-        string_to_add = "{0:^7} {1:^10} {2:>7} {3:>7}\n".format(i + 1, team_name, standing[1], standing[2])
-        if i == playoff_line:
-            string_to_add += "________________________________\n\n"
-        final_message_string += string_to_add
-    return final_message_string
+        t.add_row([i +1, team_name, standings[1], standings[2]])
+        #string_to_add = "{0:^7} {1:^10} {2:>7} {3:>7}\n".format(i + 1, team_name, standing[1], standing[2])
+        #if i == playoff_line:
+            #string_to_add += "________________________________\n\n"
+        #final_message_string += string_to_add
+    #return final_message_string
+    return t
 
 
 def get_best_and_worst_string(league_id):
