@@ -464,7 +464,6 @@ def get_standings_string(league_id):
     :param league_id: Int league_id
     :return: string message of the leagues standings.
     """
-    t = PrettyTable(['rank','team','wins','points'])
     league = League(league_id)
     rosters = league.get_rosters()
     users = league.get_users()
@@ -485,14 +484,11 @@ def get_standings_string(league_id):
             team_name = team[:7]
         else:
             team_name = team
-        #string_to_add = "{0:^7} {1:^10} {2:>7} {3:>7}\n".format(i + 1, team_name, standing[1], standing[2])
-        #if i == playoff_line:
-            #string_to_add += "________________________________\n\n"
-        #final_message_string += string_to_add
-    #return final_message_string
-        t.add_row([i + 1, team_name, standing[1], standing[2]])
-    #final_message_string += t
-    return standings
+        string_to_add = "{} - {} ({}-{})\n".format(i + 1, team_name, standing[1], standing[2])
+        if i == playoff_line:
+            string_to_add += "________________________________\n\n"
+        final_message_string += string_to_add
+    return final_message_string
 
 
 def get_best_and_worst_string(league_id):
