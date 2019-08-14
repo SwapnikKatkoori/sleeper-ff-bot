@@ -28,7 +28,7 @@ def get_fun_fact():
 def get_rule_changes():
     text = "Rule changes taking effect this season: \n\n"
     for i in changes:
-        text += i +"\n"
+        text += i +"\n\n"
     return text
 
 def get_player_name():

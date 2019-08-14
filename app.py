@@ -53,6 +53,8 @@ def webhook():
         elif 'rule changes' in message['text'].lower():
             time.sleep(2)
             bot.send(get_rule_changes)
+        else:
+            bot.send(send_any_string, 'I am unsure.')
 
     return "ok",200
 
