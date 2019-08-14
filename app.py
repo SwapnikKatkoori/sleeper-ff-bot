@@ -1,4 +1,4 @@
-from sleeper_ff_bot.bot import get_draft_order, send_any_string
+from sleeper_ff_bot.bot import get_draft_order, send_any_string, get_player_name, get_fun_fact
 from sleeper_ff_bot.group_me import GroupMe
 from sleeper_ff_bot.slack import Slack
 from sleeper_ff_bot.discord import Discord
@@ -41,6 +41,10 @@ def webhook():
             bot.send(send_any_string,'Fuck off Adam')
         elif 'draft order' in message['text'].lower():
             bot.send(get_draft_order)
+        elif 'who' in message['text'].lower():
+            bot.send(get_player_name)
+        elif 'fun fact' in message['text'].lower():
+            bot.send(get_fun_fact)
 
     return "ok",200
 
