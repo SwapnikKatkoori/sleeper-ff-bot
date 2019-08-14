@@ -4,6 +4,7 @@ from sleeper_ff_bot.slack import Slack
 from sleeper_ff_bot.discord import Discord
 import os
 import json
+import time
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 from flask import Flask, request
@@ -38,12 +39,16 @@ def webhook():
     message = request.get_json()
     if '@bot' in message['text'].lower()  and not sender_is_bot(message):
         if 'adam' in message['name'].lower():
+            time.sleep(2)
             bot.send(send_any_string,'Fuck off Adam')
         elif 'draft order' in message['text'].lower():
+            time.sleep(2)
             bot.send(get_draft_order)
         elif 'who' in message['text'].lower():
+            time.sleep(2)
             bot.send(get_player_name)
         elif 'fun fact' in message['text'].lower():
+            time.sleep(2)
             bot.send(get_fun_fact)
 
     return "ok",200
