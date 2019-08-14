@@ -491,8 +491,8 @@ def get_standings_string(league_id):
         #final_message_string += string_to_add
     #return final_message_string
         t.add_row([i + 1, team_name, standing[1], standing[2]])
-    final_message_string += t
-    return final_message_string
+    #final_message_string += t
+    return final_message_string, t
 
 
 def get_best_and_worst_string(league_id):
