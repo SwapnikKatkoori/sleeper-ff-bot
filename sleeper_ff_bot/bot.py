@@ -480,10 +480,10 @@ def get_standings_string(league_id):
         team = standing[0]
         if team is None:
             team = "Team NA"
-        if len(team) >= 7:
-            team_name = team[:7]
-        else:
-            team_name = team
+        #if len(team) >= 7:
+            #team_name = team[:7]
+        #else:
+        team_name = team
         string_to_add = "{} - {} ({}-{})\n".format(i + 1, team_name, standing[1], standing[2])
         if i == playoff_line:
             string_to_add += "________________________________\n\n"
