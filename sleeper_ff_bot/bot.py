@@ -352,7 +352,7 @@ def get_current_week():
     today = pendulum.today()
     starting_week = pendulum.datetime(STARTING_YEAR, STARTING_MONTH, STARTING_DAY)
     week = today.diff(starting_week).in_weeks()
-    return week + 1
+    return week
 
 
 """
