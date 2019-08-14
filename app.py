@@ -54,6 +54,7 @@ def webhook():
             time.sleep(2)
             bot.send(get_rule_changes)
         else:
+            time.sleep(2)
             bot.send(send_any_string, 'I am unsure.')
 
     return "ok",200
