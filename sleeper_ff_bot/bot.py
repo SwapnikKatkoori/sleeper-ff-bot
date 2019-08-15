@@ -174,13 +174,10 @@ def get_player_key(search_name, requestor):
 
 
 
-def get_player_stats(player_key):
+def get_player_stats(player_id):
     stats = Stats(). get_all_stats("regular","2018")
-
-
-    for player_id in stats:
-        player = stats[player_id]
-        text = "Stats for {} here.".format(Player['full_name'])
+    player = stats[player__id]
+    text = "Stats for {} here.".format(Player['full_name'])
     bot.send(send_any_string, text)
 
 
