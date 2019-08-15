@@ -160,6 +160,8 @@ def get_player_key(search_name, requestor):
 
     for player_id in players:
         player = players[player_id]
+        logging.error(search_name)
+        logging.error(player['search_full_name'])
         if player["search_full_name"] ==  search_name:
             found_players.append((player, player["full_name"], player["position"], player["team"], [requestor]))
         if len(found_players) > 1:
