@@ -10,8 +10,8 @@ from urllib.request import Request, urlopen
 from flask import Flask, request
 
 
-def persist(run,x,lis=[]):
-    if run == 1
+def persist(r,x,lis=[]):
+    if r == 1:
         lis.append(x)
     return lis
 
