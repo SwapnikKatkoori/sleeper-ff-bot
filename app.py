@@ -36,16 +36,16 @@ elif bot_type == "discord":
     webhook = os.environ["DISCORD_WEBHOOK"]
     bot = Discord(webhook)
 
+waiting_for_response_from = []
 
 @app.route('/', methods=['POST'])
 def webhook():
     # 'message' is an object that represents a single GroupMe message.
     message = request.get_json()
-    waiting_for_response_from = persist(1)
     logging.error(len(waiting_for_response_from))
     if len(waiting_for_response_from) > 0:
         logging.error(waiting_for_response_from[0])
-        if waiting_for_response_from[0] == message['name'].lower():
+        if message['name'].lower() in waiting_for_response_from:
             get_player_key(message['text'],message['name'],1)
             persist(1,[])
     if '@bot' in message['text'].lower()  and not sender_is_bot(message):
