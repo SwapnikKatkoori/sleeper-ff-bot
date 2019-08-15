@@ -1,4 +1,4 @@
-from sleeper_ff_bot.bot import get_draft_order, send_any_string, get_player_name, get_fun_fact, get_rule_changes, get_standings_string, get_scores_string, get_matchups_string, get_player_key
+from sleeper_ff_bot.bot import get_draft_order, send_any_string, get_player_name, get_fun_fact, get_rule_changes, get_standings_string, get_scores_string, get_matchups_string, get_player_key,  get_player_stats
 from sleeper_ff_bot.group_me import GroupMe
 from sleeper_ff_bot.slack import Slack
 from sleeper_ff_bot.discord import Discord
@@ -38,7 +38,9 @@ def webhook():
     # 'message' is an object that represents a single GroupMe message.
     message = request.get_json()
     if '@bot' in message['text'].lower()  and not sender_is_bot(message):
-        if 'adam' in message['name'].lower():
+        if message['name'].lower() == waiting_for_response_from:
+            get_player_key(message['text'],message['name'],1)
+        elif 'adam' in message['name'].lower():
             time.sleep(2)
             bot.send(send_any_string,'Fuck off Adam')
         elif 'draft order' in message['text'].lower():
@@ -68,8 +70,9 @@ def webhook():
             text = text.replace("stats", "")
             text = text.replace(" ","")
             text = text.lower()
-            get_player_key(text, message['name'].lower())
-
+            multiplayers = get_player_key(text, message['name'].lower(),0)
+            if multiplayers != false:
+                waiting_for_response_from = multiplayers[0][4]
         else:
             time.sleep(2)
             bot.send(send_any_string, 'I am unsure.')

@@ -153,26 +153,37 @@ def get_lowest_score(league_id):
             min_score[1] = team_name
     return min_score
 
-def get_player_key(search_name, requestor):
+def get_player_key(search_string, requestor, name_key_switch):
     players = Players().get_all_players()
     found_players = []
 
-
-    for player_id in players:
-        player = players[player_id]
+    if name_key_switch = 0:
+        for player_id in players:
+            player = players[player_id]
+            try:
+                if player["search_full_name"] ==  search_string:
+                    found_players.append((player_id, player["full_name"], player["position"], player["team"], [requestor]))
+            except:
+                pass
+        if len(found_players) > 1:
+            text = "which Player are you asking for?\n"
+            for p in found_players:
+                text += "for {} ({} {}) - reply {})".format(p[1], p[2], p[3], p[0])
+            bot.send(send_any_string, text)
+            return found_players
+        elif len(found_players) == 1:
+            get_player_stats(found_players[0])
+            return false
+    elif name_key_switch = 1:
+        player = players[search_string]
         try:
-            if player["search_full_name"] ==  search_name:
+            if player["search_full_name"] ==  search_string:
                 found_players.append((player_id, player["full_name"], player["position"], player["team"], [requestor]))
         except:
             pass
-    if len(found_players) > 1:
-        text = "which Player are you asking for?\n"
-        for p in found_players:
-            text += "for {} ({} {}) - reply {})".format(p[1], p[2], p[3], p[0])
-        bot.send(send_any_string, text)
-        return found_players
-    elif len(found_players) == 1:
         get_player_stats(found_players[0])
+        return false
+
 
 
 
@@ -199,7 +210,7 @@ def get_player_stats(search_object):
     team = search_object[3]
     player = stats[player_id]
     text = "Stats for {} here.".format(player_name)
-    
+
     bot.send(send_any_string, text)
 
 
