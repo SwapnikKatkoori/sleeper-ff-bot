@@ -173,7 +173,7 @@ def get_player_key(search_string, requestor, name_key_switch):
             return found_players
         elif len(found_players) == 1:
             get_player_stats(found_players[0])
-            return false
+            return False
     elif name_key_switch == 1:
         player = players[search_string]
         try:
