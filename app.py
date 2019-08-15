@@ -74,7 +74,7 @@ def webhook():
             text = text.replace(" ","")
             text = text.lower()
             multiplayers = get_player_key(text, message['name'].lower(),0)
-            if multiplayers != false:
+            if multiplayers != False:
                 persist(1,multiplayers[0][4])
         else:
             time.sleep(2)

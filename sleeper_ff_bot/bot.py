@@ -182,7 +182,7 @@ def get_player_key(search_string, requestor, name_key_switch):
         except:
             pass
         get_player_stats(found_players[0])
-        return false
+        return False
 
 
 
