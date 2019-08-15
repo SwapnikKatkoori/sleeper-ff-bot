@@ -172,16 +172,20 @@ def get_player_key(search_name, requestor):
         bot.send(send_any_string, text)
         return found_players
     elif len(found_players) == 1:
-        get_player_stats(found_players[0][0])
+        get_player_stats(found_players[0])
 
 
 
 
-def get_player_stats(player_id):
+def get_player_stats(search_object):
     stats = Stats(). get_all_stats("regular","2018")
     #logging.error(player_id)
+    player_id = search_object[0]
+    player_name = search_object[1]
+    position = search_object[2]
+    team = search_object[3]
     player = stats[player_id]
-    text = "Stats for {} here.".format(Player["full_name"])
+    text = "Stats for {} here.".format(player_name)
     bot.send(send_any_string, text)
 
 
