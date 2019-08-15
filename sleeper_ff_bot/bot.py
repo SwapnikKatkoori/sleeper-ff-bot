@@ -162,17 +162,17 @@ def get_player_key(search_name, requestor):
 
     for player_id in players_json:
         for k in players_json[player_id]:
-        logging.error(k['search_full_name'])
-        if k['search_full_name'] == search_name:
-            found_players.append((player, player['full_name'], player['position'], player['team'], [requestor]))
-        if len(found_players) > 1:
-            text = "which Player are you asking for?\n"
-            for p in found_players:
-                text += "{}. {} ({} - {})".format(p[0], p[1], p[2], p[3])
-            bot.send(send_any_string, text)
-            return found_players
-        elif len(found_players) == 1:
-            get_player_stats(found_players[0])
+            logging.error(k['search_full_name'])
+            if k['search_full_name'] == search_name:
+                found_players.append((player, player['full_name'], player['position'], player['team'], [requestor]))
+            if len(found_players) > 1:
+                text = "which Player are you asking for?\n"
+                for p in found_players:
+                    text += "{}. {} ({} - {})".format(p[0], p[1], p[2], p[3])
+                bot.send(send_any_string, text)
+                return found_players
+            elif len(found_players) == 1:
+                get_player_stats(found_players[0])
 
 
 def get_player_stats(player_key):
