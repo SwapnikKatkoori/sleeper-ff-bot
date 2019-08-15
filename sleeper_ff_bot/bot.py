@@ -157,7 +157,7 @@ def get_player_key(search_string, requestor, name_key_switch):
     players = Players().get_all_players()
     found_players = []
 
-    if name_key_switch = 0:
+    if name_key_switch == 0:
         for player_id in players:
             player = players[player_id]
             try:
@@ -174,7 +174,7 @@ def get_player_key(search_string, requestor, name_key_switch):
         elif len(found_players) == 1:
             get_player_stats(found_players[0])
             return false
-    elif name_key_switch = 1:
+    elif name_key_switch == 1:
         player = players[search_string]
         try:
             if player["search_full_name"] ==  search_string:
