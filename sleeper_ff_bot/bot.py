@@ -158,8 +158,8 @@ def get_player_key(search_name, requestor):
 
     found_players = []
     for i in players:
-        if i['search_full_name'] == search_name:
-            found_players.append((i,i['full_name'],i['position'], i['team'], [requestor]))
+        if i["search_full_name"] == search_name:
+            found_players.append((i,i["full_name"],i["position"], i["team"], [requestor]))
         if len(found_players) > 1:
             text = "which Player are you asking for?\n"
             for p in found_players:
