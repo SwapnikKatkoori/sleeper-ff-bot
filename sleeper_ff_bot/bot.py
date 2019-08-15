@@ -155,6 +155,7 @@ def get_lowest_score(league_id):
 
 def get_player_key(search_name, requestor):
     players = Players().get_all_players()
+    logging.error(type(players))
 
     found_players = []
     for k in players:
