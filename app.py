@@ -40,6 +40,7 @@ def webhook():
     if '@bot' in message['text'].lower()  and not sender_is_bot(message):
         if message['name'].lower() == waiting_for_response_from:
             get_player_key(message['text'],message['name'],1)
+            waiting_for_response_from = None
         elif 'adam' in message['name'].lower():
             time.sleep(2)
             bot.send(send_any_string,'Fuck off Adam')
