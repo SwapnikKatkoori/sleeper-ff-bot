@@ -9,6 +9,11 @@ from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 from flask import Flask, request
 
+
+def persist(x,lis=[]):
+    lis.append(x)
+    return lis
+
 app = Flask(__name__)
 
 bot = None
@@ -16,11 +21,6 @@ bot = None
 bot_type = os.environ["BOT_TYPE"]
 league_id = os.environ["LEAGUE_ID"]
 
-# Check if the user specified the close game num. Default is 20.
-try:
-    close_num = os.environ["CLOSE_NUM"]
-except:
-    close_num = 20
 
 if bot_type == "groupme":
     bot_id = os.environ["BOT_ID"]
@@ -37,6 +37,7 @@ elif bot_type == "discord":
 def webhook():
     # 'message' is an object that represents a single GroupMe message.
     message = request.get_json()
+    waiting_for_response_from = persist()
     if '@bot' in message['text'].lower()  and not sender_is_bot(message):
         if message['name'].lower() == waiting_for_response_from:
             get_player_key(message['text'],message['name'],1)
@@ -73,7 +74,7 @@ def webhook():
             text = text.lower()
             multiplayers = get_player_key(text, message['name'].lower(),0)
             if multiplayers != false:
-                waiting_for_response_from = multiplayers[0][4]
+                persist(multiplayers[0][4])
         else:
             time.sleep(2)
             bot.send(send_any_string, 'I am unsure.')
