@@ -81,8 +81,8 @@ def webhook():
             text = text.lower()
             multiplayers = get_player_key(text, message['name'].lower(),0)
             if multiplayers != False:
-                #waiting_for_response_from = persist(multiplayers[0][4][0])
-                logging.log(multiplayers[0][4][0])
+                waiting_for_response_from = persist(multiplayers[0][4][0])
+                logging.log(multiplayers[0][4])
         else:
             time.sleep(2)
             bot.send(send_any_string, 'I am unsure.')
