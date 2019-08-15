@@ -180,7 +180,7 @@ def get_player_stats(player_key):
 
     for player_id in stats:
         player = stats[player_id]
-            text = "Stats for {} here.".format(Player['full_name'])
+        text = "Stats for {} here.".format(Player['full_name'])
     bot.send(send_any_string, text)
 
 
