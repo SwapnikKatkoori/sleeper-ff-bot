@@ -12,10 +12,14 @@ from flask import Flask, request
 
 
 def persist(r,x,lis=[]):
+    logging.error('running persist')
     if r == 1:
+        logging.error('appending to list')
         lis.append(x)
     elif r == 2:
+        logging.error('emptying list')
         lis = []
+    logging.error(lis)
     return lis
 
 app = Flask(__name__)
@@ -82,7 +86,7 @@ def webhook():
             multiplayers = get_player_key(text, message['name'].lower(),0)
             logging.error(multiplayers)
             if multiplayers != False:
-                list = persist(1,multiplayers[0][4])
+                list = persist(1,multiplayers[0][4][0])
                 logging.error(list)
         else:
             time.sleep(2)
