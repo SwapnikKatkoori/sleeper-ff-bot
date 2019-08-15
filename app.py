@@ -43,7 +43,8 @@ def webhook():
     message = request.get_json()
     waiting_for_response_from = persist(0,1)
     if '@bot' in message['text'].lower()  and not sender_is_bot(message):
-        if message['name'].lower() == waiting_for_response_from:
+        logging.error(waiting_for_response_from)
+        if message['name'].lower() in waiting_for_response_from:
             get_player_key(message['text'],message['name'],1)
             persist(2,1)
         elif 'adam' in message['name'].lower():
