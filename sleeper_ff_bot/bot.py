@@ -155,25 +155,32 @@ def get_lowest_score(league_id):
 
 def get_player_key(search_name, requestor):
     players = Players().get_all_players()
-    data = json.dumps(players)
-    players_json = json.loads(data)
     found_players = []
 
 
-    for player_id in players_json:
-        player = players_json[player_id]
-        logging.error(player["team"])
+    for player_id in players:
+        player = players[player_id]
+        if player['search_full_name'] ==  search_name:
+            found_players.append((player, player['full_name'], player['position'], player['team'], [requestor]))
+        if len(found_players) > 1:
+            text = "which Player are you asking for?\n"
+            for p in found_players:
+                text += "{}. {} ({} - {})".format(p[0], p[1], p[2], p[3])
+            bot.send(send_any_string, text)
+            return found_players
+        elif len(found_players) == 1:
+            get_player_stats(found_players[0])
+
 
 
 
 def get_player_stats(player_key):
-    players = Players().get_all_players()
-    data = json.dumps(players)
-    players_json = json.loads(data)
+    stats = Stats(). get_all_stats("regular","2018")
 
-    for k in players_json:
-        if k == player_key:
-            text = "Stats for {} here.".format(k["full_name"])
+
+    for player_id in stats:
+        player = stats[player_id]
+            text = "Stats for {} here.".format(Player['full_name'])
     bot.send(send_any_string, text)
 
 
