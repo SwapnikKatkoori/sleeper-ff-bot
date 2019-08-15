@@ -153,6 +153,31 @@ def get_lowest_score(league_id):
             min_score[1] = team_name
     return min_score
 
+def get_player_key(search_name, requestor):
+    players = Players().get_all_players()
+
+    found_players = []
+    for i in players:
+        if i['search_full_name'] == search_name:
+            found_players.append((i,i['full_name'],i['position'], i['team'], [requestor]))
+        if len(found_players) > 1:
+            text = "which Player are you asking for?\n"
+            for p in found_players:
+                text += "{}. {} ({} - {})".format(p[0], p[1], p[2], p[3])
+            bot.send(send_any_string, text)
+            return found_players
+        elif len(found_players) == 1:
+            get_player_stats(found_players[0])
+
+
+def get_player_stats(player_key):
+    players = Players().get_all_players()
+
+    for i in players:
+        if i == player_key:
+            text = "Stats for {} here.".format(i["full_name"])
+    bot.send(send_any_string, text)
+
 
 def make_roster_dict(starters_list, bench_list):
     """

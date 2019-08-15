@@ -1,4 +1,4 @@
-from sleeper_ff_bot.bot import get_draft_order, send_any_string, get_player_name, get_fun_fact, get_rule_changes, get_standings_string, get_scores_string, get_matchups_string
+from sleeper_ff_bot.bot import get_draft_order, send_any_string, get_player_name, get_fun_fact, get_rule_changes, get_standings_string, get_scores_string, get_matchups_string, get_player_key
 from sleeper_ff_bot.group_me import GroupMe
 from sleeper_ff_bot.slack import Slack
 from sleeper_ff_bot.discord import Discord
@@ -62,6 +62,14 @@ def webhook():
         elif 'matchups' in message['text'].lower():
             time.sleep(2)
             bot.send(get_matchups_string, league_id)
+        elif 'stats' in message['text'].lower():
+            text = message['text']
+            text = text.replace("@bot","")
+            text = text.replace("stats", "")
+            text = text.replace(" ","")
+            text = text.lower()
+            get_player_key(text, message['name'].lower())
+
         else:
             time.sleep(2)
             bot.send(send_any_string, 'I am unsure.')
