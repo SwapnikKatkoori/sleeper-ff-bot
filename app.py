@@ -11,11 +11,10 @@ from urllib.request import Request, urlopen
 from flask import Flask, request
 
 
-def persist(x,lis=[]):
-    logging.error('running persist')
-    logging.error('appending to list')
+def persist(r,x,lis=[]):
+    if r == 1:
     lis.append(x)
-    logging.error(lis)
+        logging.error(lis)
     return lis
 
 app = Flask(__name__)
@@ -39,7 +38,8 @@ elif bot_type == "discord":
 
 @app.route('/', methods=['POST'])
 def webhook():
-    waiting_for_response_from += []
+    waiting_for_response_from = persist(0,1)
+    logging.error(waiting_for_response_from)
     # 'message' is an object that represents a single GroupMe message.
     message = request.get_json()
     if len(waiting_for_response_from) > 0:
