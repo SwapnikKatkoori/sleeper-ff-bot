@@ -160,8 +160,8 @@ def get_player_key(search_name, requestor):
 
     for player_id in players:
         player = players[player_id]
-        if player['search_full_name'] ==  search_name:
-            found_players.append((player, player['full_name'], player['position'], player['team'], [requestor]))
+        if player["search_full_name"] ==  search_name:
+            found_players.append((player, player["full_name"], player["position"], player["team"], [requestor]))
         if len(found_players) > 1:
             text = "which Player are you asking for?\n"
             for p in found_players:
@@ -177,7 +177,7 @@ def get_player_key(search_name, requestor):
 def get_player_stats(player_id):
     stats = Stats(). get_all_stats("regular","2018")
     player = stats[player__id]
-    text = "Stats for {} here.".format(Player['full_name'])
+    text = "Stats for {} here.".format(Player["full_name"])
     bot.send(send_any_string, text)
 
 
