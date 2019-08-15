@@ -179,6 +179,19 @@ def get_player_key(search_name, requestor):
 
 def get_player_stats(search_object):
     stats = Stats(). get_all_stats("regular","2018")
+
+    bot_type = os.environ["BOT_TYPE"]
+
+    if bot_type == "groupme":
+        bot_id = os.environ["BOT_ID"]
+        bot = GroupMe(bot_id)
+    elif bot_type == "slack":
+        webhook = os.environ["SLACK_WEBHOOK"]
+        bot = Slack(webhook)
+    elif bot_type == "discord":
+        webhook = os.environ["DISCORD_WEBHOOK"]
+        bot = Discord(webhook)
+
     #logging.error(player_id)
     player_id = search_object[0]
     player_name = search_object[1]
@@ -186,6 +199,7 @@ def get_player_stats(search_object):
     team = search_object[3]
     player = stats[player_id]
     text = "Stats for {} here.".format(player_name)
+    
     bot.send(send_any_string, text)
 
 
