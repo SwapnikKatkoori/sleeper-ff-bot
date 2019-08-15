@@ -155,9 +155,11 @@ def get_lowest_score(league_id):
 
 def get_player_key(search_name, requestor):
     players = Players().get_all_players()
+    data = json.dumps(players)
+    data_json = json.loads(data)
     #logging.error(players.keys())
     found_players = []
-    for player in players:
+    for player in data_json:
         #logging.error(player.keys())
         if player['search_full_name'] == search_name:
             found_players.append((player, player['full_name'], player['position'], player['team'], [requestor]))
