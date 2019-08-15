@@ -42,7 +42,6 @@ waiting_for_response_from = []
 def webhook():
     # 'message' is an object that represents a single GroupMe message.
     message = request.get_json()
-    logging.error(len(waiting_for_response_from))
     if len(waiting_for_response_from) > 0:
         logging.error(waiting_for_response_from[0])
         if message['name'].lower() in waiting_for_response_from:
