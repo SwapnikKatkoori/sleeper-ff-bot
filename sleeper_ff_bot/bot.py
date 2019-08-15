@@ -181,7 +181,7 @@ def get_player_key(search_string, requestor, name_key_switch):
         if len(found_players) > 1:
             text = "which Player are you asking for?\n"
             for p in found_players:
-                text += "for {} ({} {}) - reply {})".format(p[1], p[2], p[3], p[0])
+                text += "for {} ({} {}) - reply {}\n)".format(p[1], p[2], p[3], p[0])
             bot.send(send_any_string, text)
             return found_players
         elif len(found_players) == 1:

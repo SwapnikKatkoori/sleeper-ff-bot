@@ -13,6 +13,8 @@ from flask import Flask, request
 def persist(r,x,lis=[]):
     if r == 1:
         lis.append(x)
+    elif r == 2:
+        lis = []
     return lis
 
 app = Flask(__name__)
@@ -42,7 +44,7 @@ def webhook():
     if '@bot' in message['text'].lower()  and not sender_is_bot(message):
         if message['name'].lower() == waiting_for_response_from:
             get_player_key(message['text'],message['name'],1)
-            waiting_for_response_from = None
+            persist(2,1)
         elif 'adam' in message['name'].lower():
             time.sleep(2)
             bot.send(send_any_string,'Fuck off Adam')
@@ -74,8 +76,10 @@ def webhook():
             text = text.replace(" ","")
             text = text.lower()
             multiplayers = get_player_key(text, message['name'].lower(),0)
+            logging.error(multiplayers)
             if multiplayers != False:
-                persist(1,multiplayers[0][4])
+                list = persist(1,multiplayers[0][4])
+                logging.error(list)
         else:
             time.sleep(2)
             bot.send(send_any_string, 'I am unsure.')
