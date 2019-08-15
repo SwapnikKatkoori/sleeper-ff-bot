@@ -10,8 +10,9 @@ from urllib.request import Request, urlopen
 from flask import Flask, request
 
 
-def persist(x,lis=[]):
-    lis.append(x)
+def persist(r,x,lis=[]):
+    if r == 1
+        lis.append(x)
     return lis
 
 app = Flask(__name__)
@@ -37,7 +38,7 @@ elif bot_type == "discord":
 def webhook():
     # 'message' is an object that represents a single GroupMe message.
     message = request.get_json()
-    waiting_for_response_from = persist()
+    waiting_for_response_from = persist(0,1)
     if '@bot' in message['text'].lower()  and not sender_is_bot(message):
         if message['name'].lower() == waiting_for_response_from:
             get_player_key(message['text'],message['name'],1)
@@ -74,7 +75,7 @@ def webhook():
             text = text.lower()
             multiplayers = get_player_key(text, message['name'].lower(),0)
             if multiplayers != false:
-                persist(multiplayers[0][4])
+                persist(1,multiplayers[0][4])
         else:
             time.sleep(2)
             bot.send(send_any_string, 'I am unsure.')
