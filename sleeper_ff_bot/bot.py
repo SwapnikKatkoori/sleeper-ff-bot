@@ -161,7 +161,7 @@ def get_player_key(search_name, requestor):
 
 
     for player_id in players_json:
-        for k in players_json[player_id]
+        for k in players_json[player_id]:
         logging.error(k['search_full_name'])
         if k['search_full_name'] == search_name:
             found_players.append((player, player['full_name'], player['position'], player['team'], [requestor]))
