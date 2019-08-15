@@ -5,6 +5,7 @@ from sleeper_ff_bot.discord import Discord
 import os
 import json
 import time
+import logging
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 from flask import Flask, request

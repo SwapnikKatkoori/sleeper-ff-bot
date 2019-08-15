@@ -216,7 +216,6 @@ def get_player_stats(search_object):
         webhook = os.environ["DISCORD_WEBHOOK"]
         bot = Discord(webhook)
 
-    #logging.error(player_id)
     player_id = search_object[0]
     player_name = search_object[1]
     position = search_object[2]
