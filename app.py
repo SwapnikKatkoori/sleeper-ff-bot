@@ -15,6 +15,9 @@ def persist(x,lis=[]):
     lis.append(x)
     return lis
 
+Class Waiting(object):
+    waiting_for_response_from = []
+
 app = Flask(__name__)
 
 bot = None
@@ -36,9 +39,8 @@ elif bot_type == "discord":
 
 @app.route('/', methods=['POST'])
 def webhook():
-    waiting_for_response_from = persist(1)
-    logging.error(waiting_for_response_from)
     # 'message' is an object that represents a single GroupMe message.
+    waiting_for_response_from = Waiting.waiting_for_response_from
     message = request.get_json()
     if len(waiting_for_response_from) > 0:
         logging.error(waiting_for_response_from[0])
@@ -89,3 +91,6 @@ def webhook():
 # Checks whether the message sender is a bot
 def sender_is_bot(message):
 	return message['sender_type'] == "bot"
+
+Class Waiting(object):
+    waiting_for_response_from = []
