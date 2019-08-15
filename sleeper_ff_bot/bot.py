@@ -155,8 +155,7 @@ def get_lowest_score(league_id):
 
 def get_player_key(search_name, requestor):
     players = Players().get_all_players()
-    data = json.dumps(players)
-    players_json = json.loads(data)
+    players_json = json.loads(players)
 
     found_players = []
     for k in players_json:
