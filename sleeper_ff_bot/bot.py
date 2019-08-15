@@ -155,10 +155,9 @@ def get_lowest_score(league_id):
 
 def get_player_key(search_name, requestor):
     players = Players().get_all_players()
-    players_json = json.loads(players)
 
     found_players = []
-    for k in players_json:
+    for k in players:
         if k["search_full_name"] == search_name:
             found_players.append((k, k['full_name'], k['position'], k['team'], [requestor]))
         if len(found_players) > 1:
