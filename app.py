@@ -42,10 +42,12 @@ def webhook():
     # 'message' is an object that represents a single GroupMe message.
     message = request.get_json()
     waiting_for_response_from = persist(0,1)
-    logging.error(waiting_for_response_from[0])
-    if waiting_for_response_from[0] == message['name'].lower():
-        get_player_key(message['text'],message['name'],1)
-        persist(2,1)
+    logging.error(len(waiting_for_response_from))
+    if len(waiting_for_response_from) > 0:
+        logging.error(waiting_for_response_from[0])
+        if waiting_for_response_from[0] == message['name'].lower():
+            get_player_key(message['text'],message['name'],1)
+            persist(2,1)
     if '@bot' in message['text'].lower()  and not sender_is_bot(message):
         if 'adam' in message['name'].lower():
             time.sleep(2)
