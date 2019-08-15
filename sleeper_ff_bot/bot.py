@@ -159,11 +159,9 @@ def get_player_key(search_name, requestor):
     players_json = json.loads(data)
     found_players = []
 
-    i for x in players.values():
-        logging.error(i)
 
-    for player in data_json:
-        if player['search_full_name'] == search_name:
+    for info in data_json[player_data]:
+        if info['search_full_name'] == search_name:
             found_players.append((player, player['full_name'], player['position'], player['team'], [requestor]))
         if len(found_players) > 1:
             text = "which Player are you asking for?\n"
