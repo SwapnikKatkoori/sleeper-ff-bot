@@ -162,7 +162,7 @@ def get_player_key(search_name, requestor):
         player = players[player_id]
         try:
             if player["search_full_name"] ==  search_name:
-                found_players.append((player, player["full_name"], player["position"], player["team"], [requestor]))
+                found_players.append((player_id, player["full_name"], player["position"], player["team"], [requestor]))
         except:
             pass
     if len(found_players) > 1:
@@ -179,10 +179,10 @@ def get_player_key(search_name, requestor):
 
 def get_player_stats(player_id):
     stats = Stats(). get_all_stats("regular","2018")
-    logging.error(player_id)
-    #player = stats[player_id]
-    #text = "Stats for {} here.".format(Player["full_name"])
-    #bot.send(send_any_string, text)
+    #logging.error(player_id)
+    player = stats[player_id]
+    text = "Stats for {} here.".format(Player["full_name"])
+    bot.send(send_any_string, text)
 
 
 def make_roster_dict(starters_list, bench_list):
