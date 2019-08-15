@@ -172,17 +172,17 @@ def get_player_key(search_name, requestor):
         bot.send(send_any_string, text)
         return found_players
     elif len(found_players) == 1:
-        get_player_stats(found_players[0])
+        get_player_stats(found_players[0][0])
 
 
 
 
 def get_player_stats(player_id):
     stats = Stats(). get_all_stats("regular","2018")
-    logging.error(player_id)
-    #player = stats[player_id]
-    #text = "Stats for {} here.".format(Player["full_name"])
-    #bot.send(send_any_string, text)
+    #logging.error(player_id)
+    player = stats[player_id]
+    text = "Stats for {} here.".format(Player["full_name"])
+    bot.send(send_any_string, text)
 
 
 def make_roster_dict(starters_list, bench_list):
