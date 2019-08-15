@@ -11,14 +11,14 @@ from urllib.request import Request, urlopen
 from flask import Flask, request
 
 
-def persist(r,x,lis=[]):
+def persist(r,x):
     logging.error('running persist')
     if r == 1:
         logging.error('appending to list')
-        lis.append(x)
+        def.lis.append(x)
     elif r == 2:
         logging.error('emptying list')
-        lis = []
+        def.lis = []
     logging.error(lis)
     return lis
 
