@@ -161,7 +161,7 @@ def get_player_key(search_name, requestor):
 
 
     for player_id in players_json:
-        player = player_json[player_id]
+        player = players_json[player_id]
         logging.error(player["team"])
 
 
