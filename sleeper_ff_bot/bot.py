@@ -160,8 +160,7 @@ def get_player_key(search_name, requestor):
     for k in players:
         player = json.loads(k)
         logging.error(search_name)
-        test = player["search_full_name"]
-        logging.error(test)
+        logging.error(player)
         if player["search_full_name"] == search_name:
             found_players.append((player, player['full_name'], player['position'], player['team'], [requestor]))
         if len(found_players) > 1:
