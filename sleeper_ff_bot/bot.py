@@ -155,6 +155,19 @@ def get_lowest_score(league_id):
 
 def get_player_key(search_string, requestor, name_key_switch):
     players = Players().get_all_players()
+
+    bot_type = os.environ["BOT_TYPE"]
+
+    if bot_type == "groupme":
+        bot_id = os.environ["BOT_ID"]
+        bot = GroupMe(bot_id)
+    elif bot_type == "slack":
+        webhook = os.environ["SLACK_WEBHOOK"]
+        bot = Slack(webhook)
+    elif bot_type == "discord":
+        webhook = os.environ["DISCORD_WEBHOOK"]
+        bot = Discord(webhook)
+
     found_players = []
 
     if name_key_switch == 0:
