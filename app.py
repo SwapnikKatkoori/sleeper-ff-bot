@@ -46,6 +46,8 @@ def webhook():
             if stat_response == True:
                 get_player_key(message['text'],message['name'].lower(),1)
                 os.environ["WAITING_FOR_RESPONSE"] = "False"
+            elif len(message['text']) == 3:
+                get_player_key(message['text'],message['name'].lower(),1)
             if 'none' in message['text'].lower():
                 bot.send(send_any_string,"Sorry I failed you.")
                 os.environ["WAITING_FOR_RESPONSE"] = "False"
