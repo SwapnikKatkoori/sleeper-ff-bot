@@ -176,7 +176,7 @@ def get_player_key(search_string, requestor, name_key_switch):
                 token_set_ratio = fuzz.token_set_ratio(search_string, player["search_full_name"])
                 if search_string in player["search_full_name"] or search_string in player["last_name"].lower() or search_string in player["last_name"].lower():
                     found_players.append((player_id, player["full_name"], player["position"], player["team"], [requestor]))
-                elif token_set_ratio > 89:
+                elif token_set_ratio > 79:
                     found_players.append((player_id, player["full_name"], player["position"], player["team"], [requestor]))
             except:
                 pass
