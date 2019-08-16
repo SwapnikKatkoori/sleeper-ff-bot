@@ -221,9 +221,9 @@ def get_player_stats(search_object):
     team = search_object[3]
     player = stats[player_id]
     final_string = "{} ({} - {})\n\n".format(player_name, position, team)
-    ga = int(player["gms_active"])
-    gp = int(player["gp"])
-    gs = int(player["gs"])
+    ga = player["gms_active"]
+    gp = player["gp"]
+    gs = player["gs"]
 
     final_string += "Fantasy Points: {}\n\nGames Active: {}\nGames Played: {}\nGames Started: {}".format(player["pts_half_ppr"], ga, gp, gs)
 
