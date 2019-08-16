@@ -78,6 +78,7 @@ def webhook():
                 logging.error(waiting)
                 if waiting == True:
                     os.environ["WAITING_FOR_RESPONSE"] = "True"
+                    
             else:
                 bot.send(send_any_string, 'I am unsure.')
 
