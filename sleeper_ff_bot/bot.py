@@ -225,7 +225,7 @@ def get_player_stats(search_object):
         stats_run = False
         logging.error('setting to False')
         pass
-    logging.errror(stats_run)
+    logging.error(stats_run)
     if stats_run:
         final_string = "{} ({} - {})\n\n".format(player_name, position, team)
         try:
