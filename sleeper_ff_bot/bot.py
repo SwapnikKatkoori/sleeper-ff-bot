@@ -222,7 +222,89 @@ def get_player_stats(search_object):
     player = stats[player_id]
     final_string = "{} ({} - {})\n\n".format(player_name, position, team)
 
-    final_string += "Games Active: {}\nGames Played: {}\nGames Started: {}".format(int(player["gms_active"]),int(player["gp"]),int(player["gs"]))
+    final_string += "Fantasy Points: {}\n\nGames Active: {}\nGames Played: {}\nGames Started: {}".format(player["pts_half_ppr",int(player["gms_active"]),int(player["gp"]),int(player["gs"]))
+
+    if "QB" in position:
+        rating = player["pass_rtg"]
+        final_string += "Passer Rating: {}\n".format(rating)
+        pyards = player["pass_yd"]
+        final_string += "Passing Yards: {}\n".format(pyards)
+        ptd = player["pass_td"]
+        final_string += "Passing TDs: {}\n".format(ptd)
+        ryards = player["rush_yd"]
+        final_string += "Rushing Yards: {}\n".format(ryards)
+        rtd = player["rush_td"]
+        final_string += "Rushing TDs: {}\n".format(rtd)
+        int = player["pass_int"]
+        final_string += "Interceptions {}\n".format(int)
+        fum = player["fum"]
+        final_string += "Fumbles: {}\n".format(fum)
+    if "RB" in position:
+        ryards = player["rush_yd"]
+        final_string += "Rushing Yards: {}\n".format(ryards)
+        rtd = player["rush_td"]
+        final_string += "Rushing TDs: {}\n".format(rtd)
+        fum = player["fum"]
+        final_string += "Fumbles: {}\n".format(fum)
+        rcyards = player["rec_yd"]
+        final_string += "Receiving Yards: {}\n".format(rcyards)
+        rctd = player["rec_td"]
+        final_string += "Receiving TDs: {}\n".format(rctd)
+    if "WR" in position:
+        rcyards = player["rec_yd"]
+        final_string += "Receiving Yards: {}\n".format(rcyards)
+        rctd = player["rec_td"]
+        final_string += "Receiving TDs: {}\n".format(rctd)
+        ryards = player["rush_yd"]
+        final_string += "Rushing Yards: {}\n".format(ryards)
+        rtd = player["rush_td"]
+        final_string += "Rushing TDs: {}\n".format(rtd)
+        fum = player["fum"]
+        final_string += "Fumbles: {}\n".format(fum)
+    if "TE" in position:
+        rcyards = player["rec_yd"]
+        final_string += "Receiving Yards: {}\n".format(rcyards)
+        rctd = player["rec_td"]
+        final_string += "Receiving TDs: {}\n".format(rctd)
+        ryards = player["rush_yd"]
+        final_string += "Rushing Yards: {}\n".format(ryards)
+        rtd = player["rush_td"]
+        final_string += "Rushing TDs: {}\n".format(rtd)
+        fum = player["fum"]
+        final_string += "Fumbles: {}\n".format(fum)
+    if "K" in position:
+        fga = player["fga"]
+        final_string += "Field Goals Attempted: {}\n".format(fga)
+        fgm = player["fgm"]
+        final_string += "Field Goals Made: {}\n".format(fgm)
+        fgm1 = player["fgm_0_19"]
+        final_string += "0-19: {}\n".format(fgm1)
+        fgm2 = player["fgm_20_29"]
+        final_string += "20-29: {}\n".format(fgm2)
+        fgm3 = player["fgm_30_39"]
+        final_string += "30-39: {}\n".format(fgm3)
+        fgm4 = player["fgm_40_49"]
+        final_string += "40-49: {}\n".format(fgm4)
+        fgm5 = player["fgm_50p"]
+        final_string += "50+: {}\n".format(fgm5)
+        xpa = player["xpa"]
+        final_string += "XP Attempted: {}\n".format(xpa)
+        xpm = player["xpm"]
+        final_string += "XP Made: {}\n".format(xpm)
+    if "DEF" in position:
+        td = player["td"]
+        final_string += "Touchdowns: {}\n".format(td)
+        ff = player["ff"]
+        final_string += "Forced Fumbles: {}\n".format(ff)
+        fum_rec = player["fum_rec"]
+        final_string += "Fumbles Recoved: {}\n".format(fum_rec)
+        tkl = player["tkl_loss"]
+        final_string += "Tackles For Loss: {}\n".format(tkl)
+        qbh = player["qb_hit"]
+        final_string += "QB Hits: {}\n".format(qbh)
+        sck = player["sack"]
+        final_string += "Sacks: {}\n".format(sck)
+
 
     bot.send(send_any_string, final_string)
 
