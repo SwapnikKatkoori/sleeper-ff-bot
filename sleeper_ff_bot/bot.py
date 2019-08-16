@@ -169,7 +169,6 @@ def get_player_key(search_string, requestor, name_key_switch):
         bot = Discord(webhook)
 
     found_players = []
-    logging.error(search_string)
     if name_key_switch == 0:
         for player_id in players:
             player = players[player_id]
@@ -227,9 +226,7 @@ def get_player_stats(search_object):
         player = stats[player_id]
     except:
         stats_run = False
-        logging.error('setting to False')
         pass
-    logging.error(stats_run)
     if stats_run:
         final_string = "{} ({} - {})\n\n".format(player_name, position, team)
         try:
