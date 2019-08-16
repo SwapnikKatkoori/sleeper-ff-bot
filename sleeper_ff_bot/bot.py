@@ -225,8 +225,8 @@ def get_player_stats(search_object):
         stats_run = False
         logging.error('setting to False')
         pass
-
-    if stats_run == True:
+    logging.errror(stats_run)
+    if stats_run:
         final_string = "{} ({} - {})\n\n".format(player_name, position, team)
         try:
             ga = player["gms_active"]
