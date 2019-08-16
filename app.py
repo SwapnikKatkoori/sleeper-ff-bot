@@ -42,6 +42,10 @@ def webhook():
             stat_response = False
         if stat_response == True and not sender_is_bot(message):
             get_player_key(message['text'],message['name'].lower(),1)
+            os.environ["WAITING_FOR_RESPONSE"] = "False"
+        elif 'none' in message['text'].lower():
+            bot.send(send_any_string,"Sorry I failed you.")
+            os.environ["WAITING_FOR_RESPONSE"] = "False"            
     if '@bot' in message['text'].lower()  and not sender_is_bot(message):
         if 'adam' in message['name'].lower():
             time.sleep(1)
