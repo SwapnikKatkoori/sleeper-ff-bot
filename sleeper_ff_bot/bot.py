@@ -225,7 +225,7 @@ def get_player_stats(search_object):
         stats_run = False
         pass
 
-    if stats)run = True:
+    if stats_run == True:
         final_string = "{} ({} - {})\n\n".format(player_name, position, team)
         try:
             ga = player["gms_active"]
@@ -550,7 +550,7 @@ def get_player_stats(search_object):
                 pass
         else:
             final_string = "No stats found for {}".format(player_name)
-            
+
     bot.send(send_any_string, final_string)
 
 
