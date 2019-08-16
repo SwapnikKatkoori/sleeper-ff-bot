@@ -174,7 +174,7 @@ def get_player_key(search_string, requestor, name_key_switch):
         for player_id in players:
             player = players[player_id]
             try:
-                if player["search_full_name"] ==  search_string:
+                if search_string in player["search_full_name"]:
                     found_players.append((player_id, player["full_name"], player["position"], player["team"], [requestor]))
             except:
                 pass
