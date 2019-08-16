@@ -92,6 +92,3 @@ def webhook():
 # Checks whether the message sender is a bot
 def sender_is_bot(message):
 	return message['sender_type'] == "bot"
-
-Class Waiting(object):
-    waiting_for_response_from = []
