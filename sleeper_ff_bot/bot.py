@@ -189,7 +189,7 @@ def get_player_key(search_string, requestor, name_key_switch):
                     logging.error(search_string)
                     logging.error(search_name)
                     logging.error(def_token_set_ratio)
-                    if def_token_set_ratio > 79:
+                    if def_token_set_ratio > 54:
                         found_players.append((player_id, player["full_name"], player["position"], player["team"], [requestor]))
             except:
                 pass
