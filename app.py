@@ -44,28 +44,28 @@ def webhook():
             get_player_key(message['text'],message['name'].lower(),1)
     if '@bot' in message['text'].lower()  and not sender_is_bot(message):
         if 'adam' in message['name'].lower():
-            time.sleep(2)
+            time.sleep(1)
             bot.send(send_any_string,'Fuck off Adam')
         elif 'draft order' in message['text'].lower():
-            time.sleep(2)
+            time.sleep(1)
             bot.send(get_draft_order)
         elif 'who' in message['text'].lower():
-            time.sleep(2)
+            time.sleep(1)
             bot.send(get_player_name)
         elif 'fun fact' in message['text'].lower():
-            time.sleep(2)
+            time.sleep(1)
             bot.send(get_fun_fact)
         elif 'rule changes' in message['text'].lower():
-            time.sleep(2)
+            time.sleep(1)
             bot.send(get_rule_changes)
         elif 'standings' in message['text'].lower():
-            time.sleep(2)
+            time.sleep(1)
             bot.send(get_standings_string, league_id)
         elif 'score update' in message['text'].lower():
-            time.sleep(2)
+            time.sleep(1)
             bot.send(get_scores_string, league_id)
         elif 'matchups' in message['text'].lower():
-            time.sleep(2)
+            time.sleep(1)
             bot.send(get_matchups_string, league_id)
         elif 'stats' in message['text'].lower():
             text = message['text']
@@ -73,6 +73,7 @@ def webhook():
             text = text.replace("stats", "")
             text = text.replace(" ","")
             text = text.lower()
+            time.sleep(1)
             waiting = get_player_key(text, message['name'].lower(),0)
             if waiting == True:
                 os.environ["WAITING_FOR_RESPONSE"] = "True"

@@ -179,9 +179,9 @@ def get_player_key(search_string, requestor, name_key_switch):
             except:
                 pass
         if len(found_players) > 1:
-            text = "which Player are you asking for?\n"
+            text = "Which player are you looking for?\n\n"
             for p in found_players:
-                text += "for {} ({} {}) - reply {}\n".format(p[1], p[2], p[3], p[0])
+                text += "for {} ({} {}) - reply {}\n\n".format(p[1], p[2], p[3], p[0])
             bot.send(send_any_string, text)
             return True
         elif len(found_players) == 1:
