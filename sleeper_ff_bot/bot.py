@@ -549,8 +549,8 @@ def get_player_stats(search_object):
             except:
                 write = False
                 pass
-        else:
-            final_string = "No stats found for {}".format(player_name)
+    else:
+        final_string = "No stats found for {}".format(player_name)
 
     bot.send(send_any_string, final_string)
 
