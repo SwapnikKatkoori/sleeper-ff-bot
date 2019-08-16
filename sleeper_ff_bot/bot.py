@@ -183,7 +183,7 @@ def get_player_key(search_string, requestor, name_key_switch):
             if player["position"] == "DEF":
                 logging.error(player["position"])
                 search_name = player["first_name"].lower() + player["last_name"].lower()
-                search_name = replace(" ","")
+                search_name = search_name.replace(" ","")
                 full_name_clean = player["first_name"] + " " + player["last_name"]
                 def_ratio = fuzz.ratio(search_string, search_name)
                 if def_ratio > 54:
