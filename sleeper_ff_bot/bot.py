@@ -174,8 +174,6 @@ def get_player_key(search_string, requestor, name_key_switch):
         for player_id in players:
             player = players[player_id]
             try:
-                logging.error(player["first_name"])
-                logging.error(player["last_name"])
                 if search_string in player["search_full_name"] or search_string in player["last_name"].lower() or search_string in player["last_name"].lower():
                     found_players.append((player_id, player["full_name"], player["position"], player["team"], [requestor]))
             except:
