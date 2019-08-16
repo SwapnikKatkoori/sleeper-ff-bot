@@ -223,6 +223,7 @@ def get_player_stats(search_object):
         player = stats[player_id]
     except:
         stats_run = False
+        logging.error('setting to False')
         pass
 
     if stats_run == True:
