@@ -1,13 +1,15 @@
-from sleeper_ff_bot.bot import get_draft_order, send_any_string, get_player_name, get_fun_fact, get_rule_changes
+from sleeper_ff_bot.bot import get_draft_order, send_any_string, get_player_name, get_fun_fact, get_rule_changes, get_standings_string, get_scores_string, get_matchups_string, get_player_key,  get_player_stats
 from sleeper_ff_bot.group_me import GroupMe
 from sleeper_ff_bot.slack import Slack
 from sleeper_ff_bot.discord import Discord
 import os
 import json
 import time
+import logging
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 from flask import Flask, request
+
 
 app = Flask(__name__)
 
@@ -16,11 +18,6 @@ bot = None
 bot_type = os.environ["BOT_TYPE"]
 league_id = os.environ["LEAGUE_ID"]
 
-# Check if the user specified the close game num. Default is 20.
-try:
-    close_num = os.environ["CLOSE_NUM"]
-except:
-    close_num = 20
 
 if bot_type == "groupme":
     bot_id = os.environ["BOT_ID"]
@@ -37,22 +34,49 @@ elif bot_type == "discord":
 def webhook():
     # 'message' is an object that represents a single GroupMe message.
     message = request.get_json()
+    if os.environ["WAITING_FOR_RESPONSE"] == "True":
+        try:
+            int(message['text'].lower())
+            stat_response = True
+        except:
+            stat_response = False
+        if stat_response == True and not sender_is_bot(message):
+            get_player_key(message['text'],message['name'].lower(),1)
     if '@bot' in message['text'].lower()  and not sender_is_bot(message):
         if 'adam' in message['name'].lower():
-            time.sleep(2)
+            time.sleep(1)
             bot.send(send_any_string,'Fuck off Adam')
         elif 'draft order' in message['text'].lower():
-            time.sleep(2)
+            time.sleep(1)
             bot.send(get_draft_order)
         elif 'who' in message['text'].lower():
-            time.sleep(2)
+            time.sleep(1)
             bot.send(get_player_name)
         elif 'fun fact' in message['text'].lower():
-            time.sleep(2)
+            time.sleep(1)
             bot.send(get_fun_fact)
         elif 'rule changes' in message['text'].lower():
-            time.sleep(2)
+            time.sleep(1)
             bot.send(get_rule_changes)
+        elif 'standings' in message['text'].lower():
+            time.sleep(1)
+            bot.send(get_standings_string, league_id)
+        elif 'score update' in message['text'].lower():
+            time.sleep(1)
+            bot.send(get_scores_string, league_id)
+        elif 'matchups' in message['text'].lower():
+            time.sleep(1)
+            bot.send(get_matchups_string, league_id)
+        elif 'stats' in message['text'].lower():
+            text = message['text']
+            text = text.replace("@bot","")
+            text = text.replace("stats", "")
+            text = text.replace(" ","")
+            text = text.lower()
+            time.sleep(1)
+            waiting = get_player_key(text, message['name'].lower(),0)
+            if waiting == True:
+                os.environ["WAITING_FOR_RESPONSE"] = "True"
         else:
             time.sleep(2)
             bot.send(send_any_string, 'I am unsure.')

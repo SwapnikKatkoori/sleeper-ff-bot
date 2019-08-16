@@ -6,6 +6,7 @@ import logging
 import random
 import gspread
 import json
+from prettytable import PrettyTable
 from apscheduler.schedulers.blocking import BlockingScheduler
 from oauth2client.service_account import ServiceAccountCredentials
 from people import names
@@ -151,6 +152,385 @@ def get_lowest_score(league_id):
             min_score[0] = score
             min_score[1] = team_name
     return min_score
+
+def get_player_key(search_string, requestor, name_key_switch):
+    players = Players().get_all_players()
+
+    bot_type = os.environ["BOT_TYPE"]
+
+    if bot_type == "groupme":
+        bot_id = os.environ["BOT_ID"]
+        bot = GroupMe(bot_id)
+    elif bot_type == "slack":
+        webhook = os.environ["SLACK_WEBHOOK"]
+        bot = Slack(webhook)
+    elif bot_type == "discord":
+        webhook = os.environ["DISCORD_WEBHOOK"]
+        bot = Discord(webhook)
+
+    found_players = []
+    logging.error(search_string)
+    if name_key_switch == 0:
+        for player_id in players:
+            player = players[player_id]
+            try:
+                if search_string in player["search_full_name"] or search_string in player["last_name"].lower() or search_string in player["last_name"].lower():
+                    found_players.append((player_id, player["full_name"], player["position"], player["team"], [requestor]))
+            except:
+                pass
+        if len(found_players) > 1:
+            text = "Which player are you looking for?\n\n"
+            for p in found_players:
+                text += "for {} ({} {}) - reply {}\n\n".format(p[1], p[2], p[3], p[0])
+            bot.send(send_any_string, text)
+            return True
+        elif len(found_players) == 1:
+            get_player_stats(found_players[0])
+            return False
+        elif len(found_players) == 0:
+            bot.send(send_any_string, 'Player not found')
+            return False
+    elif name_key_switch == 1:
+        player = players[search_string]
+        found_players.append((search_string, player["full_name"], player["position"], player["team"], [requestor]))
+        get_player_stats(found_players[0])
+        return False
+
+
+
+
+
+def get_player_stats(search_object):
+    stats = Stats(). get_all_stats("regular","2018")
+
+    bot_type = os.environ["BOT_TYPE"]
+
+    if bot_type == "groupme":
+        bot_id = os.environ["BOT_ID"]
+        bot = GroupMe(bot_id)
+    elif bot_type == "slack":
+        webhook = os.environ["SLACK_WEBHOOK"]
+        bot = Slack(webhook)
+    elif bot_type == "discord":
+        webhook = os.environ["DISCORD_WEBHOOK"]
+        bot = Discord(webhook)
+
+    player_id = search_object[0]
+    player_name = search_object[1]
+    position = search_object[2]
+    team = search_object[3]
+    player = stats[player_id]
+    final_string = "{} ({} - {})\n\n".format(player_name, position, team)
+    ga = player["gms_active"]
+    gp = player["gp"]
+    gs = player["gs"]
+
+    final_string += "Fantasy Points: {}\n\nGames Active: {}\nGames Played: {}\nGames Started: {}\n\n".format(player["pts_half_ppr"], ga, gp, gs)
+
+    if "QB" in position:
+        write = True
+        try:
+            rating = player["pass_rtg"]
+            if write:
+                final_string += "Passer Rating: {}\n".format(rating)
+        except:
+            write = False
+            pass
+        write = True
+        try:
+            pyards = player["pass_yd"]
+            if write:
+                final_string += "Passing Yards: {}\n".format(pyards)
+        except:
+            write = False
+            pass
+        write = True
+        try:
+            ptd = player["pass_td"]
+            if write:
+                final_string += "Passing TDs: {}\n".format(ptd)
+        except:
+            write = False
+            pass
+        write = True
+        try:
+            ryards = player["rush_yd"]
+            if write:
+                final_string += "Rushing Yards: {}\n".format(ryards)
+        except:
+            write = False
+            pass
+        write = True
+        try:
+            rtd = player["rush_td"]
+            if write:
+                final_string += "Rushing TDs: {}\n".format(rtd)
+        except:
+            write = False
+            pass
+        write = True
+        try:
+            int = player["pass_int"]
+            if write:
+                final_string += "Interceptions {}\n".format(int)
+        except:
+            write = False
+            pass
+        write = True
+        try:
+            fum = player["fum"]
+            if write:
+                final_string += "Fumbles: {}\n".format(fum)
+        except:
+            write = False
+            pass
+    if "RB" in position:
+        write = True
+        try:
+            ryards = player["rush_yd"]
+            if write:
+                final_string += "Rushing Yards: {}\n".format(ryards)
+        except:
+            write = False
+            pass
+        write = True
+        try:
+            rtd = player["rush_td"]
+            if write:
+                final_string += "Rushing TDs: {}\n".format(rtd)
+        except:
+            write = False
+            pass
+        write = True
+        try:
+            fum = player["fum"]
+            if write:
+                final_string += "Fumbles: {}\n".format(fum)
+        except:
+            write = False
+            pass
+        write = True
+        try:
+            rcyards = player["rec_yd"]
+            if write:
+                final_string += "Receiving Yards: {}\n".format(rcyards)
+        except:
+            write = False
+            pass
+        write = True
+        try:
+            rctd = player["rec_td"]
+            if write:
+                final_string += "Receiving TDs: {}\n".format(rctd)
+        except:
+            write = False
+            pass
+    if "WR" in position:
+        write = True
+        try:
+            rcyards = player["rec_yd"]
+            if write:
+                final_string += "Receiving Yards: {}\n".format(rcyards)
+        except:
+            write = False
+            pass
+        write = True
+        try:
+            rctd = player["rec_td"]
+            if write:
+                final_string += "Receiving TDs: {}\n".format(rctd)
+        except:
+            write = False
+            pass
+        write = True
+        try:
+            ryards = player["rush_yd"]
+            if write:
+                final_string += "Rushing Yards: {}\n".format(ryards)
+        except:
+            write = False
+            pass
+        write = True
+        try:
+            rtd = player["rush_td"]
+            if write:
+                final_string += "Rushing TDs: {}\n".format(rtd)
+        except:
+            write = False
+            pass
+        write = True
+        try:
+            fum = player["fum"]
+            if write:
+                final_string += "Fumbles: {}\n".format(fum)
+        except:
+            write = False
+            pass
+    if "TE" in position:
+        write = True
+        try:
+            rcyards = player["rec_yd"]
+            if write:
+                final_string += "Receiving Yards: {}\n".format(rcyards)
+        except:
+            write = False
+            pass
+        write = True
+        try:
+            rctd = player["rec_td"]
+            if write:
+                final_string += "Receiving TDs: {}\n".format(rctd)
+        except:
+            write = False
+            pass
+        write = True
+        try:
+            ryards = player["rush_yd"]
+            if write:
+                final_string += "Rushing Yards: {}\n".format(ryards)
+        except:
+            write = False
+            pass
+        write = True
+        try:
+            rtd = player["rush_td"]
+            if write:
+                final_string += "Rushing TDs: {}\n".format(rtd)
+        except:
+            write = False
+            pass
+        write = True
+        try:
+            fum = player["fum"]
+            if write:
+                final_string += "Fumbles: {}\n".format(fum)
+        except:
+            write = False
+            pass
+    if "K" in position:
+        write = True
+        try:
+            fga = player["fga"]
+            if write:
+                final_string += "Field Goals Attempted: {}\n".format(fga)
+        except:
+            write = False
+            pass
+        write = True
+        try:
+            fgm = player["fgm"]
+            if write:
+                final_string += "Field Goals Made: {}\n".format(fgm)
+        except:
+            write = False
+            pass
+        write = True
+        try:
+            fgm1 = player["fgm_0_19"]
+            if write:
+                final_string += "0-19: {}\n".format(fgm1)
+        except:
+            write = False
+            pass
+        write = True
+        try:
+            fgm2 = player["fgm_20_29"]
+            if write:
+                final_string += "20-29: {}\n".format(fgm2)
+        except:
+            write = False
+            pass
+        write = True
+        try:
+            fgm3 = player["fgm_30_39"]
+            if write:
+                final_string += "30-39: {}\n".format(fgm3)
+        except:
+            write = False
+            pass
+        write = True
+        try:
+            fgm4 = player["fgm_40_49"]
+            if write:
+                final_string += "40-49: {}\n".format(fgm4)
+        except:
+            write = False
+            pass
+        write = True
+        try:
+            fgm5 = player["fgm_50p"]
+            if write:
+                final_string += "50+: {}\n".format(fgm5)
+        except:
+            write = False
+            pass
+        write = True
+        try:
+            xpa = player["xpa"]
+            if write:
+                final_string += "XP Attempted: {}\n".format(xpa)
+        except:
+            write = False
+            pass
+        write = True
+        try:
+            xpm = player["xpm"]
+            if write:
+                final_string += "XP Made: {}\n".format(xpm)
+        except:
+            write = False
+            pass
+    if "DEF" in position:
+        write = True
+        try:
+            td = player["td"]
+            if write:
+                final_string += "Touchdowns: {}\n".format(td)
+        except:
+            write = False
+            pass
+        write = True
+        try:
+            ff = player["ff"]
+            if write:
+                final_string += "Forced Fumbles: {}\n".format(ff)
+        except:
+            write = False
+            pass
+        write = True
+        try:
+            fum_rec = player["fum_rec"]
+            if write:
+                final_string += "Fumbles Recoved: {}\n".format(fum_rec)
+        except:
+            write = False
+            pass
+        write = True
+        try:
+            tkl = player["tkl_loss"]
+            if write:
+                final_string += "Tackles For Loss: {}\n".format(tkl)
+        except:
+            write = False
+            pass
+        write = True
+        try:
+            qbh = player["qb_hit"]
+            if write:
+                final_string += "QB Hits: {}\n".format(qbh)
+        except:
+            write = False
+            pass
+        write = True
+        try:
+            sck = player["sack"]
+            if write:
+                final_string += "Sacks: {}\n".format(sck)
+        except:
+            write = False
+            pass
+
+    bot.send(send_any_string, final_string)
 
 
 def make_roster_dict(starters_list, bench_list):
@@ -352,7 +732,7 @@ def get_current_week():
     today = pendulum.today()
     starting_week = pendulum.datetime(STARTING_YEAR, STARTING_MONTH, STARTING_DAY)
     week = today.diff(starting_week).in_weeks()
-    return week + 1
+    return week
 
 
 """
@@ -468,7 +848,8 @@ def get_standings_string(league_id):
     users = league.get_users()
     standings = league.get_standings(rosters, users)
     final_message_string = "________________________________\n"
-    final_message_string += "Standings \n|{0:^7}|{1:^7}|{2:^7}|{3:^7}\n".format("rank", "team", "wins", "points")
+    #final_message_string += "Standings \n|{0:^7}|{1:^7}|{2:^7}|{3:^7}\n".format("rank", "team", "wins", "points")
+    final_message_string += "Standings\n"
     final_message_string += "________________________________\n\n"
     try:
         playoff_line = os.environ["NUMBER_OF_PLAYOFF_TEAMS"] - 1
@@ -478,11 +859,11 @@ def get_standings_string(league_id):
         team = standing[0]
         if team is None:
             team = "Team NA"
-        if len(team) >= 7:
-            team_name = team[:7]
-        else:
-            team_name = team
-        string_to_add = "{0:^7} {1:^10} {2:>7} {3:>7}\n".format(i + 1, team_name, standing[1], standing[2])
+        #if len(team) >= 7:
+            #team_name = team[:7]
+        #else:
+        team_name = team
+        string_to_add = "{} - {} ({}-{})\n".format(i + 1, team_name, standing[1], standing[2])
         if i == playoff_line:
             string_to_add += "________________________________\n\n"
         final_message_string += string_to_add
