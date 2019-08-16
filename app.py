@@ -39,13 +39,15 @@ def webhook():
         #if message['name'].lower() in waiting_for_response_from:
             #get_player_key(message['text'],message['name'],1)
             #persist(1,[])
-    try:
-        int(message['text'].lower())
-        stat_response = True
-    except:
-        stat_response = False
-    if stat_response == True and not sender_is_bot(message):
-        get_player_key(message['text'],message['name'].lower(),1)
+    logging.error(os.environ["WAITING_FOR_RESPONSE"])
+    if os.environ["WAITING_FOR_RESPONSE"] == "True":
+        try:
+            int(message['text'].lower())
+            stat_response = True
+        except:
+            stat_response = False
+        if stat_response == True and not sender_is_bot(message):
+            get_player_key(message['text'],message['name'].lower(),1)
     if '@bot' in message['text'].lower()  and not sender_is_bot(message):
         if 'adam' in message['name'].lower():
             time.sleep(2)
@@ -77,10 +79,9 @@ def webhook():
             text = text.replace("stats", "")
             text = text.replace(" ","")
             text = text.lower()
-            multiplayers = get_player_key(text, message['name'].lower(),0)
-            #if multiplayers != False:
-                #waiting_for_response_from = persist(multiplayers[0][4][0],[])
-                #logging.error(waiting_for_response_from)
+            waiting = get_player_key(text, message['name'].lower(),0)
+            if waiting = True:
+                os.environ["WAITING_FOR_RESPONSE"] = "True"
         else:
             time.sleep(2)
             bot.send(send_any_string, 'I am unsure.')
