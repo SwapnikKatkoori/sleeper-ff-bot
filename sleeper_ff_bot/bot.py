@@ -250,7 +250,7 @@ def get_player_stats(search_object):
             pass
         try:
             pts_half_ppr = player["pts_half_ppr"]
-        except
+        except:
             pts_half_ppr = 0
             pass
 
