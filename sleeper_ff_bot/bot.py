@@ -201,9 +201,13 @@ def get_player_key(search_string, requestor, name_key_switch):
 
 
 def get_player_stats(search_object):
-    stats = Stats(). get_all_stats("regular","2018")
+
+    year = '2018'
+
+    stats = Stats(). get_all_stats("regular",year)
 
     bot_type = os.environ["BOT_TYPE"]
+
 
     if bot_type == "groupme":
         bot_id = os.environ["BOT_ID"]
@@ -550,7 +554,7 @@ def get_player_stats(search_object):
                 write = False
                 pass
     else:
-        final_string = "No stats found for {}".format(player_name)
+        final_string = "No {} stats found for {}".format(year, player_name)
 
     bot.send(send_any_string, final_string)
 
