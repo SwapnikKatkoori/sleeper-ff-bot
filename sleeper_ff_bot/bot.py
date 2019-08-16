@@ -220,9 +220,11 @@ def get_player_stats(search_object):
     position = search_object[2]
     team = search_object[3]
     player = stats[player_id]
-    text = "Stats for {} here.".format(player_name)
+    final_string = "{} ({} - {})\n\n".format(player_name, position, team)
 
-    bot.send(send_any_string, text)
+    final_string += "Games Active: {}\nGames Played: {}\nGames Started: {}".format(int(player["gms_active"]),int(player["gp"]),int(player["gs"]))
+
+    bot.send(send_any_string, final_string)
 
 
 def make_roster_dict(starters_list, bench_list):
