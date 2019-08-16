@@ -169,7 +169,7 @@ def get_player_key(search_string, requestor, name_key_switch):
         bot = Discord(webhook)
 
     found_players = []
-
+    logging.error(search_string)
     if name_key_switch == 0:
         for player_id in players:
             player = players[player_id]
