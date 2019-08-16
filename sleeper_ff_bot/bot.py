@@ -6,7 +6,7 @@ import logging
 import random
 import gspread
 import json
-from prettytable import PrettyTable
+from fuzzywuzzy import fuzz
 from apscheduler.schedulers.blocking import BlockingScheduler
 from oauth2client.service_account import ServiceAccountCredentials
 from people import names
@@ -173,27 +173,41 @@ def get_player_key(search_string, requestor, name_key_switch):
         for player_id in players:
             player = players[player_id]
             try:
-                if search_string in player["search_full_name"] or search_string in player["last_name"].lower() or search_string in player["last_name"].lower():
+                token_set_ratio = fuzz.token_set_ratio(search_string, player["search_full_name"])
+                if search_string in player["search_full_name"]:
+                    found_players.append((player_id, player["full_name"], player["position"], player["team"], [requestor]))
+                elif token_set_ratio > 79:
                     found_players.append((player_id, player["full_name"], player["position"], player["team"], [requestor]))
             except:
                 pass
+            if player["position"] == "DEF":
+                search_name = player["first_name"].lower() + player["last_name"].lower()
+                search_name = search_name.replace(" ","")
+                full_name_clean = player["first_name"] + " " + player["last_name"]
+                def_ratio = fuzz.ratio(search_string, search_name)
+                if def_ratio > 54:
+                    found_players.append((player_id, full_name_clean, player["position"], player["team"], [requestor]))
         if len(found_players) > 1:
             text = "Which player are you looking for?\n\n"
             for p in found_players:
                 text += "for {} ({} {}) - reply {}\n\n".format(p[1], p[2], p[3], p[0])
             bot.send(send_any_string, text)
-            return True
+            return "True"
         elif len(found_players) == 1:
             get_player_stats(found_players[0])
-            return False
+            return "False"
         elif len(found_players) == 0:
             bot.send(send_any_string, 'Player not found')
-            return False
+            return "False"
     elif name_key_switch == 1:
         player = players[search_string]
-        found_players.append((search_string, player["full_name"], player["position"], player["team"], [requestor]))
+        if player["position"] == "DEF":
+            full_name_clean = player["first_name"] + " " + player["last_name"]
+            found_players.append((search_string, full_name_clean, player["position"], player["team"], [requestor]))
+        else:
+            found_players.append((search_string, player["full_name"], player["position"], player["team"], [requestor]))
         get_player_stats(found_players[0])
-        return False
+        return "False"
 
 
 
@@ -245,8 +259,13 @@ def get_player_stats(search_object):
         except:
             gs = 0
             pass
+        try:
+            pts_half_ppr = player["pts_half_ppr"]
+        except:
+            pts_half_ppr = 0
+            pass
 
-        final_string += "Fantasy Points: {}\n\nGames Active: {}\nGames Played: {}\nGames Started: {}\n\n".format(player["pts_half_ppr"], ga, gp, gs)
+        final_string += "Fantasy Points: {}\n\nGames Active: {}\nGames Played: {}\nGames Started: {}\n\n".format(pts_half_ppr, ga, gp, gs)
 
         if "QB" in position:
             write = True
@@ -551,6 +570,8 @@ def get_player_stats(search_object):
                 write = False
                 pass
     else:
+        if player_name == "Aaron Hernandez":
+            final_string = "{} hung himself. Gone Forever! Aaron Hernandez.".format(player_name)
         final_string = "No {} stats found for {}".format(year, player_name)
 
     bot.send(send_any_string, final_string)
