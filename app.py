@@ -46,10 +46,8 @@ def webhook():
         logging.error(stat_response)
     except:
         stat_response = False
-    if stat_response = True:
+    if stat_response == True and not sender_is_bot(message):
         get_player_key(message['text'],1)
-
-
     if '@bot' in message['text'].lower()  and not sender_is_bot(message):
         if 'adam' in message['name'].lower():
             time.sleep(2)
