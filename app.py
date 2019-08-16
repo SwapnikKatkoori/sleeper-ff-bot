@@ -73,6 +73,7 @@ def webhook():
                 text = text.replace(" ","")
                 text = text.lower()
                 waiting = get_player_key(text, message['name'].lower(),0)
+                logging.error(waiting)
                 if waiting == True:
                     os.environ["WAITING_FOR_RESPONSE"] = "True"
             else:
