@@ -6,7 +6,7 @@ import logging
 import random
 import gspread
 import json
-from prettytable import PrettyTable
+from fuzzywuzzy import fuzz
 from apscheduler.schedulers.blocking import BlockingScheduler
 from oauth2client.service_account import ServiceAccountCredentials
 from people import names
