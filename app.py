@@ -11,13 +11,6 @@ from urllib.request import Request, urlopen
 from flask import Flask, request
 
 
-def persist(x,lis=[]):
-    lis.append(x)
-    return lis
-
-Class Waiting(object):
-    waiting_for_response_from = []
-
 app = Flask(__name__)
 
 bot = None
@@ -40,13 +33,23 @@ elif bot_type == "discord":
 @app.route('/', methods=['POST'])
 def webhook():
     # 'message' is an object that represents a single GroupMe message.
-    waiting_for_response_from = Waiting.waiting_for_response_from
     message = request.get_json()
-    if len(waiting_for_response_from) > 0:
-        logging.error(waiting_for_response_from[0])
-        if message['name'].lower() in waiting_for_response_from:
-            get_player_key(message['text'],message['name'],1)
-            persist(1,[])
+    #if len(waiting_for_response_from) > 0:
+        #logging.error(waiting_for_response_from[0])
+        #if message['name'].lower() in waiting_for_response_from:
+            #get_player_key(message['text'],message['name'],1)
+            #persist(1,[])
+    try:
+        logging.error(message['text'].lower())
+        int(message['text'].lower())
+        stat_response = True
+        logging.error(stat_response)
+    except:
+        stat_response = False
+    if stat_response = True:
+        get_player_key(message['text'],1)
+
+
     if '@bot' in message['text'].lower()  and not sender_is_bot(message):
         if 'adam' in message['name'].lower():
             time.sleep(2)
@@ -79,9 +82,9 @@ def webhook():
             text = text.replace(" ","")
             text = text.lower()
             multiplayers = get_player_key(text, message['name'].lower(),0)
-            if multiplayers != False:
-                waiting_for_response_from = persist(multiplayers[0][4][0],[])
-                logging.error(waiting_for_response_from)
+            #if multiplayers != False:
+                #waiting_for_response_from = persist(multiplayers[0][4][0],[])
+                #logging.error(waiting_for_response_from)
         else:
             time.sleep(2)
             bot.send(send_any_string, 'I am unsure.')
