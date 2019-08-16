@@ -32,11 +32,11 @@ elif bot_type == "discord":
 
 @app.route('/', methods=['POST'])
 def webhook():
-    logging.error(os.environ["WAITING_FOR_RESPONSE"])
     # 'message' is an object that represents a single GroupMe message.
     message = request.get_json()
     if not sender_is_bot(message):
         time.sleep(3)
+        logging.error(os.environ["WAITING_FOR_RESPONSE"])
         if os.environ["WAITING_FOR_RESPONSE"] == "True":
             try:
                 int(message['text'].lower())
