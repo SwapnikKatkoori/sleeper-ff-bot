@@ -40,10 +40,8 @@ def webhook():
             #get_player_key(message['text'],message['name'],1)
             #persist(1,[])
     try:
-        logging.error(message['text'].lower())
         int(message['text'].lower())
         stat_response = True
-        logging.error(stat_response)
     except:
         stat_response = False
     if stat_response == True and not sender_is_bot(message):

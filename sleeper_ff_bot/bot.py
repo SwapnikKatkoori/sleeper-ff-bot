@@ -188,7 +188,9 @@ def get_player_key(search_string, requestor, name_key_switch):
             get_player_stats(found_players[0])
             return False
     elif name_key_switch == 1:
+        logging.error(search_string)
         player = players[search_string]
+        logging.error(player)
         try:
             if player["search_full_name"] ==  search_string:
                 found_players.append((player_id, player["full_name"], player["position"], player["team"], [requestor]))
