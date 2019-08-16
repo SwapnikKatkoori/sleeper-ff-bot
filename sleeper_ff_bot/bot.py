@@ -182,9 +182,13 @@ def get_player_key(search_string, requestor, name_key_switch):
                 pass
             try:
                 if player["position"] == "DEF":
+                    logging.error(player["position"])
                     search_name =  player["first_name"].lower() + player["last_name"].lower()
                     search_name = search_name.replace(" ","")
                     def_token_set_ratio = fuzz.token_set_ratio(search_string, search_name)
+                    logging.error(search_string)
+                    logging.error(search_name)
+                    logging.error(def_token_set_ratio)
                     if def_token_set_ratio > 79:
                         found_players.append((player_id, player["full_name"], player["position"], player["team"], [requestor]))
             except:
