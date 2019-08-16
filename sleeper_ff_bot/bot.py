@@ -203,7 +203,7 @@ def get_player_key(search_string, requestor, name_key_switch):
         player = players[search_string]
         if player["position"] == "DEF":
             full_name_clean = player["first_name"] + " " + player["last_name"]
-            found_players.append((player_id, full_name_clean, player["position"], player["team"], [requestor]))
+            found_players.append((search_string, full_name_clean, player["position"], player["team"], [requestor]))
         else:
             found_players.append((search_string, player["full_name"], player["position"], player["team"], [requestor]))
         get_player_stats(found_players[0])
