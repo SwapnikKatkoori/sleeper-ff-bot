@@ -190,7 +190,7 @@ def get_player_key(search_string, requestor, name_key_switch):
             return False
     elif name_key_switch == 1:
         player = players[search_string]
-        found_players.append((player_id, player["full_name"], player["position"], player["team"], [requestor]))
+        found_players.append((search_string, player["full_name"], player["position"], player["team"], [requestor]))
         get_player_stats(found_players[0])
 
 
