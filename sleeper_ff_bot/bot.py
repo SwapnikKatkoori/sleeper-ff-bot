@@ -233,7 +233,7 @@ def get_player_stats(search_object):
     if stats_run:
         final_string = "{} ({} - {})\n\n".format(player_name, position, team)
         try:
-            ga = player["gms_active"]
+            ga = int(player["gms_active"])
         except:
             ga = 0
             pass
@@ -248,8 +248,13 @@ def get_player_stats(search_object):
         except:
             gs = 0
             pass
+        try:
+            pts_half_ppr = player["pts_half_ppr"]
+        except
+            pts_half_ppr = 0
+            pass
 
-        final_string += "Fantasy Points: {}\n\nGames Active: {}\nGames Played: {}\nGames Started: {}\n\n".format(player["pts_half_ppr"], ga, gp, gs)
+        final_string += "Fantasy Points: {}\n\nGames Active: {}\nGames Played: {}\nGames Started: {}\n\n".format(pts_half_ppr, ga, gp, gs)
 
         if "QB" in position:
             write = True
