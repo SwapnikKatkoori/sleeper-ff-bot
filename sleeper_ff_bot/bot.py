@@ -225,7 +225,7 @@ def get_player_stats(search_object):
     gp = player["gp"]
     gs = player["gs"]
 
-    final_string += "Fantasy Points: {}\n\nGames Active: {}\nGames Played: {}\nGames Started: {}".format(player["pts_half_ppr"], ga, gp, gs)
+    final_string += "Fantasy Points: {}\n\nGames Active: {}\nGames Played: {}\nGames Started: {}\n\n".format(player["pts_half_ppr"], ga, gp, gs)
 
     if "QB" in position:
         write = True
