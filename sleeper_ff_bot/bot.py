@@ -569,6 +569,8 @@ def get_player_stats(search_object):
                 write = False
                 pass
     else:
+        if player_name == "Aaron Hernandez":
+            final_string = "{} hung himself. Gone Forever! Aaron Hernandez.".format(player_name)
         final_string = "No {} stats found for {}".format(year, player_name)
 
     bot.send(send_any_string, final_string)
