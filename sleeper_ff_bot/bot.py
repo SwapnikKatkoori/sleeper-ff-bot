@@ -183,11 +183,9 @@ def get_player_key(search_string, requestor, name_key_switch):
             if player["position"] == "DEF":
                 logging.error(player["position"])
                 search_name = player["first_name"].lower() + player["last_name"].lower()
+                search_name = replace(" ","")
                 full_name_clean = player["first_name"] + " " + player["last_name"]
                 def_ratio = fuzz.ratio(search_string, search_name)
-                logging.error(search_string)
-                logging.error(search_name)
-                logging.error(def_ratio)
                 if def_ratio > 54:
                     found_players.append((player_id, full_name_clean, player["position"], player["team"], [requestor]))
         if len(found_players) > 1:
