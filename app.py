@@ -36,7 +36,7 @@ def webhook():
     # 'message' is an object that represents a single GroupMe message.
     message = request.get_json()
     time.sleep(3)
-    if os.environ["WAITING_FOR_RESPONSE"] == "True" and not sender_is_bot(message)::
+    if os.environ["WAITING_FOR_RESPONSE"] == "True" and not sender_is_bot(message):
         try:
             int(message['text'].lower())
             stat_response = True
