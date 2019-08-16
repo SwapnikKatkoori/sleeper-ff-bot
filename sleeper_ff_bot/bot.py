@@ -192,13 +192,13 @@ def get_player_key(search_string, requestor, name_key_switch):
             for p in found_players:
                 text += "for {} ({} {}) - reply {}\n\n".format(p[1], p[2], p[3], p[0])
             bot.send(send_any_string, text)
-            return True
+            return "True"
         elif len(found_players) == 1:
             get_player_stats(found_players[0])
-            return False
+            return "False"
         elif len(found_players) == 0:
             bot.send(send_any_string, 'Player not found')
-            return False
+            return "False"
     elif name_key_switch == 1:
         player = players[search_string]
         if player["position"] == "DEF":
@@ -207,7 +207,7 @@ def get_player_key(search_string, requestor, name_key_switch):
         else:
             found_players.append((search_string, player["full_name"], player["position"], player["team"], [requestor]))
         get_player_stats(found_players[0])
-        return False
+        return "False"
 
 
 
