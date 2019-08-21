@@ -174,10 +174,14 @@ def get_player_key(search_string, requestor, name_key_switch):
             player = players[player_id]
             try:
                 token_set_ratio = fuzz.token_set_ratio(search_string, player["search_full_name"])
+                try:
+                    injury_status = player["injury_status"]
+                except
+                    injury_status = None
                 if search_string in player["search_full_name"]:
-                    found_players.append((player_id, player["full_name"], player["position"], player["team"], player["injury_status"]))
+                    found_players.append((player_id, player["full_name"], player["position"], player["team"], injury_status))
                 elif token_set_ratio > 79:
-                    found_players.append((player_id, player["full_name"], player["position"], player["team"], player["injury_status"]))
+                    found_players.append((player_id, player["full_name"], player["position"], player["team"], injury_status))
             except:
                 pass
             if player["position"] == "DEF":
@@ -185,8 +189,12 @@ def get_player_key(search_string, requestor, name_key_switch):
                 search_name = search_name.replace(" ","")
                 full_name_clean = player["first_name"] + " " + player["last_name"]
                 def_ratio = fuzz.ratio(search_string, search_name)
+                try:
+                    injury_status = player["injury_status"]
+                except
+                    injury_status = None
                 if def_ratio > 54:
-                    found_players.append((player_id, full_name_clean, player["position"], player["team"], player["injury_status"]))
+                    found_players.append((player_id, full_name_clean, player["position"], player["team"], injury_status))
         if len(found_players) > 1:
             text = "Which player are you looking for?\n\n"
             for p in found_players:
@@ -203,9 +211,13 @@ def get_player_key(search_string, requestor, name_key_switch):
         player = players[search_string]
         if player["position"] == "DEF":
             full_name_clean = player["first_name"] + " " + player["last_name"]
-            found_players.append((search_string, full_name_clean, player["position"], player["team"], player["injury_status"]))
+            try:
+                injury_status = player["injury_status"]
+            except
+                injury_status = None
+            found_players.append((search_string, full_name_clean, player["position"], player["team"], injury_status))
         else:
-            found_players.append((search_string, player["full_name"], player["position"], player["team"], player["injury_status"]))
+            found_players.append((search_string, player["full_name"], player["position"], player["team"], injury_status))
         get_player_stats(found_players[0])
         return "False"
 
@@ -268,7 +280,10 @@ def get_player_stats(search_object):
     if position not in ["QB","RB","WR","TE","DEF"]:
         stats_run = False
     if stats_run:
-        final_string = "{} ({} - {})\n{}\n\n".format(player_name, position, team,injury_status)
+        if position is not "DEF":
+            final_string = "{} ({} - {})\n{}\n\n".format(player_name, position, team,injury_status)
+        else:
+            final_string = "{} ({} - {})\n\n".format(player_name, position, team)            
 
         if position is not "DEF":
             try:
