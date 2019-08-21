@@ -56,18 +56,38 @@ def webhook():
                 bot.send(get_draft_order)
             elif 'who' in message['text'].lower():
                 if 'quarterback' in message['text'].lower() or ' qb ' in message['text'].lower():
-                    text = get_random_player('qb')
+                    if 'best' in message['text'].lower():
+                        best_any_flag = 'best'
+                    else:
+                        best_any_flag = 'any'
+                    text = get_random_player('qb',best_any_flag)
                 if 'running back' in message['text'].lower() or ' rb ' in message['text'].lower():
-                    text = get_random_player('rb')
+                    if 'best' in message['text'].lower():
+                        best_any_flag = 'best'
+                    else:
+                        best_any_flag = 'any'
+                    text = get_random_player('rb',best_any_flag)
                 if 'wide receiver' in message['text'].lower() or ' wr ' in message['text'].lower():
-                    text = get_random_player('wr')
+                    if 'best' in message['text'].lower():
+                        best_any_flag = 'best'
+                    else:
+                        best_any_flag = 'any'
+                    text = get_random_player('wr',best_any_flag)
                 if 'tight end' in message['text'].lower() or ' te ' in message['text'].lower():
-                    text = get_random_player('te')
+                    if 'best' in message['text'].lower():
+                        best_any_flag = 'best'
+                    else:
+                        best_any_flag = 'any'
+                    text = get_random_player('te',best_any_flag)
                 if 'defense' in message['text'].lower() or ' def ' in message['text'].lower():
-                    text = get_random_player('def')
+                    text = get_random_player('def', 'any')
                 if 'kicker' in message['text'].lower() or ' k ' in message['text'].lower():
-                    text = get_random_player('k')
-                    
+                    if 'best' in message['text'].lower():
+                        best_any_flag = 'best'
+                    else:
+                        best_any_flag = 'any'
+                    text = get_random_player('k',best_any_flag)
+
                 bot.send(send_any_string, text)
             elif 'fun fact' in message['text'].lower():
                 bot.send(get_fun_fact)
