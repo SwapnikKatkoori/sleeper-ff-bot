@@ -291,7 +291,7 @@ def get_player_stats(search_object):
 
         if position is not "DEF":
             try:
-                ga = round(player["gms_active"],0)
+                ga = int(player["gms_active"])
             except:
                 ga = 0
                 pass
