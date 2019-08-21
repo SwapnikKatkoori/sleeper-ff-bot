@@ -223,7 +223,7 @@ def get_random_player(position,ba_flag):
                     position_players.append((full_name_clean))
                 else:
                     if ba_flag == 'best':
-                        if player["team"] not None and player["status"] == 'active' and player["injury_status"] == None and player["depth_chart_order"] == 1
+                        if player["team"] is not None and player["status"] == 'active' and player["injury_status"] is None and player["depth_chart_order"] == 1
                     else:
                         position_players.append((player["full_name"]))
         except:
