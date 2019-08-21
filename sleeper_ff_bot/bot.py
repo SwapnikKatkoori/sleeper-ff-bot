@@ -375,6 +375,11 @@ def get_player_stats(search_object):
             except:
                 pass
             try:
+                drop_perc = round((player["rec"]/player["rec_tgt"])*100,2)
+                final_string += "Catch Rate: {}%\n".format(drop_perc)
+            except:
+                pass
+            try:
                 rcyards = player["rec_yd"]
                 final_string += "Receiving Yards: {}\n".format(rcyards)
             except:
@@ -424,6 +429,11 @@ def get_player_stats(search_object):
             try:
                 rctd = player["rec_td"]
                 final_string += "Receiving TDs: {}\n".format(rctd)
+            except:
+                pass
+            try:
+                drop_perc = round((player["rec"]/player["rec_tgt"])*100,2)
+                final_string += "Catch Rate: {}%\n".format(drop_perc)
             except:
                 pass
             try:
