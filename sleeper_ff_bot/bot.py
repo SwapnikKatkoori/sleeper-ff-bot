@@ -216,19 +216,19 @@ def get_random_player(position,ba_flag):
 
     for player_id in players:
         player = players[player_id]
-        #try:
-        if player["position"].lower() == position:
-            if position == 'def':
-                full_name_clean = player["first_name"] + " " + player["last_name"]
-                position_players.append((full_name_clean))
-            else:
-                if ba_flag == 'best':
-                    if player["team"] is not None and player["status"] == 'active' and player["injury_status"] is None and player["depth_chart_order"] == 1:
-                        position_players.append((player["full_name"]))
+        try:
+            if player["position"].lower() == position:
+                if position == 'def':
+                    full_name_clean = player["first_name"] + " " + player["last_name"]
+                    position_players.append((full_name_clean))
                 else:
-                    position_players.append((player["full_name"]))
-        #except:
-            #pass
+                    if ba_flag == 'best':
+                        if player["team"] is not None and player["status"] == 'active' and player["injury_status"] is None and player["depth_chart_order"] == 1:
+                            position_players.append((player["full_name"]))
+                    else:
+                        position_players.append((player["full_name"]))
+        except:
+            pass
     response = [random.choice(position_players)]
     return response
 
