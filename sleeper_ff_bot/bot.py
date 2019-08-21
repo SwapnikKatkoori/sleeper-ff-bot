@@ -210,7 +210,7 @@ def get_player_key(search_string, requestor, name_key_switch):
         return "False"
 
 
-def get_random_player(position):
+def get_random_player(position,ba_flag):
     players = Players().get_all_players()
     position_players = []
 
@@ -222,7 +222,11 @@ def get_random_player(position):
                     full_name_clean = player["first_name"] + " " + player["last_name"]
                     position_players.append((full_name_clean))
                 else:
-                    position_players.append((player["full_name"]))
+                    if ba_flag == 'best':
+                        if player["team"] is not None and player["status"].lower() == 'active' and player["injury_status"] is None and player["depth_chart_order"] == 1:
+                            position_players.append((player["full_name"]))
+                    else:
+                        position_players.append((player["full_name"]))
         except:
             pass
     response = [random.choice(position_players)]
