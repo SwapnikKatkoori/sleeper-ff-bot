@@ -176,7 +176,7 @@ def get_player_key(search_string, requestor, name_key_switch):
                 token_set_ratio = fuzz.token_set_ratio(search_string, player["search_full_name"])
                 try:
                     injury_status = player["injury_status"]
-                except
+                except:
                     injury_status = None
                 if search_string in player["search_full_name"]:
                     found_players.append((player_id, player["full_name"], player["position"], player["team"], injury_status))
@@ -191,7 +191,7 @@ def get_player_key(search_string, requestor, name_key_switch):
                 def_ratio = fuzz.ratio(search_string, search_name)
                 try:
                     injury_status = player["injury_status"]
-                except
+                except:
                     injury_status = None
                 if def_ratio > 54:
                     found_players.append((player_id, full_name_clean, player["position"], player["team"], injury_status))
@@ -213,7 +213,7 @@ def get_player_key(search_string, requestor, name_key_switch):
             full_name_clean = player["first_name"] + " " + player["last_name"]
             try:
                 injury_status = player["injury_status"]
-            except
+            except:
                 injury_status = None
             found_players.append((search_string, full_name_clean, player["position"], player["team"], injury_status))
         else:
@@ -283,7 +283,7 @@ def get_player_stats(search_object):
         if position is not "DEF":
             final_string = "{} ({} - {})\n{}\n\n".format(player_name, position, team,injury_status)
         else:
-            final_string = "{} ({} - {})\n\n".format(player_name, position, team)            
+            final_string = "{} ({} - {})\n\n".format(player_name, position, team)
 
         if position is not "DEF":
             try:
