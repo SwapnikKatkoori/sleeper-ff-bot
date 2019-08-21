@@ -265,10 +265,12 @@ def get_player_stats(search_object):
     except:
         stats_run = False
         pass
+    if position not in ["QB","RB","WR","TE","DEF"]:
+        stats_run = False
     if stats_run:
         final_string = "{} ({} - {})\n{}\n\n".format(player_name, position, team,injury_status)
 
-        if "DEF" not in position:
+        if position is not "DEF":
             try:
                 ga = player["gms_active"]
             except:
@@ -297,316 +299,208 @@ def get_player_stats(search_object):
                 team_snaps = player["tm_off_snp"]
                 player_snaps = player["off_snp"]
                 snap_perc = round((player_snaps / team_snaps)*100,2)
-                final_string += "Snap Percentage: {}%\n".format(snap_perc)
+                final_string += "Snap Share: {}%\n".format(snap_perc)
             except:
                 pass
 
         if "QB" in position:
-            write = True
             try:
                 rating = player["pass_rtg"]
-                if write:
-                    final_string += "Passer Rating: {}\n".format(rating)
+                final_string += "Passer Rating: {}\n".format(rating)
             except:
-                write = False
                 pass
-            write = True
             try:
                 pyards = player["pass_yd"]
-                if write:
-                    final_string += "Passing Yards: {}\n".format(pyards)
+                final_string += "Passing Yards: {}\n".format(pyards)
             except:
-                write = False
                 pass
-            write = True
             try:
                 ptd = player["pass_td"]
-                if write:
-                    final_string += "Passing TDs: {}\n".format(ptd)
+                final_string += "Passing TDs: {}\n".format(ptd)
             except:
-                write = False
                 pass
-            write = True
             try:
                 ryards = player["rush_yd"]
-                if write:
-                    final_string += "Rushing Yards: {}\n".format(ryards)
+                final_string += "Rushing Yards: {}\n".format(ryards)
             except:
-                write = False
                 pass
-            write = True
             try:
                 rtd = player["rush_td"]
-                if write:
-                    final_string += "Rushing TDs: {}\n".format(rtd)
+                final_string += "Rushing TDs: {}\n".format(rtd)
             except:
-                write = False
                 pass
-            write = True
             try:
                 int = player["pass_int"]
-                if write:
-                    final_string += "Interceptions {}\n".format(int)
+                final_string += "Interceptions {}\n".format(int)
             except:
-                write = False
                 pass
-            write = True
             try:
                 fum = player["fum"]
-                if write:
-                    final_string += "Fumbles: {}\n".format(fum)
+                final_string += "Fumbles: {}\n".format(fum)
             except:
-                write = False
                 pass
         if "RB" in position:
-            write = True
             try:
                 ryards = player["rush_yd"]
-                if write:
-                    final_string += "Rushing Yards: {}\n".format(ryards)
+                final_string += "Rushing Yards: {}\n".format(ryards)
             except:
-                write = False
                 pass
-            write = True
             try:
                 rtd = player["rush_td"]
-                if write:
-                    final_string += "Rushing TDs: {}\n".format(rtd)
+                final_string += "Rushing TDs: {}\n".format(rtd)
             except:
-                write = False
                 pass
-            write = True
             try:
                 fum = player["fum"]
-                if write:
-                    final_string += "Fumbles: {}\n".format(fum)
+                final_string += "Fumbles: {}\n".format(fum)
             except:
-                write = False
                 pass
-            write = True
             try:
                 rcyards = player["rec_yd"]
-                if write:
-                    final_string += "Receiving Yards: {}\n".format(rcyards)
+                final_string += "Receiving Yards: {}\n".format(rcyards)
             except:
-                write = False
                 pass
-            write = True
             try:
                 rctd = player["rec_td"]
-                if write:
-                    final_string += "Receiving TDs: {}\n".format(rctd)
+                final_string += "Receiving TDs: {}\n".format(rctd)
             except:
-                write = False
                 pass
         if "WR" in position:
-            write = True
             try:
                 rcyards = player["rec_yd"]
-                if write:
-                    final_string += "Receiving Yards: {}\n".format(rcyards)
+                final_string += "Receiving Yards: {}\n".format(rcyards)
             except:
-                write = False
                 pass
-            write = True
             try:
                 rctd = player["rec_td"]
-                if write:
-                    final_string += "Receiving TDs: {}\n".format(rctd)
+                final_string += "Receiving TDs: {}\n".format(rctd)
             except:
-                write = False
                 pass
-            write = True
             try:
                 ryards = player["rush_yd"]
-                if write:
-                    final_string += "Rushing Yards: {}\n".format(ryards)
+                final_string += "Rushing Yards: {}\n".format(ryards)
             except:
-                write = False
                 pass
-            write = True
             try:
                 rtd = player["rush_td"]
-                if write:
-                    final_string += "Rushing TDs: {}\n".format(rtd)
+                final_string += "Rushing TDs: {}\n".format(rtd)
             except:
-                write = False
                 pass
-            write = True
             try:
                 fum = player["fum"]
-                if write:
-                    final_string += "Fumbles: {}\n".format(fum)
+                final_string += "Fumbles: {}\n".format(fum)
             except:
-                write = False
                 pass
         if "TE" in position:
-            write = True
             try:
                 rcyards = player["rec_yd"]
-                if write:
-                    final_string += "Receiving Yards: {}\n".format(rcyards)
+                final_string += "Receiving Yards: {}\n".format(rcyards)
             except:
-                write = False
                 pass
-            write = True
             try:
                 rctd = player["rec_td"]
-                if write:
-                    final_string += "Receiving TDs: {}\n".format(rctd)
+                final_string += "Receiving TDs: {}\n".format(rctd)
             except:
-                write = False
                 pass
-            write = True
             try:
                 ryards = player["rush_yd"]
-                if write:
-                    final_string += "Rushing Yards: {}\n".format(ryards)
+                final_string += "Rushing Yards: {}\n".format(ryards)
             except:
-                write = False
                 pass
-            write = True
             try:
                 rtd = player["rush_td"]
-                if write:
-                    final_string += "Rushing TDs: {}\n".format(rtd)
+                final_string += "Rushing TDs: {}\n".format(rtd)
             except:
-                write = False
                 pass
-            write = True
             try:
                 fum = player["fum"]
-                if write:
-                    final_string += "Fumbles: {}\n".format(fum)
+                final_string += "Fumbles: {}\n".format(fum)
             except:
-                write = False
                 pass
         if "K" in position:
-            write = True
             try:
                 fga = player["fga"]
-                if write:
-                    final_string += "Field Goals Attempted: {}\n".format(fga)
+                final_string += "Field Goals Attempted: {}\n".format(fga)
             except:
-                write = False
                 pass
-            write = True
             try:
                 fgm = player["fgm"]
-                if write:
-                    final_string += "Field Goals Made: {}\n".format(fgm)
+                final_string += "Field Goals Made: {}\n".format(fgm)
             except:
-                write = False
                 pass
-            write = True
             try:
                 fgm1 = player["fgm_0_19"]
-                if write:
-                    final_string += "0-19: {}\n".format(fgm1)
+                final_string += "0-19: {}\n".format(fgm1)
             except:
-                write = False
                 pass
-            write = True
             try:
                 fgm2 = player["fgm_20_29"]
-                if write:
-                    final_string += "20-29: {}\n".format(fgm2)
+                final_string += "20-29: {}\n".format(fgm2)
             except:
-                write = False
                 pass
-            write = True
             try:
                 fgm3 = player["fgm_30_39"]
-                if write:
-                    final_string += "30-39: {}\n".format(fgm3)
+                final_string += "30-39: {}\n".format(fgm3)
             except:
-                write = False
                 pass
-            write = True
             try:
                 fgm4 = player["fgm_40_49"]
-                if write:
-                    final_string += "40-49: {}\n".format(fgm4)
+                final_string += "40-49: {}\n".format(fgm4)
             except:
-                write = False
                 pass
-            write = True
             try:
                 fgm5 = player["fgm_50p"]
-                if write:
-                    final_string += "50+: {}\n".format(fgm5)
+                final_string += "50+: {}\n".format(fgm5)
             except:
-                write = False
                 pass
-            write = True
             try:
                 xpa = player["xpa"]
-                if write:
-                    final_string += "XP Attempted: {}\n".format(xpa)
+                final_string += "XP Attempted: {}\n".format(xpa)
             except:
-                write = False
                 pass
-            write = True
             try:
                 xpm = player["xpm"]
-                if write:
-                    final_string += "XP Made: {}\n".format(xpm)
+                final_string += "XP Made: {}\n".format(xpm)
             except:
-                write = False
                 pass
         if "DEF" in position:
-            write = True
             try:
                 td = player["td"]
-                if write:
-                    final_string += "Touchdowns: {}\n".format(td)
+                final_string += "Touchdowns: {}\n".format(td)
             except:
-                write = False
                 pass
-            write = True
             try:
                 ff = player["ff"]
-                if write:
-                    final_string += "Forced Fumbles: {}\n".format(ff)
+                final_string += "Forced Fumbles: {}\n".format(ff)
             except:
-                write = False
                 pass
-            write = True
             try:
                 fum_rec = player["fum_rec"]
-                if write:
-                    final_string += "Fumbles Recoved: {}\n".format(fum_rec)
+                final_string += "Fumbles Recoved: {}\n".format(fum_rec)
             except:
-                write = False
                 pass
-            write = True
             try:
                 tkl = player["tkl_loss"]
-                if write:
-                    final_string += "Tackles For Loss: {}\n".format(tkl)
+                final_string += "Tackles For Loss: {}\n".format(tkl)
             except:
-                write = False
                 pass
-            write = True
             try:
                 qbh = player["qb_hit"]
-                if write:
-                    final_string += "QB Hits: {}\n".format(qbh)
+                final_string += "QB Hits: {}\n".format(qbh)
             except:
-                write = False
                 pass
-            write = True
             try:
                 sck = player["sack"]
-                if write:
-                    final_string += "Sacks: {}\n".format(sck)
+                final_string += "Sacks: {}\n".format(sck)
             except:
-                write = False
                 pass
     else:
         if player_name == "Aaron Hernandez":
             final_string = "{} hung himself. Gone Forever! Aaron Hernandez.".format(player_name)
-        final_string = "No {} stats found for {}".format(year, player_name)
+        elif position not in ["QB","RB","WR","TE"]:
+            final_string = "I do not do IDP stats"
+        else
+            final_string = "No {} stats found for {}".format(year, player_name)
 
     bot.send(send_any_string, final_string)
 
