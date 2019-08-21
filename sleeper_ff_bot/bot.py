@@ -222,6 +222,11 @@ def get_random_player(position,ba_flag):
                     full_name_clean = player["first_name"] + " " + player["last_name"]
                     position_players.append((full_name_clean))
                 else:
+                    logging.error(ba_flag)
+                    logging.error(player["team"])
+                    logging.error(player["status"])
+                    logging.error(player["injury_status"])
+                    logging.error(player["depth_chart_order"])
                     if ba_flag == 'best':
                         if player["team"] is not None and player["status"] == 'active' and player["injury_status"] is None and player["depth_chart_order"] == 1:
                             position_players.append((player["full_name"]))
