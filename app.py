@@ -52,9 +52,7 @@ def webhook():
                 bot.send(send_any_string,"Sorry I failed you.")
                 os.environ["WAITING_FOR_RESPONSE"] = "False"
         if '@bot' in message['text'].lower():
-            if 'adam' in message['name'].lower():
-                bot.send(send_any_string,'Fuck off Adam')
-            elif 'draft order' in message['text'].lower():
+            if 'draft order' in message['text'].lower():
                 bot.send(get_draft_order)
             elif 'who' in message['text'].lower():
                 bot.send(get_player_name)
@@ -76,7 +74,7 @@ def webhook():
                 text = text.lower()
                 waiting = get_player_key(text, message['name'].lower(),0)
                 logging.error(waiting)
-                os.environ["WAITING_FOR_RESPONSE"] = waiting                    
+                os.environ["WAITING_FOR_RESPONSE"] = waiting
             else:
                 bot.send(send_any_string, 'I am unsure.')
 
