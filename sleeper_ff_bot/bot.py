@@ -396,8 +396,8 @@ def get_player_stats(search_object):
             except:
                 pass
             try:
-                drop_perc = round(100-((player["rec"]/player["rec_tgt"])*100),2)
-                final_string += "Drop Rate: {}%\n".format(drop_perc)
+                drop_perc = round((player["rec"]/player["rec_tgt"])*100,2)
+                final_string += "Catch Rate: {}%\n".format(drop_perc)
             except:
                 pass
             try:
