@@ -217,6 +217,10 @@ def get_player_key(search_string, requestor, name_key_switch):
                 injury_status = None
             found_players.append((search_string, full_name_clean, player["position"], player["team"], injury_status))
         else:
+            try:
+                injury_status = player["injury_status"]
+            except:
+                injury_status = None
             found_players.append((search_string, player["full_name"], player["position"], player["team"], injury_status))
         get_player_stats(found_players[0])
         return "False"
