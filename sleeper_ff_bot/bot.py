@@ -173,8 +173,9 @@ def get_player_key(search_string, requestor, name_key_switch):
         for player_id in players:
             player = players[player_id]
             try:
-                token_set_ratio = fuzz.token_set_ratio(search_string, player["search_full_name"])
-                if search_string in player["search_full_name"]:
+                search_name = "{} ({} - {})".format(player["full_name"], player["position"], player["team"])
+                token_set_ratio = fuzz.token_set_ratio(search_string, search_name)
+                if search_string in search_name:
                     found_players.append((player_id, player["full_name"], player["position"], player["team"], [requestor]))
                 elif token_set_ratio > 79:
                     found_players.append((player_id, player["full_name"], player["position"], player["team"], [requestor]))
@@ -190,7 +191,7 @@ def get_player_key(search_string, requestor, name_key_switch):
         if len(found_players) > 1:
             text = "Which player are you looking for?\n\n"
             for p in found_players:
-                text += "for {} ({} {}) - reply {}\n\n".format(p[1], p[2], p[3], p[0])
+                text += "for {} ({} - {}) - reply {}\n\n".format(p[1], p[2], p[3], p[0])
             bot.send(send_any_string, text)
             return "True"
         elif len(found_players) == 1:

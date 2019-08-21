@@ -55,34 +55,34 @@ def webhook():
             if 'draft order' in message['text'].lower():
                 bot.send(get_draft_order)
             elif 'who' in message['text'].lower():
-                if 'quarterback' in message['text'].lower() or ' qb ' in message['text'].lower():
-                    if 'best' in message['text'].lower():
+                if 'quarterback' in message['text'].lower() or ' qb ' in message['text'].lower() or 'passing' in message['text'].lower():
+                    if 'best' in message['text'].lower() or 'most' in message['text'].lower():
                         best_any_flag = 'best'
                     else:
                         best_any_flag = 'any'
                     text = get_random_player('qb',best_any_flag)
-                if 'running back' in message['text'].lower() or ' rb ' in message['text'].lower():
-                    if 'best' in message['text'].lower():
+                if 'running back' in message['text'].lower() or ' rb ' in message['text'].lower() or 'rushing' in message['text'].lower():
+                    if 'best' in message['text'].lower() or 'most' in message['text'].lower():
                         best_any_flag = 'best'
                     else:
                         best_any_flag = 'any'
                     text = get_random_player('rb',best_any_flag)
-                if 'wide receiver' in message['text'].lower() or ' wr ' in message['text'].lower():
-                    if 'best' in message['text'].lower():
+                if 'wide receiver' in message['text'].lower() or ' wr ' in message['text'].lower() or 'receiving' in message['text'].lower():
+                    if 'best' in message['text'].lower() or 'most' in message['text'].lower():
                         best_any_flag = 'best'
                     else:
                         best_any_flag = 'any'
                     text = get_random_player('wr',best_any_flag)
                 if 'tight end' in message['text'].lower() or ' te ' in message['text'].lower():
-                    if 'best' in message['text'].lower():
+                    if 'best' in message['text'].lower() or 'most' in message['text'].lower():
                         best_any_flag = 'best'
                     else:
                         best_any_flag = 'any'
                     text = get_random_player('te',best_any_flag)
                 if 'defense' in message['text'].lower() or ' def ' in message['text'].lower():
                     text = get_random_player('def', 'any')
-                if 'kicker' in message['text'].lower() or ' k ' in message['text'].lower():
-                    if 'best' in message['text'].lower():
+                if 'kicker' in message['text'].lower() or ' k ' in message['text'].lower() or 'field goal' in message['text'].lower()  or 'extra point' in message['text'].lower()  or 'fg' in message['text'].lower()  or 'xp' in message['text'].lower():
+                    if 'best' in message['text'].lower() or 'most' in message['text'].lower():
                         best_any_flag = 'best'
                     else:
                         best_any_flag = 'any'
