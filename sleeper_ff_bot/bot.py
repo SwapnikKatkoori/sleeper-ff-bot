@@ -267,29 +267,39 @@ def get_player_stats(search_object):
         pass
     if stats_run:
         final_string = "{} ({} - {})\n{}\n\n".format(player_name, position, team,injury_status)
-        try:
-            ga = player["gms_active"]
-        except:
-            ga = 0
-            pass
-        try:
-            gp = player["gp"]
-        except:
-            gp = 0
-            pass
-        try:
-            gs = player["gs"]
-            pass
-        except:
-            gs = 0
-            pass
-        try:
-            pts_half_ppr = player["pts_half_ppr"]
-        except:
-            pts_half_ppr = 0
-            pass
 
-        final_string += "Fantasy Points: {}\n\nGames Active: {}\nGames Played: {}\nGames Started: {}\n\n".format(pts_half_ppr, ga, gp, gs)
+        if "DEF" not in position:
+            try:
+                ga = player["gms_active"]
+            except:
+                ga = 0
+                pass
+            try:
+                gp = player["gp"]
+            except:
+                gp = 0
+                pass
+            try:
+                gs = player["gs"]
+                pass
+            except:
+                gs = 0
+                pass
+            try:
+                pts_half_ppr = player["pts_half_ppr"]
+            except:
+                pts_half_ppr = 0
+                pass
+
+            final_string += "Fantasy Points: {}\n\nGames Active: {}\nGames Played: {}\nGames Started: {}\n\n".format(pts_half_ppr, ga, gp, gs)
+
+            try:
+                team_snaps = player["tm_off_snp"]
+                player_snaps = player["off_snp"]
+                snap_perc = (player_snaps / team_snaps)*100
+                final_string += "Snap Percentage: {}%".format(snap_perc)
+            except:
+                pass
 
         if "QB" in position:
             write = True
