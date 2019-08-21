@@ -349,8 +349,8 @@ def get_player_stats(search_object):
             except:
                 pass
             try:
-                int = round(player["pass_int"],0)
-                final_string += "Interceptions {}\n".format(int)
+                pass_int = round(player["pass_int"],0)
+                final_string += "Interceptions {}\n".format(pass_int)
             except:
                 pass
             try:
