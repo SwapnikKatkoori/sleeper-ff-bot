@@ -514,7 +514,7 @@ def get_player_stats(search_object):
             final_string = "{} hung himself. Gone Forever! Aaron Hernandez.".format(player_name)
         elif position not in ["QB","RB","WR","TE"]:
             final_string = "I do not do IDP stats"
-        else
+        else:
             final_string = "No {} stats found for {}".format(year, player_name)
 
     bot.send(send_any_string, final_string)
