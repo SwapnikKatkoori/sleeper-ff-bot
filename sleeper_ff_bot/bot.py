@@ -296,12 +296,12 @@ def get_player_stats(search_object):
                 ga = 0
                 pass
             try:
-                gp = round(player["gp"],0)
+                gp = int(player["gp"])
             except:
                 gp = 0
                 pass
             try:
-                gs = round(player["gs"],0)
+                gs = int(player["gs"])
                 pass
             except:
                 gs = 0
@@ -329,48 +329,48 @@ def get_player_stats(search_object):
             #except:
                 #pass
             try:
-                pyards = round(player["pass_yd"],0)
+                pyards = int(player["pass_yd"])
                 final_string += "Passing Yards: {}\n".format(pyards)
             except:
                 pass
             try:
-                ptd = round(player["pass_td"],0)
+                ptd = int(player["pass_td"])
                 final_string += "Passing TDs: {}\n".format(ptd)
             except:
                 pass
             try:
-                ryards = round(player["rush_yd"],0)
+                ryards = int(player["rush_yd"])
                 final_string += "Rushing Yards: {}\n".format(ryards)
             except:
                 pass
             try:
-                rtd = round(player["rush_td"],0)
+                rtd = int(player["rush_td"])
                 final_string += "Rushing TDs: {}\n".format(rtd)
             except:
                 pass
             try:
-                pass_int = round(player["pass_int"],0)
+                pass_int = int(player["pass_int"])
                 final_string += "Interceptions {}\n".format(pass_int)
             except:
                 pass
             try:
-                fum = round(player["fum"],0)
+                fum = int(player["fum"])
                 final_string += "Fumbles: {}\n".format(fum)
             except:
                 pass
         if "RB" in position:
             try:
-                ryards = round(player["rush_yd"],0)
+                ryards = int(player["rush_yd"])
                 final_string += "Rushing Yards: {}\n".format(ryards)
             except:
                 pass
             try:
-                rtd = round(player["rush_td"],0)
+                rtd = int(player["rush_td"])
                 final_string += "Rushing TDs: {}\n".format(rtd)
             except:
                 pass
             try:
-                fum = round(player["fum"],0)
+                fum = int(player["fum"])
                 final_string += "Fumbles: {}\n".format(fum)
             except:
                 pass
@@ -380,23 +380,23 @@ def get_player_stats(search_object):
             except:
                 pass
             try:
-                rcyards = round(player["rec_yd"],0)
+                rcyards = int(player["rec_yd"])
                 final_string += "Receiving Yards: {}\n".format(rcyards)
             except:
                 pass
             try:
-                rctd = round(player["rec_td"],0)
+                rctd = int(player["rec_td"])
                 final_string += "Receiving TDs: {}\n".format(rctd)
             except:
                 pass
         if "WR" in position:
             try:
-                rcyards = round(player["rec_yd"],0)
+                rcyards = int(player["rec_yd"])
                 final_string += "Receiving Yards: {}\n".format(rcyards)
             except:
                 pass
             try:
-                rctd = round(player["rec_td"],0)
+                rctd = int(player["rec_td"])
                 final_string += "Receiving TDs: {}\n".format(rctd)
             except:
                 pass
@@ -406,28 +406,28 @@ def get_player_stats(search_object):
             except:
                 pass
             try:
-                ryards = round(player["rush_yd"],0)
+                ryards = int(player["rush_yd"])
                 final_string += "Rushing Yards: {}\n".format(ryards)
             except:
                 pass
             try:
-                rtd = round(player["rush_td"],0)
+                rtd = int(player["rush_td"])
                 final_string += "Rushing TDs: {}\n".format(rtd)
             except:
                 pass
             try:
-                fum = round(player["fum"],0)
+                fum = int(player["fum"])
                 final_string += "Fumbles: {}\n".format(fum)
             except:
                 pass
         if "TE" in position:
             try:
-                rcyards = round(player["rec_yd"],0)
+                rcyards = int(player["rec_yd"])
                 final_string += "Receiving Yards: {}\n".format(rcyards)
             except:
                 pass
             try:
-                rctd = round(player["rec_td"],0)
+                rctd = int(player["rec_td"])
                 final_string += "Receiving TDs: {}\n".format(rctd)
             except:
                 pass
@@ -437,94 +437,94 @@ def get_player_stats(search_object):
             except:
                 pass
             try:
-                ryards = round(player["rush_yd"],0)
+                ryards = int(player["rush_yd"])
                 final_string += "Rushing Yards: {}\n".format(ryards)
             except:
                 pass
             try:
-                rtd = round(player["rush_td"],0)
+                rtd = int(player["rush_td"])
                 final_string += "Rushing TDs: {}\n".format(rtd)
             except:
                 pass
             try:
-                fum = round(player["fum"],0)
+                fum = int(player["fum"])
                 final_string += "Fumbles: {}\n".format(fum)
             except:
                 pass
         if "K" in position:
             try:
-                fga = round(player["fga"],0)
+                fga = int(player["fga"])
                 final_string += "Field Goals Attempted: {}\n".format(fga)
             except:
                 pass
             try:
-                fgm = round(player["fgm"],0)
+                fgm = int(player["fgm"])
                 final_string += "Field Goals Made: {}\n".format(fgm)
             except:
                 pass
             try:
-                fgm1 = round(player["fgm_0_19"],0)
+                fgm1 = int(player["fgm_0_19"])
                 final_string += "0-19: {}\n".format(fgm1)
             except:
                 pass
             try:
-                fgm2 = round(player["fgm_20_29"],0)
+                fgm2 = int(player["fgm_20_29"])
                 final_string += "20-29: {}\n".format(fgm2)
             except:
                 pass
             try:
-                fgm3 = round(player["fgm_30_39"],0)
+                fgm3 = int(player["fgm_30_39"])
                 final_string += "30-39: {}\n".format(fgm3)
             except:
                 pass
             try:
-                fgm4 = round(player["fgm_40_49"],0)
+                fgm4 = int(player["fgm_40_49"])
                 final_string += "40-49: {}\n".format(fgm4)
             except:
                 pass
             try:
-                fgm5 = round(player["fgm_50p"],0)
+                fgm5 = int(player["fgm_50p"])
                 final_string += "50+: {}\n".format(fgm5)
             except:
                 pass
             try:
-                xpa = round(player["xpa"],0)
+                xpa = int(player["xpa"])
                 final_string += "XP Attempted: {}\n".format(xpa)
             except:
                 pass
             try:
-                xpm = round(player["xpm"],0)
+                xpm = int(player["xpm"])
                 final_string += "XP Made: {}\n".format(xpm)
             except:
                 pass
         if "DEF" in position:
             try:
-                td = round(player["td"],0)
+                td = int(player["td"])
                 final_string += "Touchdowns: {}\n".format(td)
             except:
                 pass
             try:
-                ff = round(player["ff"],0)
+                ff = int(player["ff"])
                 final_string += "Forced Fumbles: {}\n".format(ff)
             except:
                 pass
             try:
-                fum_rec = round(player["fum_rec"],0)
+                fum_rec = int(player["fum_rec"])
                 final_string += "Fumbles Recoved: {}\n".format(fum_rec)
             except:
                 pass
             try:
-                tkl = round(player["tkl_loss"],0)
+                tkl = int(player["tkl_loss"])
                 final_string += "Tackles For Loss: {}\n".format(tkl)
             except:
                 pass
             try:
-                qbh = round(player["qb_hit"],0)
+                qbh = int(player["qb_hit"])
                 final_string += "QB Hits: {}\n".format(qbh)
             except:
                 pass
             try:
-                sck = round(player["sack"],0)
+                sck = int(player["sack"])
                 final_string += "Sacks: {}\n".format(sck)
             except:
                 pass
