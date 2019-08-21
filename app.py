@@ -1,4 +1,4 @@
-from sleeper_ff_bot.bot import get_draft_order, send_any_string, get_player_name, get_fun_fact, get_rule_changes, get_standings_string, get_scores_string, get_matchups_string, get_player_key,  get_player_stats
+from sleeper_ff_bot.bot import get_draft_order, send_any_string, get_player_name, get_fun_fact, get_rule_changes, get_standings_string, get_scores_string, get_matchups_string, get_player_key,  get_player_stats, get_random_player
 from sleeper_ff_bot.group_me import GroupMe
 from sleeper_ff_bot.slack import Slack
 from sleeper_ff_bot.discord import Discord
@@ -55,7 +55,20 @@ def webhook():
             if 'draft order' in message['text'].lower():
                 bot.send(get_draft_order)
             elif 'who' in message['text'].lower():
-                bot.send(get_player_name)
+                if 'quarterback' in message['text'].lower() or ' qb ' in message['text'].lower():
+                    text = get_random_player('qb')
+                if 'running back' in message['text'].lower() or ' rb ' in message['text'].lower():
+                    text = get_random_player('rb')
+                if 'wide receiver' in message['text'].lower() or ' wr ' in message['text'].lower():
+                    text = get_random_player('wr')
+                if 'tight end' in message['text'].lower() or ' te ' in message['text'].lower():
+                    text = get_random_player('te')
+                if 'defense' in message['text'].lower() or ' def ' in message['text'].lower():
+                    text = get_random_player('def')
+                if 'kicker' in message['text'].lower() or ' k ' in message['text'].lower():
+                    text = get_random_player('k')
+                    
+                bot.send(send_any_string, text)
             elif 'fun fact' in message['text'].lower():
                 bot.send(get_fun_fact)
             elif 'rule changes' in message['text'].lower():

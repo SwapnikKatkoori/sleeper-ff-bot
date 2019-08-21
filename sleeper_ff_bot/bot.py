@@ -210,7 +210,21 @@ def get_player_key(search_string, requestor, name_key_switch):
         return "False"
 
 
+def get_random_player(position):
+    players = Players().get_all_players()
+    position_players = []
 
+    for player_id in players:
+        player = players[player_id]
+        if player["position"].lower() == position:
+            if position == 'def':
+                full_name_clean = player["first_name"] + " " + player["last_name"]
+                position_players.append((full_name_clean))
+            else:
+                position_players.append((player["full_name"]))
+
+    response = [random.choice(position_players)]
+    return response
 
 
 def get_player_stats(search_object):
