@@ -267,7 +267,7 @@ def get_player_stats(search_object):
         stats_run = False
         pass
     if stats_run:
-        final_string = "{} ({} - {})\n\n".format(player_name, position, team)
+        final_string = "{} ({} - {})\n{}\n\n".format(player_name, position, team,injury_status)
         try:
             ga = player["gms_active"]
         except:
