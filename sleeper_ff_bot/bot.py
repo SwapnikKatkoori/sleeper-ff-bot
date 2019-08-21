@@ -216,13 +216,15 @@ def get_random_player(position):
 
     for player_id in players:
         player = players[player_id]
-        if player["position"].lower() == position:
-            if position == 'def':
-                full_name_clean = player["first_name"] + " " + player["last_name"]
-                position_players.append((full_name_clean))
-            else:
-                position_players.append((player["full_name"]))
-
+        try:
+            if player["position"].lower() == position:
+                if position == 'def':
+                    full_name_clean = player["first_name"] + " " + player["last_name"]
+                    position_players.append((full_name_clean))
+                else:
+                    position_players.append((player["full_name"]))
+        except:
+            pass
     response = [random.choice(position_players)]
     return response
 
