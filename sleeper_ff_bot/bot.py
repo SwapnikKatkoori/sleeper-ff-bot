@@ -173,9 +173,8 @@ def get_player_key(search_string, requestor, name_key_switch):
         for player_id in players:
             player = players[player_id]
             try:
-                search_name = "{} ({} - {})".format(player["full_name"], player["position"], player["team"])
-                token_set_ratio = fuzz.token_set_ratio(search_string, search_name)
-                if search_string in search_name:
+                token_set_ratio = fuzz.token_set_ratio(search_string, player["search_full_name"])
+                if search_string in player["search_full_name"]:
                     found_players.append((player_id, player["full_name"], player["position"], player["team"], player["injury_status"]))
                 elif token_set_ratio > 79:
                     found_players.append((player_id, player["full_name"], player["position"], player["team"], player["injury_status"]))
