@@ -296,8 +296,8 @@ def get_player_stats(search_object):
             try:
                 team_snaps = player["tm_off_snp"]
                 player_snaps = player["off_snp"]
-                snap_perc = (player_snaps / team_snaps)*100
-                final_string += "Snap Percentage: {}%".format(snap_perc)
+                snap_perc = round((player_snaps / team_snaps)*100,2)
+                final_string += "Snap Percentage: {}%\n".format(snap_perc)
             except:
                 pass
 
