@@ -36,7 +36,6 @@ def webhook():
     message = request.get_json()
     if not sender_is_bot(message):
         time.sleep(3)
-        logging.error(os.environ["WAITING_FOR_RESPONSE"])
         if os.environ["WAITING_FOR_RESPONSE"] == "True":
             try:
                 int(message['text'].lower())
@@ -106,7 +105,6 @@ def webhook():
                 text = text.replace(" ","")
                 text = text.lower()
                 waiting = get_player_key(text, message['name'].lower(),0)
-                logging.error(waiting)
                 os.environ["WAITING_FOR_RESPONSE"] = waiting
             else:
                 bot.send(send_any_string, 'I am unsure.')
