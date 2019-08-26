@@ -375,8 +375,8 @@ def get_player_stats(search_object):
             except:
                 pass
             try:
-                drop_perc = round((player["rec"]/player["rec_tgt"])*100,2)
-                final_string += "Catch Rate: {}%\n".format(drop_perc)
+                catch_perc = round((player["rec"]/player["rec_tgt"])*100,2)
+                final_string += "Catch Rate: {}%\n".format(catch_perc)
             except:
                 pass
             try:
@@ -454,7 +454,9 @@ def get_player_stats(search_object):
         if "K" in position:
             try:
                 fga = int(player["fga"])
-                final_string += "Field Goals Attempted: {}\n".format(fga)
+                fgm = int(player["fgm"])
+                fgperc = round((fgm/fga)*100,2)
+                final_string += "FG%: {}\n\nField Goals Attempted: {}\nField Goals Made: {}\n".format(fgperc, fga, fgm)
             except:
                 pass
             try:
@@ -489,12 +491,9 @@ def get_player_stats(search_object):
                 pass
             try:
                 xpa = int(player["xpa"])
-                final_string += "XP Attempted: {}\n".format(xpa)
-            except:
-                pass
-            try:
                 xpm = int(player["xpm"])
-                final_string += "XP Made: {}\n".format(xpm)
+                xpperc = round((xpm/xpa)*100,2)
+                final_string += "XP%: {}\n\nXP Attempted: {}\nXP Made: {}\n".format(xpperc, xpa, xpm)
             except:
                 pass
         if "DEF" in position:
