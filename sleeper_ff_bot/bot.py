@@ -9,6 +9,7 @@ import json
 from fuzzywuzzy import fuzz
 from apscheduler.schedulers.blocking import BlockingScheduler
 from oauth2client.service_account import ServiceAccountCredentials
+from teams import teams, team_abbrs
 from people import names
 from phrases import phrases
 from rule_changes import changes
@@ -152,6 +153,52 @@ def get_lowest_score(league_id):
             min_score[0] = score
             min_score[1] = team_name
     return min_score
+
+def get_team_abbr(string):
+    for team in teams:
+        if team in string:
+            i = teams.index(team)
+            team_abbr = team_abbrs[i]
+    return team_abbr
+
+def find_position(string):
+    #positions = ['quarterback','running back','wide receiver','tight end','kicker']
+    positions = [' QB ',' RB ',' WR ',' TE ',' K ']
+    for position in positions:
+        if position in string:
+            i = positions.index(position)
+            position_abbr = positions[i]
+    return position_abbr
+
+def get_depth_chart(team,position):
+    players = Players().get_all_players()
+
+    bot_type = os.environ["BOT_TYPE"]
+
+    if bot_type == "groupme":
+        bot_id = os.environ["BOT_ID"]
+        bot = GroupMe(bot_id)
+    elif bot_type == "slack":
+        webhook = os.environ["SLACK_WEBHOOK"]
+        bot = Slack(webhook)
+    elif bot_type == "discord":
+        webhook = os.environ["DISCORD_WEBHOOK"]
+        bot = Discord(webhook)
+
+    final_string = "Depth Chart for {}".format(team)
+    dc_num = []
+    for player_id in players:
+        player = players[player_id]
+        if team == player["team"] and position == player["position"]:
+            dc_num.append(player["depth_chart_order"])
+    dc_cnt = max(dc_num)
+    i = 1
+    while i <= dc_cnt:
+        for player_id in players:
+            if if team == player["team"] and position == player["position"] and i == player["depth_chart_order"]:
+                final_string += "{}. {}".format(i, player["full_name"])
+                i += 1
+    bot.send(send_any_string, final_string)
 
 def get_player_key(search_string, requestor, name_key_switch):
     players = Players().get_all_players()

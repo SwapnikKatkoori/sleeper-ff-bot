@@ -1,4 +1,4 @@
-from sleeper_ff_bot.bot import get_draft_order, send_any_string, get_player_name, get_fun_fact, get_rule_changes, get_standings_string, get_scores_string, get_matchups_string, get_player_key,  get_player_stats, get_random_player
+from sleeper_ff_bot.bot import get_draft_order, send_any_string, get_player_name, get_fun_fact, get_rule_changes, get_standings_string, get_scores_string, get_matchups_string, get_player_key,  get_player_stats, get_random_player, get_team_abbr, get_depth_chart, find_position
 from sleeper_ff_bot.group_me import GroupMe
 from sleeper_ff_bot.slack import Slack
 from sleeper_ff_bot.discord import Discord
@@ -106,6 +106,10 @@ def webhook():
                 text = text.lower()
                 waiting = get_player_key(text, message['name'].lower(),0)
                 os.environ["WAITING_FOR_RESPONSE"] = waiting
+            elif 'depth chart' in message['text'].lower():
+                team_abbr = get_team_abbr(message['text'].lower)
+                position = find_position()
+                get_depth_chart(team_abbr, position)
             else:
                 bot.send(send_any_string, 'I am unsure.')
 
