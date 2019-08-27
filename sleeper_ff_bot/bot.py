@@ -165,7 +165,7 @@ def find_position(search_string):
     #positions = ['quarterback','running back','wide receiver','tight end','kicker']
     positions = [' QB ',' RB ',' WR ',' TE ',' K ']
     for position in positions:
-        if position in string.upper():
+        if position in search_string.upper():
             i = positions.index(position)
             position_abbr = positions[i]
     return position_abbr
