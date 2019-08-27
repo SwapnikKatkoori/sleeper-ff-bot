@@ -154,18 +154,18 @@ def get_lowest_score(league_id):
             min_score[1] = team_name
     return min_score
 
-def get_team_abbr(string):
+def get_team_abbr(search_string):
     for team in teams:
-        if team in string:
+        if team.lower() in search_string.lower():
             i = teams.index(team)
             team_abbr = team_abbrs[i]
     return team_abbr
 
-def find_position(string):
+def find_position(search_string):
     #positions = ['quarterback','running back','wide receiver','tight end','kicker']
     positions = [' QB ',' RB ',' WR ',' TE ',' K ']
     for position in positions:
-        if position in string:
+        if position in string.upper():
             i = positions.index(position)
             position_abbr = positions[i]
     return position_abbr
