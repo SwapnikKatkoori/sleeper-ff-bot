@@ -40,6 +40,7 @@ team_abbrs = [
 'BUF',
 'CAR',
 'CHI',
+'CIN',
 'CLE',
 'DAL',
 'DEN',
@@ -61,6 +62,7 @@ team_abbrs = [
 'PHI',
 'PIT',
 'SF',
+'SEA',
 'TB',
 'TEN',
 'WAS'
