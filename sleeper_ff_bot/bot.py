@@ -190,7 +190,7 @@ def get_depth_chart(team, position):
     for player_id in players:
         player = players[player_id]
         if player["team"] == team and player["position"] == position:
-            if player["depth_chart_order"] is not None
+            if player["depth_chart_order"] is not None:
                 dc_num.append(player["depth_chart_order"])
     dc_cnt = max(dc_num)
     i = 1
