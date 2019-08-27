@@ -55,6 +55,8 @@ team_abbrs = [
 'MIN',
 'NE',
 'NO',
+'NYG',
+'NYJ',
 'OAK',
 'PHI',
 'PIT',
