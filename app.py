@@ -109,7 +109,14 @@ def webhook():
             elif 'depth chart' in message['text'].lower():
                 team_abbr = get_team_abbr(message['text'].lower())
                 position = find_position(message['text'].lower())
-                get_depth_chart(team_abbr.strip(), position.strip())
+                if position == "error" and team_abbr == "error":
+                    bot.send(send_any_string, 'I was unable to determine what team or position you are looking for.')
+                elif position == "error":
+                    bot.send(send_any_string, 'I was unable to determine what position you are looking for.')
+                elif team_abbr == "error":
+                    bot.send(send_any_string, 'I was unable to determine what team you are looking for.')
+                else:
+                    get_depth_chart(team_abbr.strip(), position.strip())
             else:
                 bot.send(send_any_string, 'I am unsure.')
 

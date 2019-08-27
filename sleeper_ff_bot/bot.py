@@ -155,20 +155,28 @@ def get_lowest_score(league_id):
     return min_score
 
 def get_team_abbr(search_string):
+    team_abbr = None
     for team in teams:
         if team.lower() in search_string.lower():
             i = teams.index(team)
             team_abbr = team_abbrs[i]
-    return team_abbr
+    if team_abbr is not None:
+        return team_abbr
+    else:
+        return "error"
 
 def find_position(search_string):
+    position_abbr = None
     #positions = ['quarterback','running back','wide receiver','tight end','kicker']
     positions = [' QB ',' RB ',' WR ',' TE ',' K ']
     for position in positions:
         if position in search_string.upper():
             i = positions.index(position)
             position_abbr = positions[i]
-    return position_abbr
+    if position_abbr is not None:
+        return position_abbr
+    else:
+        return "error"
 
 def get_depth_chart(team, position):
     players = Players().get_all_players()
