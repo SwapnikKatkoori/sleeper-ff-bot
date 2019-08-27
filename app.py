@@ -107,8 +107,8 @@ def webhook():
                 waiting = get_player_key(text, message['name'].lower(),0)
                 os.environ["WAITING_FOR_RESPONSE"] = waiting
             elif 'depth chart' in message['text'].lower():
-                team_abbr = get_team_abbr(message['text'].lower)
-                position = find_position()
+                team_abbr = get_team_abbr(message['text'].lower())
+                position = find_position((message['text'].lower())
                 get_depth_chart(team_abbr, position)
             else:
                 bot.send(send_any_string, 'I am unsure.')
