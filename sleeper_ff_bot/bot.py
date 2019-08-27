@@ -160,6 +160,11 @@ def get_team_abbr(search_string):
         if team.lower() in search_string.lower():
             i = teams.index(team)
             team_abbr = team_abbrs[i]
+    if team_abbr is None:
+        for team in team_abbrs:
+            if team.lower() in search_string.lower():
+                i = team_abbrs.index(team)
+                team_abbr = team_abbrs[i]                
     if team_abbr is not None:
         return team_abbr
     else:
