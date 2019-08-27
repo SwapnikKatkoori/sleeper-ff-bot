@@ -187,11 +187,10 @@ def get_depth_chart(team, position):
 
     final_string = "Depth Chart for {}".format(team)
     dc_num = []
+    logging.error(team)
+    logging.error(position)
     for player_id in players:
         player = players[player_id]
-        logging.error(player["team"])
-        logging.error(player["position"])
-        logging.error(player["depth_chart_order"])
         if player["team"] == team and player["position"] == position:
             dc_num.append(player["depth_chart_order"])
             logging.error(player["depth_chart_order"])

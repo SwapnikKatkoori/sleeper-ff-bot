@@ -109,7 +109,7 @@ def webhook():
             elif 'depth chart' in message['text'].lower():
                 team_abbr = get_team_abbr(message['text'].lower())
                 position = find_position(message['text'].lower())
-                get_depth_chart(team_abbr, position)
+                get_depth_chart(team_abbr.strip(), position.strip())
             else:
                 bot.send(send_any_string, 'I am unsure.')
 
