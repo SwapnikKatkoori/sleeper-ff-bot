@@ -194,11 +194,11 @@ def get_depth_chart(team, position):
             player = players[player_id]
             if player["team"] == team and player["position"] == position:
                 if player["depth_chart_order"] is not None:
-                    if player["depth_chart_position"] = 'LWR':
+                    if player["depth_chart_position"] == 'LWR':
                         lwrdc_num.append(player["depth_chart_order"])
-                    elif player["depth_chart_position"] = 'RWR':
+                    elif player["depth_chart_position"] == 'RWR':
                         rwrdc_num.append(player["depth_chart_order"])
-                    elif player["depth_chart_position"] = 'SWR':
+                    elif player["depth_chart_position"] == 'SWR':
                         swrdc_num.append(player["depth_chart_order"])
         if len(lwrdc_num) > 0:
             lwrdc_cnt = max(lwrdc_num)
