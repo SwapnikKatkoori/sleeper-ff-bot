@@ -173,7 +173,7 @@ def find_position(search_string):
 def get_depth_chart(team,position):
     players = Players().get_all_players()
     logging.error(team)
-    logging.error(postion)
+    logging.error(position)
 
     bot_type = os.environ["BOT_TYPE"]
 
