@@ -203,7 +203,7 @@ def get_depth_chart(team, position):
             player = players[player_id]
             if team == player["team"] and position == player["position"] and i == player["depth_chart_order"]:
                 final_string += "{}. {}\n".format(i, player["full_name"])
-                i += 1
+        i += 1
     bot.send(send_any_string, final_string)
 
 def get_player_key(search_string, requestor, name_key_switch):
