@@ -203,8 +203,8 @@ def get_depth_chart(team, position):
         if len(lwrdc_num) > 0:
             lwrdc_cnt = max(lwrdc_num)
             i =1
+            final_string += "WR1:\n"
             while i <= lwrdc_cnt:
-                final_string += "WR1:\n"
                 for player_id in players:
                     player = players[player_id]
                     if team == player["team"] and position == player["position"] and player["depth_chart_position"] == 'LWR' and i == player["depth_chart_order"]:
@@ -214,8 +214,8 @@ def get_depth_chart(team, position):
         if len(rwrdc_num) > 0:
             rwrdc_cnt = max(rwrdc_num)
             i =1
+            final_string += "WR2:\n"
             while i <= rwrdc_cnt:
-                final_string += "WR2:\n"
                 for player_id in players:
                     player = players[player_id]
                     if team == player["team"] and position == player["position"] and player["depth_chart_position"] == 'RWR' and i == player["depth_chart_order"]:
@@ -225,8 +225,8 @@ def get_depth_chart(team, position):
         if len(swrdc_num) > 0:
             swrdc_cnt = max(swrdc_num)
             i = 1
+            final_string += "WR3:\n"
             while i <= swrdc_cnt:
-                final_string += "WR3:\n"
                 for player_id in players:
                     player = players[player_id]
                     if team == player["team"] and position == player["position"] and player["depth_chart_position"] == 'SWR' and i == player["depth_chart_order"]:
