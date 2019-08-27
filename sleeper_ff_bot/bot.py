@@ -170,7 +170,7 @@ def find_position(search_string):
             position_abbr = positions[i]
     return position_abbr
 
-def get_depth_chart(team,position):
+def get_depth_chart(team, position):
     players = Players().get_all_players()
 
     bot_type = os.environ["BOT_TYPE"]
@@ -189,7 +189,7 @@ def get_depth_chart(team,position):
     dc_num = []
     for player_id in players:
         player = players[player_id]
-        if team == player["team"] and position == player["position"]:
+        if player["team"] == team and player["position"] == position:
             dc_num.append(player["depth_chart_order"])
             logging.error(player["depth_chart_order"])
     logging.error(dc_num)
