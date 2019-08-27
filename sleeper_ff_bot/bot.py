@@ -186,24 +186,68 @@ def get_depth_chart(team, position):
         bot = Discord(webhook)
 
     final_string = "Depth Chart for {} - {}\n\n".format(team, position)
-    dc_num = []
-    for player_id in players:
-        player = players[player_id]
-        if player["team"] == team and player["position"] == position:
-            logging.error(player["full_name"])
-            logging.error(team)
-            logging.error(position)
-            logging.error(player["depth_chart_order"])
-            if player["depth_chart_order"] is not None:
-                dc_num.append(player["depth_chart_order"])
-    dc_cnt = max(dc_num)
-    i = 1
-    while i <= dc_cnt:
+    if position == 'WR':
+        lwrdc_num = []
+        rwrdc_num = []
+        swrdc_num = []
         for player_id in players:
             player = players[player_id]
-            if team == player["team"] and position == player["position"] and i == player["depth_chart_order"]:
-                final_string += "{}. {}\n".format(i, player["full_name"])
-        i += 1
+            if player["team"] == team and player["position"] == position:
+                if player["depth_chart_order"] is not None:
+                    if player["depth_chart_position"] = 'LWR':
+                        lwrdc_num.append(player["depth_chart_order"])
+                    elif player["depth_chart_position"] = 'RWR':
+                        rwrdc_num.append(player["depth_chart_order"])
+                    elif player["depth_chart_position"] = 'SWR':
+                        swrdc_num.append(player["depth_chart_order"])
+        if len(lwrdc_num) > 0:
+            lwrdc_cnt = max(lwrdc_num)
+            i =1
+            while i <= lwrdc_cnt:
+                final_string += "WR1:\n"
+                for player_id in players:
+                    player = players[player_id]
+                    if team == player["team"] and position == player["position"] and player["depth_chart_position"] == 'LWR' and i == player["depth_chart_order"]:
+                        final_string += "{}. {}\n".format(i, player["full_name"])
+                i += 1
+            final_string =+ "\n"
+        if len(rwrdc_num) > 0:
+            rwrdc_cnt = max(rwrdc_num)
+            i =1
+            while i <= rwrdc_cnt:
+                final_string += "WR2:\n"
+                for player_id in players:
+                    player = players[player_id]
+                    if team == player["team"] and position == player["position"] and player["depth_chart_position"] == 'RWR' and i == player["depth_chart_order"]:
+                        final_string += "{}. {}\n".format(i, player["full_name"])
+                i += 1
+            final_string =+ "\n"
+        if len(swrdc_num) > 0:
+            swrdc_cnt = max(swrdc_num)
+            i = 1
+            while i <= swrdc_cnt:
+                final_string += "WR3:\n"
+                for player_id in players:
+                    player = players[player_id]
+                    if team == player["team"] and position == player["position"] and player["depth_chart_position"] == 'SWR' and i == player["depth_chart_order"]:
+                        final_string += "{}. {}\n".format(i, player["full_name"])
+                i += 1
+            final_string =+ "\n"
+    else:
+        dc_num = []
+        for player_id in players:
+            player = players[player_id]
+            if player["team"] == team and player["position"] == position:
+                if player["depth_chart_order"] is not None:
+                    dc_num.append(player["depth_chart_order"])
+        dc_cnt = max(dc_num)
+        i = 1
+        while i <= dc_cnt:
+            for player_id in players:
+                player = players[player_id]
+                if team == player["team"] and position == player["position"] and i == player["depth_chart_order"]:
+                    final_string += "{}. {}\n".format(i, player["full_name"])
+            i += 1
     bot.send(send_any_string, final_string)
 
 def get_player_key(search_string, requestor, name_key_switch):
