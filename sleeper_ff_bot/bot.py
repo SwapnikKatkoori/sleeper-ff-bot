@@ -185,14 +185,13 @@ def get_depth_chart(team, position):
         webhook = os.environ["DISCORD_WEBHOOK"]
         bot = Discord(webhook)
 
-    final_string = "Depth Chart for {}\n\n".format(team)
+    final_string = "Depth Chart for {} - {}\n\n".format(team, position)
     dc_num = []
     for player_id in players:
         player = players[player_id]
         if player["team"] == team and player["position"] == position:
-            dc_num.append(player["depth_chart_order"])
-            logging.error(player["depth_chart_order"])
-    logging.error(dc_num)
+            if player["depth_chart_order"] != None
+                dc_num.append(player["depth_chart_order"])
     dc_cnt = max(dc_num)
     i = 1
     while i <= dc_cnt:
