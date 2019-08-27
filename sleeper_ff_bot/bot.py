@@ -184,7 +184,7 @@ def find_position(search_string):
     for position in positions:
         if position in search_string.upper():
             i = positions.index(position)
-            position_abbr = positions[i]
+            position_abbr = positions_abbrs[i]
     if position_abbr is not None:
         return position_abbr
     else:
