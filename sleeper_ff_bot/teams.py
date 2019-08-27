@@ -1,4 +1,4 @@
-Teams = [
+teams = [
 'Arizona Cardinals',
 'Atlanta Falcons',
 'Baltimore Ravens',
