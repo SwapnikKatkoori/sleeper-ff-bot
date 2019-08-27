@@ -164,7 +164,7 @@ def get_team_abbr(search_string):
         for team in team_abbrs:
             if team.lower() in search_string.lower():
                 i = team_abbrs.index(team)
-                team_abbr = team_abbrs[i]                
+                team_abbr = team_abbrs[i]
     if team_abbr is not None:
         return team_abbr
     else:
@@ -172,8 +172,8 @@ def get_team_abbr(search_string):
 
 def find_position(search_string):
     position_abbr = None
-    #positions = ['quarterback','running back','wide receiver','tight end','kicker']
-    positions = [' QB ',' RB ',' WR ',' TE ',' K ']
+    positions = ['quarterback',' QB ','running back',' RB ','wide receiver',' WR ','tight end',' TE ','kicker',' K ']
+    positions_abbrs = ['QB','QB','RB','RB','WR','WR','TE','TE','K','K']
     for position in positions:
         if position in search_string.upper():
             i = positions.index(position)
