@@ -272,7 +272,7 @@ def get_depth_chart(team, position):
 
 def get_player_key(search_string, requestor, name_key_switch):
     players = Players().get_all_players()
-
+    logging.error(search_string)
     bot_type = os.environ["BOT_TYPE"]
 
     if bot_type == "groupme":
