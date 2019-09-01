@@ -402,7 +402,7 @@ def get_player_stats(search_object):
         stats_run = False
     if stats_run:
         if position is not "DEF":
-            final_string = "{} ({} - {})\n{}\n\n".format(player_name, position, team,injury_status)
+            final_string = "{} ({} - {})({})\n{}\n\n".format(player_name, position, team, player, injury_status)
         else:
             final_string = "{} ({} - {})\n\n".format(player_name, position, team)
 
