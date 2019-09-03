@@ -374,7 +374,6 @@ def get_player_stats(search_object):
         year = STARTING_YEAR
     else:
         year = int(STARTING_YEAR) - 1
-    logging.error(year)
     stats = Stats(). get_all_stats("regular",year)
 
     bot_type = os.environ["BOT_TYPE"]
@@ -407,7 +406,7 @@ def get_player_stats(search_object):
         stats_run = False
     if stats_run:
         if position is not "DEF":
-            final_string = "{} ({} - {})({})\n{}\n\n".format(player_name, position, team, player, injury_status)
+            final_string = "{} ({} - {})\n{}\n\n".format(player_name, position, team, injury_status)
         else:
             final_string = "{} ({} - {})\n\n".format(player_name, position, team)
 
