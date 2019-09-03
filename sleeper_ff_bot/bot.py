@@ -368,8 +368,13 @@ def get_random_player(position,ba_flag):
 
 def get_player_stats(search_object):
 
-    year = '2018'
-
+    today = pendulum.today()
+    starting_date = pendulum.datetime(STARTING_YEAR, STARTING_MONTH, STARTING_DAY)
+    if starting_date >= today:
+        year = STARTING_YEAR
+    else:
+        year = int(STARTING_YEAR) - 1
+    logging.error(year)
     stats = Stats(). get_all_stats("regular",year)
 
     bot_type = os.environ["BOT_TYPE"]
