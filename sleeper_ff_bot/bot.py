@@ -272,7 +272,7 @@ def get_depth_chart(team, position):
 
 def get_player_key(search_string, requestor, name_key_switch):
     players = Players().get_all_players()
-
+    logging.error(search_string)
     bot_type = os.environ["BOT_TYPE"]
 
     if bot_type == "groupme":
@@ -368,8 +368,12 @@ def get_random_player(position,ba_flag):
 
 def get_player_stats(search_object):
 
-    year = '2018'
-
+    today = pendulum.today()
+    starting_date = pendulum.datetime(STARTING_YEAR, STARTING_MONTH, STARTING_DAY)
+    if starting_date >= today:
+        year = STARTING_YEAR
+    else:
+        year = int(STARTING_YEAR) - 1
     stats = Stats(). get_all_stats("regular",year)
 
     bot_type = os.environ["BOT_TYPE"]
@@ -402,7 +406,7 @@ def get_player_stats(search_object):
         stats_run = False
     if stats_run:
         if position is not "DEF":
-            final_string = "{} ({} - {})\n{}\n\n".format(player_name, position, team,injury_status)
+            final_string = "{} ({} - {})\n{}\n\n".format(player_name, position, team, injury_status)
         else:
             final_string = "{} ({} - {})\n\n".format(player_name, position, team)
 

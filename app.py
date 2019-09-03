@@ -98,6 +98,13 @@ def webhook():
                 bot.send(get_scores_string, league_id)
             elif 'matchups' in message['text'].lower():
                 bot.send(get_matchups_string, league_id)
+            elif 'stats special' in message['text'].lower():
+                text = message['text']
+                text = text.replace("@bot","")
+                text = text.replace("stats special", "")
+                text = text.replace(" ","")
+                text = text.lower()
+                get_player_key(text,message['name'].lower(),1)
             elif 'stats' in message['text'].lower():
                 text = message['text']
                 text = text.replace("@bot","")
