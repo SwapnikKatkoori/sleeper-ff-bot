@@ -43,6 +43,7 @@ phrases = [
            'Prior to the 2018 season the league voted to begin a keeper system.',
            'In 2018 Adam flew from Denver to Atlanta to attend the draft.',
            'In 2012 Alex became the first person to draft a QB in the first round by taking Matt Ryan with the first overall pick.',
+           'The 2019 draft was held in Nashville Tennessee. Jamie, Derek, Kendall, Josh, Boof, and Devon did not attend.',
            ##Head-to-Head Matchups
                 ##Adam and Derek
                 'Adam leads his head-to-head against Derek in the modern era at 9-1.',
