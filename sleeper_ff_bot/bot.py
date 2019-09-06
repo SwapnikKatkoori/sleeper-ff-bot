@@ -922,8 +922,11 @@ def get_scores_string(league_id):
     :param league_id: Int league_id
     :return: string message of the current week's scores
     """
+    logging.error('fetching scores')
     week = get_current_week()
+    logging.error(week)
     scoreboards = get_league_scoreboards(league_id, week)
+    logging.error(scoreboards)
     final_message_string = "Scores \n____________________\n\n"
     for i, matchup_id in enumerate(scoreboards):
         matchup = scoreboards[matchup_id]
@@ -1158,6 +1161,6 @@ if __name__ == "__main__":
         day_of_week='mon', hour=16, minute=10, start_date=off_season_start_date, end_date=pre_season_start_date,
         replace_existing=True)
 
-    sched.add_job(bot.send, 'cron',[send_any_string,'schedule is running'], id='test',minute='0-59',replace_existing=True)
+    sched.add_job(bot.send, 'interval',[send_any_string,'schedule is running'], id='test',seconds=10,replace_existing=True)
 
     sched.start()
