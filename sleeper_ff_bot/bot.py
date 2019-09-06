@@ -895,6 +895,7 @@ def get_matchups_string(league_id):
     :param league_id: Int league_id
     :return: string message of the current week mathchups.
     """
+    Logging.error('Running get_matchups_string')
     week = get_current_week()
     scoreboards = get_league_scoreboards(league_id, week)
     final_message_string = "________________________________\n"
