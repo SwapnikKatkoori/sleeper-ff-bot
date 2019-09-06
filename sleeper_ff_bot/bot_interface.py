@@ -21,7 +21,7 @@ class BotInterface:
         :return: None
         """
         logging.error('running bot.send')
-        logging.error(*args)
+        logging.error(callback)
         try:
             message = callback(*args)
         except Exception as err:
