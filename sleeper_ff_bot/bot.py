@@ -7,7 +7,7 @@ import random
 import gspread
 import json
 from fuzzywuzzy import fuzz
-from apscheduler.scheduler import Scheduler
+from apscheduler.schedulers.blocking import BlockingScheduler
 from oauth2client.service_account import ServiceAccountCredentials
 from teams import teams, team_abbrs
 from people import names
@@ -1091,13 +1091,11 @@ if __name__ == "__main__":
 
     #sched = BlockingScheduler(job_defaults={'misfire_grace_time': 15*60})
     sched = BlockingScheduler()
-    sched.daemonic = False
-    sched.start()
     # Schedule on UTC (Eastern is -4)
     # Matchups Thursday at 7:00 pm ET
-    sched.add_cron_job(bot.send, ['get_matchups_string', league_id], id='matchups',
-     minute='0-59',
-    replace_existing=True, timezone='America/New_York')
+    sched.add_cron_job(bot.send, 'cron', ['get_matchups_string', league_id], id='matchups',
+    day_of_week='fri', hour='0-23', minute='0-59')
+    #replace_existing=True, timezone='America/New_York')
     #sched.add_job(bot.send, 'cron', [get_matchups_string, league_id], id='matchups',
     #    day_of_week='thu', hour=23, start_date=starting_date, end_date=stop_date,
     #    replace_existing=True)
