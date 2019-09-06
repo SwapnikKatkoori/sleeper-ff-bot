@@ -95,7 +95,7 @@ def get_league_scoreboards(league_id, week):
     matchups = league.get_matchups(week)
     users = league.get_users()
     rosters = league.get_rosters()
-    scoreboards = league.get_scoreboards(rosters, matchups, users)
+    scoreboards = league.get_scoreboards(rosters, matchups, users,"pts_half_ppr",week)
     return scoreboards
 
 
@@ -930,16 +930,15 @@ def get_scores_string(league_id):
     final_message_string = "Scores \n____________________\n\n"
     for i, matchup_id in enumerate(scoreboards):
         matchup = scoreboards[matchup_id]
-        if matchup[0][1] == None:
-            score1 = 0
-        else:
-            score2 = matchup[0][1]
-        if matchup[1][1] == None:
-            score2 = 0
-        else:
-            score2 = matchup[1][1]
-        string_to_add = "Matchup {}\n{:<8} {:<8.2f}\n{:<8} {:<8.2f}\n\n".format(i + 1, matchup[0][0], score1,
-                                                                                matchup[1][0], score2)
+         print(matchup)
+        first_score = 0
+        second_score = 0
+        if matchup[0][1] is not None:
+            first_score = matchup[0][1]
+        if matchup[1][1] is not None:
+            second_score = matchup[1][1]
+        string_to_add = "Matchup {}\n{:<8} {:<8.2f}\n{:<8} {:<8.2f}\n\n".format(i + 1, matchup[0][0], first_score,
+                                                                                matchup[1][0], second_score)
         final_message_string += string_to_add
 
     return final_message_string
@@ -963,6 +962,7 @@ def get_close_games_string(league_id, close_num):
 
     for i, matchup_id in enumerate(close_games):
         matchup = close_games[matchup_id]
+        print(matchup)
         string_to_add = "Matchup {}\n{:<8} {:<8.2f}\n{:<8} {:<8.2f}\n\n".format(i + 1, matchup[0][0], matchup[0][1],
                                                                                 matchup[1][0], matchup[1][1])
         final_message_string += string_to_add
