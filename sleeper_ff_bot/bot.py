@@ -922,11 +922,8 @@ def get_scores_string(league_id):
     :param league_id: Int league_id
     :return: string message of the current week's scores
     """
-    logging.error('fetching scores')
     week = get_current_week()
-    logging.error(week)
     scoreboards = get_league_scoreboards(league_id, week)
-    logging.error(scoreboards)
     final_message_string = "Scores \n____________________\n\n"
     for i, matchup_id in enumerate(scoreboards):
         matchup = scoreboards[matchup_id]
