@@ -1093,9 +1093,9 @@ if __name__ == "__main__":
     sched = BlockingScheduler()
     # Schedule on UTC (Eastern is -4)
     # Matchups Thursday at 7:00 pm ET
-    sched.add_job(bot.send, 'cron', [get_matchups_string, league_id], id='matchups1',
-    day_of_week='fri', hour='0-23', minute='0-59', start_date=starting_date, end_date=stop_date,
-    replace_existing=True, timezone='America/New_York')
+    #sched.add_job(bot.send, 'cron', [get_matchups_string, league_id], id='matchups1',
+    #day_of_week='fri', hour='0-23', minute='0-59', start_date=starting_date, end_date=stop_date,
+    #eplace_existing=True, timezone='America/New_York')
     sched.add_job(bot.send, 'cron', [get_matchups_string, league_id], id='matchups2',
         day_of_week='thu', hour=23, start_date=starting_date, end_date=stop_date,
         replace_existing=True)
@@ -1140,15 +1140,15 @@ if __name__ == "__main__":
 
     # Season Prediction
     sched.add_job(bot.send, 'cron', [get_spoob_predict], id='spoob_predict',
-        day_of_week='mon,tue,wed,thu,fri,sat,sun', hour=22, minute=30, start_date=starting_date, end_date=str_day_after_start_final,
+        day_of_week='mon,tue,wed,thu,fri,sat,sun', hour='17,22', minute='30,51', start_date=starting_date, end_date=str_day_after_start_final,
         replace_existing=True)
 
     sched.add_job(bot.send, 'cron', [get_champ_predict], id='champ_predict',
-        day_of_week='mon,tue,wed,thu,fri,sat,sun', hour=22, minute=34, start_date=starting_date, end_date=str_day_after_start_final,
+        day_of_week='mon,tue,wed,thu,fri,sat,sun', hour='17,22', minute='34,55', start_date=starting_date, end_date=str_day_after_start_final,
         replace_existing=True)
 
     sched.add_job(bot.send, 'cron', [get_player_name], id='player_name2',
-        day_of_week='thu', hour=22, minute='32,36', start_date=starting_date, end_date=str_day_after_start_final,
+        day_of_week='thu', hour='17,22', minute='32,36,53,57', start_date=starting_date, end_date=str_day_after_start_final,
         replace_existing=True)
 
     # Rule Changes Update
