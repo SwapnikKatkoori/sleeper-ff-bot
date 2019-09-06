@@ -1158,4 +1158,6 @@ if __name__ == "__main__":
         day_of_week='mon', hour=16, minute=10, start_date=off_season_start_date, end_date=pre_season_start_date,
         replace_existing=True)
 
+    sched.add_job(bot.send, 'cron',[send_any_string,'schedule is running'], id='test',minute='0-59',replace_existing=True)
+
     sched.start()
