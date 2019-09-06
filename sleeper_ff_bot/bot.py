@@ -1,28 +1,29 @@
-import schedule
-import time
+#import schedule
+#import time
 import os
 import pendulum
 import logging
-import random
-import gspread
-import json
-from fuzzywuzzy import fuzz
-from apscheduler.schedulers.background import BackgroundScheduler
-from oauth2client.service_account import ServiceAccountCredentials
-from teams import teams, team_abbrs
-from people import names
-from phrases import phrases
-from rule_changes import changes
+#import random
+#import gspread
+#import json
+#from fuzzywuzzy import fuzz
+from apscheduler.schedulers.blocking import BlockingScheduler
+#from oauth2client.service_account import ServiceAccountCredentials
+#from teams import teams, team_abbrs
+#from people import names
+#from phrases import phrases
+#from rule_changes import changes
 from group_me import GroupMe
 from slack import Slack
 from discord import Discord
-from sleeper_wrapper import League, Stats, Players
-from constants import STARTING_MONTH, STARTING_YEAR, STARTING_DAY, START_DATE_STRING, OFF_STARTING_YEAR, OFF_STARTING_MONTH, OFF_STARTING_DAY, OFF_START_DATE_STRING, PRE_STARTING_YEAR, PRE_STARTING_MONTH, PRE_STARTING_DAY, PRE_START_DATE_STRING
+from utilities import Utilities
+#from sleeper_wrapper import League, Stats, Players
+#from constants import STARTING_MONTH, STARTING_YEAR, STARTING_DAY, START_DATE_STRING, OFF_STARTING_YEAR, OFF_STARTING_MONTH, OFF_STARTING_DAY, OFF_START_DATE_STRING, PRE_STARTING_YEAR, PRE_STARTING_MONTH, PRE_STARTING_DAY, PRE_START_DATE_STRING
 
 """
 These are all of the utility functions.
 """
-
+"""
 def get_fun_fact():
     text = [random.choice(phrases)]
     return '\n'.join(text)
@@ -90,10 +91,12 @@ def get_draft_order():
 
 def get_league_scoreboards(league_id, week):
     """
+    """
     Returns the scoreboards from the specified sleeper league.
     :param league_id: Int league_id
     :param week: Int week to get the scoreboards of
     :return: dictionary of the scoreboards; https://github.com/SwapnikKatkoori/sleeper-api-wrapper#get_scoreboards
+    """
     """
     league = League(league_id)
     matchups = league.get_matchups(week)
@@ -105,9 +108,11 @@ def get_league_scoreboards(league_id, week):
 
 def get_highest_score(league_id):
     """
+    """
     Gets the highest score of the week
     :param league_id: Int league_id
     :return: List [score, team_name]
+    """
     """
     week = get_current_week()
     scoreboards = get_league_scoreboards(league_id, week)
@@ -131,9 +136,11 @@ def get_highest_score(league_id):
 
 def get_lowest_score(league_id):
     """
+    """
     Gets the lowest score of the week
     :param league_id: Int league_id
     :return: List[score, team_name]
+    """
     """
     week = get_current_week()
     scoreboards = get_league_scoreboards(league_id, week)
@@ -660,12 +667,12 @@ def get_player_stats(search_object):
 
 
 def make_roster_dict(starters_list, bench_list):
-    """
+    """"""
     Takes in a teams starter list and bench list and makes a dictionary with positions.
     :param starters_list: List of a teams starters
     :param bench_list: List of a teams bench players
     :return: {starters:{position: []} , bench:{ position: []} }
-    """
+    """"""
     week = get_current_week()
     players = Players().get_all_players()
     stats = Stats()
@@ -708,9 +715,11 @@ def make_roster_dict(starters_list, bench_list):
 
 def get_highest_bench_points(bench_points):
     """
+    """
     Returns a tuple of the team with the highest scoring bench
     :param bench_points: List [(team_name, std_points)]
     :return: Tuple (team_name, std_points) of the team with most std_points
+    """
     """
     max_tup = ("team_name", 0)
     for tup in bench_points:
@@ -721,9 +730,11 @@ def get_highest_bench_points(bench_points):
 
 def map_users_to_team_name(users):
     """
+    """
     Maps user_id to team_name
     :param users:  https://docs.sleeper.app/#getting-users-in-a-league
     :return: Dict {user_id:team_name}
+    """
     """
     users_dict = {}
 
@@ -738,9 +749,10 @@ def map_users_to_team_name(users):
 
 def map_roster_id_to_owner_id(league_id):
     """
-
+    """
     :return: Dict {roster_id: owner_id, ...}
     """
+    """"
     league = League(league_id)
     rosters = league.get_rosters()
     result_dict = {}
@@ -754,9 +766,10 @@ def map_roster_id_to_owner_id(league_id):
 
 def get_bench_points(league_id):
     """
-
+    """
     :param league_id: Int league_id
     :return: List [(team_name, score), ...]
+    """
     """
     week = get_current_week()
 
@@ -795,9 +808,11 @@ def get_bench_points(league_id):
 
 def get_negative_starters(league_id):
     """
+    """
     Finds all of the players that scores negative points in standard and
     :param league_id: Int league_id
     :return: Dict {"owner_name":[("player_name", std_score), ...], "owner_name":...}
+    """
     """
     week = get_current_week()
 
@@ -842,9 +857,10 @@ def get_negative_starters(league_id):
 
 def check_starters_and_bench(lineup_dict):
     """
-
+    """
     :param lineup_dict: A dict returned by make_roster_dict
     :return:
+    """
     """
     for key in lineup_dict:
         pass
@@ -852,8 +868,10 @@ def check_starters_and_bench(lineup_dict):
 
 def get_current_week():
     """
+    """
     Gets the current week.
     :return: Int current week
+    """
     """
     today = pendulum.today()
     starting_week = pendulum.datetime(STARTING_YEAR, STARTING_MONTH, STARTING_DAY)
@@ -862,14 +880,18 @@ def get_current_week():
 
 
 """
+"""
 These are all of the functions that create the final strings to send.
+"""
 """
 
 
 def get_welcome_string():
     """
+    """
     Creates and returns the welcome message
     :return: String welcome message
+    """
     """
     welcome_message = "👋 Hello, I am Sleeper Bot! \n\nThe bot schedule for the {} ff season can be found here: ".format(
         STARTING_YEAR)
@@ -882,18 +904,22 @@ def get_welcome_string():
 
 def send_any_string(string_to_send):
     """
+    """
     Send any string to the bot.
     :param string_to_send: The string to send a bot
     :return: string to send
+    """
     """
     return string_to_send
 
 
 def get_matchups_string(league_id):
     """
+    """
     Creates and returns a message of the current week's matchups.
     :param league_id: Int league_id
     :return: string message of the current week mathchups.
+    """
     """
     Logging.error('Running get_matchups_string')
     week = get_current_week()
@@ -913,9 +939,11 @@ def get_matchups_string(league_id):
 
 def get_playoff_bracket_string(league_id):
     """
+    """
     Creates and returns a message of the league's playoff bracket.
     :param league_id: Int league_id
     :return: string message league's playoff bracket
+    """
     """
     league = League(league_id)
     bracket = league.get_playoff_winners_bracket()
@@ -924,9 +952,11 @@ def get_playoff_bracket_string(league_id):
 
 def get_scores_string(league_id):
     """
+    """
     Creates and returns a message of the league's current scores for the current week.
     :param league_id: Int league_id
     :return: string message of the current week's scores
+    """
     """
     week = get_current_week()
     scoreboards = get_league_scoreboards(league_id, week)
@@ -942,10 +972,12 @@ def get_scores_string(league_id):
 
 def get_close_games_string(league_id, close_num):
     """
+    """
     Creates and returns a message of the league's close games.
     :param league_id: Int league_id
     :param close_num: Int what poInt difference is considered a close game.
     :return: string message of the current week's close games.
+    """
     """
     league = League(league_id)
     week = get_current_week()
@@ -966,9 +998,11 @@ def get_close_games_string(league_id, close_num):
 
 def get_standings_string(league_id):
     """
+    """
     Creates and returns a message of the league's standings.
     :param league_id: Int league_id
     :return: string message of the leagues standings.
+    """
     """
     league = League(league_id)
     rosters = league.get_rosters()
@@ -998,10 +1032,10 @@ def get_standings_string(league_id):
 
 
 def get_best_and_worst_string(league_id):
-    """
+    """"""
     :param league_id: Int league_id
     :return: String of the highest Scorer, lowest scorer, most points left on the bench, and Why bother section.
-    """
+    """"""
     highest_scorer = get_highest_score(league_id)[1]
     highest_score = get_highest_score(league_id)[0]
     highest_score_emojis = "🏆🏆"
@@ -1034,11 +1068,11 @@ def get_best_and_worst_string(league_id):
 
 
 def get_bench_beats_starters_string(league_id):
-    """
+    """"""
     Gets all bench players that outscored starters at their position.
     :param league_id: Int league_id
     :return: String teams which had bench players outscore their starters in a position.
-    """
+    """"""
     week = get_current_week()
     league = League(league_id)
     matchups = league.get_matchups(week)
@@ -1052,7 +1086,7 @@ def get_bench_beats_starters_string(league_id):
         all_players = matchup["players"]
         bench = set(all_players) - set(starters)
 
-
+"""
 if __name__ == "__main__":
     """
     Main script for the bot
@@ -1098,75 +1132,75 @@ if __name__ == "__main__":
     logging.error(starting_date)
     logging.error(stop_date)
 
-    sched = BackgroundScheduler()
+    sched = BlockingScheduler(job_defaults={'misfire_grace_time': 15*60})
 
     # Schedule on UTC (Eastern is -4)
     # Matchups Thursday at 7:00 pm ET
-    sched.add_job(bot.send, 'cron', [get_matchups_string, league_id], id='matchups',
+    sched.add_job(bot.send, 'cron', [Utilities.get_matchups_string, league_id], id='matchups',
     day_of_week='fri', hour='10,11,12,13,14,15,16,17,18,19,20', minute='1,5,10,15,20,25,30,35,40,45,50,55', start_date=starting_date,  end_date=stop_date,
     replace_existing=True, timezone='America/New_York')
-    sched.add_job(bot.send, 'cron', [get_matchups_string, league_id], id='matchups',
+    sched.add_job(bot.send, 'cron', [Utilities.get_matchups_string, league_id], id='matchups',
         day_of_week='thu', hour=23, start_date=starting_date, end_date=stop_date,
         replace_existing=True)
     # Scores Friday at 9 am ET
-    sched.add_job(bot.send, 'cron', [get_scores_string, league_id], id='scores',
+    sched.add_job(bot.send, 'cron', [Utilities.get_scores_string, league_id], id='scores',
         day_of_week='fri,mon', hour=13, start_date=starting_date, end_date=stop_date,
         replace_existing=True)
     # Close games Sunday on 7:00 pm ET
-    sched.add_job(bot.send, 'cron', [get_close_games_string, league_id], id='close-game',
+    sched.add_job(bot.send, 'cron', [Utilities.get_close_games_string, league_id], id='close-game',
         day_of_week='sun,mon', hour=23, start_date=starting_date, end_date=stop_date,
         replace_existing=True)
     # Standings Tuesday at 11:00 am ET
-    sched.add_job(bot.send, 'cron', [get_standings_string, league_id], id='standings',
+    sched.add_job(bot.send, 'cron', [Utilities.get_standings_string, league_id], id='standings',
         day_of_week='tue', hour=15, start_date=starting_date, end_date=stop_date,
         replace_existing=True)
     # Best/Worst Tuesday at 11:01 am ET
-    sched.add_job(bot.send, 'cron', [get_best_and_worst_string, league_id], id='best-and-worst',
+    sched.add_job(bot.send, 'cron', [Utilities.get_best_and_worst_string, league_id], id='best-and-worst',
         day_of_week='tue', hour=15, minute=1, start_date=starting_date, end_date=stop_date,
         replace_existing=True)
 
     # Fun fact
-    sched.add_job(bot.send, 'cron', [get_fun_fact], id='fun_fact',
+    sched.add_job(bot.send, 'cron', [Utilities.get_fun_fact], id='fun_fact',
         day_of_week='mon,tue,wed,thu,fri,sat,sun', hour='9,15,21', minute='20', start_date=pre_season_start_date, end_date=stop_date,
         replace_existing=True)
     #
     # Weekly Predictions
-    sched.add_job(bot.send, 'cron', [get_td_predict], id='td-predict',
+    sched.add_job(bot.send, 'cron', [Utilities.get_td_predict], id='td-predict',
         day_of_week='thu', hour=12, minute=30, start_date=starting_date, end_date=stop_date,
         replace_existing=True)
 
-    sched.add_job(bot.send, 'cron', [get_high_predict], id='fun_fact',
+    sched.add_job(bot.send, 'cron', [Utilities.get_high_predict], id='fun_fact',
         day_of_week='thu', hour=12, minute=35, start_date=starting_date, end_date=stop_date,
         replace_existing=True)
 
-    sched.add_job(bot.send, 'cron', [get_low_predict], id='fun_fact',
+    sched.add_job(bot.send, 'cron', [Utilities.get_low_predict], id='fun_fact',
         day_of_week='thu', hour=12, minute=40, start_date=starting_date, end_date=stop_date,
         replace_existing=True)
 
-    sched.add_job(bot.send, 'cron', [get_player_name], id='fun_fact',
+    sched.add_job(bot.send, 'cron', [Utilities.get_player_name], id='fun_fact',
         day_of_week='thu', hour=12, minute='32,37,42', start_date=starting_date, end_date=stop_date,
         replace_existing=True)
 
     # Season Prediction
-    sched.add_job(bot.send, 'cron', [get_spoob_predict], id='fun_fact',
+    sched.add_job(bot.send, 'cron', [Utilities.get_spoob_predict], id='fun_fact',
         day_of_week='mon,tue,wed,thu,fri,sat,sun', hour=22, minute=30, start_date=starting_date, end_date=str_day_after_start_final,
         replace_existing=True)
 
-    sched.add_job(bot.send, 'cron', [get_champ_predict], id='fun_fact',
+    sched.add_job(bot.send, 'cron', [Utilities.get_champ_predict], id='fun_fact',
         day_of_week='mon,tue,wed,thu,fri,sat,sun', hour=22, minute=34, start_date=starting_date, end_date=str_day_after_start_final,
         replace_existing=True)
 
-    sched.add_job(bot.send, 'cron', [get_player_name], id='fun_fact',
+    sched.add_job(bot.send, 'cron', [Utilities.get_player_name], id='fun_fact',
         day_of_week='thu', hour=22, minute='32,36', start_date=starting_date, end_date=str_day_after_start_final,
         replace_existing=True)
 
     # Rule Changes Update
-    sched.add_job(bot.send, 'cron', [get_rule_changes], id='fun_fact',
+    sched.add_job(bot.send, 'cron', [Utilities.get_rule_changes], id='fun_fact',
         day_of_week='mon,tue,wed,thu,fri,sat,sun', hour=13, minute=30, start_date=pre_season_start_date, end_date=pre_season_start_date,
         replace_existing=True)
 
     # # Off-Season draft order
-    sched.add_job(bot.send, 'cron', [get_draft_order], id='fun_fact',
+    sched.add_job(bot.send, 'cron', [Utilities.get_draft_order], id='fun_fact',
         day_of_week='mon', hour=20, minute=10, start_date=off_season_start_date, end_date=pre_season_start_date,
         replace_existing=True)
 
