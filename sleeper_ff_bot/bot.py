@@ -890,7 +890,6 @@ def get_matchups_string(league_id):
     :param league_id: Int league_id
     :return: string message of the current week mathchups.
     """
-    Logging.error('Running get_matchups_string')
     week = get_current_week()
     scoreboards = get_league_scoreboards(league_id, week)
     final_message_string = "________________________________\n"
@@ -1090,8 +1089,6 @@ if __name__ == "__main__":
     if os.environ["INIT_MESSAGE"] == "true":
         bot.send(get_welcome_string)  # inital message to send
 
-    logging.error(starting_date)
-    logging.error(stop_date)
     sched = BlockingScheduler(job_defaults={'misfire_grace_time': 15*60})
 
     # Schedule on UTC (Eastern is -4)
@@ -1164,5 +1161,4 @@ if __name__ == "__main__":
         day_of_week='mon', hour=20, minute=10, start_date=off_season_start_date, end_date=pre_season_start_date,
         replace_existing=True)
 
-    logging.error(sched.print_jobs())
     sched.start()
