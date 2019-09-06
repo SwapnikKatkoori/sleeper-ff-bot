@@ -61,17 +61,13 @@ def get_draft_order():
     # use creds to create a client to interact with the Google Drive API
     scope = ['https://spreadsheets.google.com/feeds' + ' ' +'https://www.googleapis.com/auth/drive']
     json_creds = os.environ["KEY"]
-    #logging.error(json_creds)
     creds_dict = json.loads(json_creds)
-    #logging.error(creds_dict)
     creds_dict["private_key"] = creds_dict["private_key"].replace("\\\\n", "\n")
-    #logging.error(creds_dict)
     creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
     client = gspread.authorize(creds)
 
     # Find a workbook by url and open the first sheet
     sh = client.open_by_url("https://docs.google.com/spreadsheets/d/1ZFv0u8KYoXdoKMhjloK6EhIJlmzZsn91BidnGHwkRT4/edit#gid=0")
-    #logging.error(sh)
     sheet = sh.sheet1
 
     # Extract and print all of the values
@@ -272,7 +268,6 @@ def get_depth_chart(team, position):
 
 def get_player_key(search_string, requestor, name_key_switch):
     players = Players().get_all_players()
-    logging.error(search_string)
     bot_type = os.environ["BOT_TYPE"]
 
     if bot_type == "groupme":
@@ -895,7 +890,6 @@ def get_matchups_string(league_id):
     :param league_id: Int league_id
     :return: string message of the current week mathchups.
     """
-    Logging.error('Running get_matchups_string')
     week = get_current_week()
     scoreboards = get_league_scoreboards(league_id, week)
     final_message_string = "________________________________\n"
