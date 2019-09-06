@@ -1160,5 +1160,5 @@ if __name__ == "__main__":
     #sched.add_job(bot.send, 'cron', [get_draft_order], id='fun_fact',
     #    day_of_week='mon', hour=20, minute=10, start_date=off_season_start_date, end_date=pre_season_start_date,
     #    replace_existing=True)
-
+    logging.error(sched.print_jobs())
     sched.start()
