@@ -95,7 +95,7 @@ def get_league_scoreboards(league_id, week):
     matchups = league.get_matchups(week)
     users = league.get_users()
     rosters = league.get_rosters()
-    scoreboards = league.get_scoreboards(rosters, matchups, users,'pts_half_ppr',week)
+    scoreboards = league.get_scoreboards(rosters, matchups, users)
     return scoreboards
 
 
