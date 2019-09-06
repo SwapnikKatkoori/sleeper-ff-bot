@@ -6,16 +6,22 @@ def test_get_matchups_string():
     Tests the get_matchups method
     :return:
     """
-    matchups_string = bot.get_matchups_string(355526480094113792)
+    matchups_string = bot.get_matchups_string(442724598706860032)
+    print(matchups_string)
     assert isinstance(matchups_string, str)
 
+def test_get_scores():
+    scores_string = bot.get_scores_string(442724598706860032)
+    print(scores_string)
+    assert isinstance(scores_string, str)
 
 def test_get_standings():
     """
     Tests the get_standings method
     :return:
     """
-    standings_string = bot.get_standings_string(355526480094113792)
+    standings_string = bot.get_standings_string(442724598706860032)
+    print(standings_string)
     assert isinstance(standings_string, str)
 
 @pytest.mark.skip(reason="no way of currently testing this. Should be easier next season")
@@ -38,7 +44,9 @@ def test_get_highest_score():
     assert isinstance(high_score_list[0], float)
     assert isinstance(high_score_list[1], str)
 
-
+def test_get_best_and_worst():
+    best_and_worst = bot.get_best_and_worst_string(442724598706860032)
+    print(best_and_worst)
 def test_get_current_week():
     """
     Tests the get_current_week method
