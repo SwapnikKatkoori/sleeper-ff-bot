@@ -852,7 +852,7 @@ def get_current_week():
     """
     today = pendulum.today()
     starting_week = pendulum.datetime(STARTING_YEAR, STARTING_MONTH, STARTING_DAY)
-    week = today.diff(starting_week).in_weeks()
+    week = today.diff(starting_week).in_weeks() + 1
     return week
 
 
@@ -890,12 +890,9 @@ def get_matchups_string(league_id):
     :param league_id: Int league_id
     :return: string message of the current week mathchups.
     """
-    logging.error('getting matchups')
     week = get_current_week()
-    logging.error(week)
     week += 1
     scoreboards = get_league_scoreboards(league_id, week)
-    logging.error(scoreboards)
     final_message_string = "________________________________\n"
     final_message_string += "Matchups for Week {}:\n".format(week)
     final_message_string += "________________________________\n\n"
@@ -1097,7 +1094,7 @@ if __name__ == "__main__":
 
     # Schedule on UTC (Eastern is -4)
     # Matchups Thursday at 7:00 pm ET
-    sched.add_job(bot.send(get_matchups_string,league_id), 'cron', id='matchups',
+    sched.add_job(bot.send, 'cron', [get_matchups_string, league_id] id='matchups',
     day_of_week='fri', hour='10,11,12,13,14,15,16,17,18,19,20', minute='1,5,10,15,20,25,30,35,40,45,50,55',
     replace_existing=True, timezone='America/New_York')
     sched.add_job(bot.send, 'cron', [get_matchups_string, league_id], id='matchups',
