@@ -61,17 +61,13 @@ def get_draft_order():
     # use creds to create a client to interact with the Google Drive API
     scope = ['https://spreadsheets.google.com/feeds' + ' ' +'https://www.googleapis.com/auth/drive']
     json_creds = os.environ["KEY"]
-    #logging.error(json_creds)
     creds_dict = json.loads(json_creds)
-    #logging.error(creds_dict)
     creds_dict["private_key"] = creds_dict["private_key"].replace("\\\\n", "\n")
-    #logging.error(creds_dict)
     creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
     client = gspread.authorize(creds)
 
     # Find a workbook by url and open the first sheet
     sh = client.open_by_url("https://docs.google.com/spreadsheets/d/1ZFv0u8KYoXdoKMhjloK6EhIJlmzZsn91BidnGHwkRT4/edit#gid=0")
-    #logging.error(sh)
     sheet = sh.sheet1
 
     # Extract and print all of the values
@@ -272,7 +268,6 @@ def get_depth_chart(team, position):
 
 def get_player_key(search_string, requestor, name_key_switch):
     players = Players().get_all_players()
-    logging.error(search_string)
     bot_type = os.environ["BOT_TYPE"]
 
     if bot_type == "groupme":
@@ -1102,7 +1097,7 @@ if __name__ == "__main__":
     # Schedule on UTC (Eastern is -4)
     # Matchups Thursday at 7:00 pm ET
     sched.add_job(bot.send, 'cron', [get_matchups_string, league_id], id='matchups',
-    day_of_week='fri', hour='10,11,12,13,14,15,16,17,18,19,20', minute='1,5,10,15,20,25,30,35,40,45,50,55', start_date=starting_date,  end_date=stop_date,
+    day_of_week='fri', hour='10,11,12,13,14,15,16,17,18,19,20', minute='1,5,10,15,20,25,30,35,40,45,50,55',
     replace_existing=True, timezone='America/New_York')
     sched.add_job(bot.send, 'cron', [get_matchups_string, league_id], id='matchups',
         day_of_week='thu', hour=23, start_date=starting_date, end_date=stop_date,
