@@ -20,6 +20,7 @@ class BotInterface:
         :param args: The arguments to the callback function
         :return: None
         """
+        logging.error('running bot.send')
         try:
             message = callback(*args)
         except Exception as err:
