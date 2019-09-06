@@ -1104,7 +1104,7 @@ if __name__ == "__main__":
         day_of_week='fri,mon', hour=13, start_date=starting_date, end_date=stop_date,
         replace_existing=True)
     # Close games Sunday on 7:00 pm ET
-    sched.add_job(bot.send, 'cron', [get_close_games_string, league_id], id='close-game',
+    sched.add_job(bot.send, 'cron', [get_close_games_string, league_id], id='close_game',
         day_of_week='sun,mon', hour=23, start_date=starting_date, end_date=stop_date,
         replace_existing=True)
     # Standings Tuesday at 11:00 am ET
@@ -1112,7 +1112,7 @@ if __name__ == "__main__":
         day_of_week='tue', hour=15, start_date=starting_date, end_date=stop_date,
         replace_existing=True)
     # Best/Worst Tuesday at 11:01 am ET
-    sched.add_job(bot.send, 'cron', [get_best_and_worst_string, league_id], id='best-and-worst',
+    sched.add_job(bot.send, 'cron', [get_best_and_worst_string, league_id], id='best_and_worst',
         day_of_week='tue', hour=15, minute=1, start_date=starting_date, end_date=stop_date,
         replace_existing=True)
 
@@ -1122,43 +1122,44 @@ if __name__ == "__main__":
         replace_existing=True)
     #
     # Weekly Predictions
-    sched.add_job(bot.send, 'cron', [get_td_predict], id='td-predict',
+    sched.add_job(bot.send, 'cron', [get_td_predict], id='td_predict',
         day_of_week='thu', hour=12, minute=30, start_date=starting_date, end_date=stop_date,
         replace_existing=True)
 
-    sched.add_job(bot.send, 'cron', [get_high_predict], id='high-predict',
+    sched.add_job(bot.send, 'cron', [get_high_predict], id='high_predict',
         day_of_week='thu', hour=12, minute=35, start_date=starting_date, end_date=stop_date,
         replace_existing=True)
 
-    sched.add_job(bot.send, 'cron', [get_low_predict], id='low-predict',
+    sched.add_job(bot.send, 'cron', [get_low_predict], id='low_predict',
         day_of_week='thu', hour=12, minute=40, start_date=starting_date, end_date=stop_date,
         replace_existing=True)
 
-    #sched.add_job(bot.send, 'cron', [get_player_name], id='fun_fact',
-    #    day_of_week='thu', hour=12, minute='32,37,42', start_date=starting_date, end_date=stop_date,
-    #    replace_existing=True)
+    sched.add_job(bot.send, 'cron', [get_player_name], id='player_name1',
+        day_of_week='thu', hour=12, minute='32,37,42', start_date=starting_date, end_date=stop_date,
+        replace_existing=True)
 
     # Season Prediction
-    #sched.add_job(bot.send, 'cron', [get_spoob_predict], id='fun_fact',
-    #    day_of_week='mon,tue,wed,thu,fri,sat,sun', hour=22, minute=30, start_date=starting_date, end_date=str_day_after_start_final,
-    #    replace_existing=True)
+    sched.add_job(bot.send, 'cron', [get_spoob_predict], id='spoob_predict',
+        day_of_week='mon,tue,wed,thu,fri,sat,sun', hour=22, minute=30, start_date=starting_date, end_date=str_day_after_start_final,
+        replace_existing=True)
 
-    #sched.add_job(bot.send, 'cron', [get_champ_predict], id='fun_fact',
-    #    day_of_week='mon,tue,wed,thu,fri,sat,sun', hour=22, minute=34, start_date=starting_date, end_date=str_day_after_start_final,
-    #    replace_existing=True)
+    sched.add_job(bot.send, 'cron', [get_champ_predict], id='champ_predict',
+        day_of_week='mon,tue,wed,thu,fri,sat,sun', hour=22, minute=34, start_date=starting_date, end_date=str_day_after_start_final,
+        replace_existing=True)
 
-    #sched.add_job(bot.send, 'cron', [get_player_name], id='fun_fact',
-    #    day_of_week='thu', hour=22, minute='32,36', start_date=starting_date, end_date=str_day_after_start_final,
-    #    replace_existing=True)
+    sched.add_job(bot.send, 'cron', [get_player_name], id='player_name2',
+        day_of_week='thu', hour=22, minute='32,36', start_date=starting_date, end_date=str_day_after_start_final,
+        replace_existing=True)
 
     # Rule Changes Update
-    #sched.add_job(bot.send, 'cron', [get_rule_changes], id='fun_fact',
-    #    day_of_week='mon,tue,wed,thu,fri,sat,sun', hour=13, minute=30, start_date=pre_season_start_date, end_date=pre_season_start_date,
-    #    replace_existing=True)
+    sched.add_job(bot.send, 'cron', [get_rule_changes], id='rule_changes',
+        day_of_week='mon,tue,wed,thu,fri,sat,sun', hour=13, minute=30, start_date=pre_season_start_date, end_date=pre_season_start_date,
+        replace_existing=True)
 
     # # Off-Season draft order
-    #sched.add_job(bot.send, 'cron', [get_draft_order], id='fun_fact',
-    #    day_of_week='mon', hour=20, minute=10, start_date=off_season_start_date, end_date=pre_season_start_date,
-    #    replace_existing=True)
+    sched.add_job(bot.send, 'cron', [get_draft_order], id='draft_order',
+        day_of_week='mon', hour=20, minute=10, start_date=off_season_start_date, end_date=pre_season_start_date,
+        replace_existing=True)
+
     logging.error(sched.print_jobs())
     sched.start()
