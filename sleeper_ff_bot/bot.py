@@ -1093,10 +1093,10 @@ if __name__ == "__main__":
     sched = BlockingScheduler()
     # Schedule on UTC (Eastern is -4)
     # Matchups Thursday at 7:00 pm ET
-    sched.add_job(bot.send, 'cron', [get_matchups_string, league_id], id='matchups',
+    sched.add_job(bot.send, 'cron', [get_matchups_string, league_id], id='matchups1',
     day_of_week='fri', hour='0-23', minute='0-59', start_date=starting_date, end_date=stop_date,
     replace_existing=True, timezone='America/New_York')
-    sched.add_job(bot.send, 'cron', [get_matchups_string, league_id], id='matchups',
+    sched.add_job(bot.send, 'cron', [get_matchups_string, league_id], id='matchups2',
         day_of_week='thu', hour=23, start_date=starting_date, end_date=stop_date,
         replace_existing=True)
     # Scores Friday at 9 am ET
@@ -1117,7 +1117,7 @@ if __name__ == "__main__":
         replace_existing=True)
 
     # Fun fact
-    sched.add_job(bot.send, 'cron', [get_fun_fact], id='fun_fact',
+    sched.add_job(bot.send, 'cron', [get_fun_fact], id='fun_fact1',
         day_of_week='mon,tue,wed,thu,fri,sat,sun', hour='9,15,21', minute='20', start_date=pre_season_start_date, end_date=stop_date,
         replace_existing=True)
     #
@@ -1126,11 +1126,11 @@ if __name__ == "__main__":
         day_of_week='thu', hour=12, minute=30, start_date=starting_date, end_date=stop_date,
         replace_existing=True)
 
-    sched.add_job(bot.send, 'cron', [get_high_predict], id='fun_fact',
+    sched.add_job(bot.send, 'cron', [get_high_predict], id='high-predict',
         day_of_week='thu', hour=12, minute=35, start_date=starting_date, end_date=stop_date,
         replace_existing=True)
 
-    sched.add_job(bot.send, 'cron', [get_low_predict], id='fun_fact',
+    sched.add_job(bot.send, 'cron', [get_low_predict], id='low-predict',
         day_of_week='thu', hour=12, minute=40, start_date=starting_date, end_date=stop_date,
         replace_existing=True)
 
