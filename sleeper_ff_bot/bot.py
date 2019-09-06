@@ -893,6 +893,7 @@ def get_matchups_string(league_id):
     logging.error('getting matchups')
     week = get_current_week()
     logging.error(week)
+    week += 1
     scoreboards = get_league_scoreboards(league_id, week)
     logging.error(scoreboards)
     final_message_string = "________________________________\n"
