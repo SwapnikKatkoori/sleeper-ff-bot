@@ -1154,7 +1154,7 @@ if __name__ == "__main__":
 
     # Rule Changes Update
     sched.add_job(bot.send, 'date', [get_rule_changes], id='rule_changes',
-        run_date=datetime(PRE_STARTING_YEAR, PRE_STARTING_MONTH, PRE_STARTING_DAY, 18, 15),
+        run_date=datetime(PRE_STARTING_YEAR, PRE_STARTING_MONTH, PRE_STARTING_DAY, 18, 17),
         replace_existing=True)
 
     # # Off-Season draft order
