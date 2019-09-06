@@ -95,7 +95,7 @@ def get_league_scoreboards(league_id, week):
     matchups = league.get_matchups(week)
     users = league.get_users()
     rosters = league.get_rosters()
-    scoreboards = league.get_scoreboards(rosters, matchups, users,"pts_half_ppr",week)
+    scoreboards = league.get_scoreboards(rosters, matchups, users)
     return scoreboards
 
 
@@ -927,15 +927,8 @@ def get_scores_string(league_id):
     final_message_string = "Scores \n____________________\n\n"
     for i, matchup_id in enumerate(scoreboards):
         matchup = scoreboards[matchup_id]
-        print(matchup)
-        first_score = 0
-        second_score = 0
-        if matchup[0][1] is not None:
-            first_score = matchup[0][1]
-        if matchup[1][1] is not None:
-            second_score = matchup[1][1]
-        string_to_add = "Matchup {}\n{:<8} {:<8.2f}\n{:<8} {:<8.2f}\n\n".format(i + 1, matchup[0][0], first_score,
-                                                                                matchup[1][0], second_score)
+        string_to_add = "Matchup {}\n{:<8} {:<8.2f}\n{:<8} {:<8.2f}\n\n".format(i + 1, matchup[0][0], matchup[0][1],
+                                                                                matchup[1][0], matchup[1][1])
         final_message_string += string_to_add
 
     return final_message_string
@@ -959,7 +952,6 @@ def get_close_games_string(league_id, close_num):
 
     for i, matchup_id in enumerate(close_games):
         matchup = close_games[matchup_id]
-        print(matchup)
         string_to_add = "Matchup {}\n{:<8} {:<8.2f}\n{:<8} {:<8.2f}\n\n".format(i + 1, matchup[0][0], matchup[0][1],
                                                                                 matchup[1][0], matchup[1][1])
         final_message_string += string_to_add
@@ -1053,117 +1045,3 @@ def get_bench_beats_starters_string(league_id):
         starters = matchup["starters"]
         all_players = matchup["players"]
         bench = set(all_players) - set(starters)
-
-
-if __name__ == "__main__":
-    """
-    Main script for the bot
-    """
-    bot = None
-
-    bot_type = os.environ["BOT_TYPE"]
-    league_id = os.environ["LEAGUE_ID"]
-
-    # Check if the user specified the close game num. Default is 20.
-    try:
-        close_num = os.environ["CLOSE_NUM"]
-    except:
-        close_num = 20
-
-    # off_season_start_date = pendulum.datetime(OFF_STARTING_YEAR, OFF_STARTING_MONTH, OFF_STARTING_DAY)
-    # pre_season_start_date = pendulum.datetime(PRE_STARTING_YEAR, PRE_STARTING_MONTH, PRE_STARTING_DAY)
-    # starting_date = pendulum.datetime(STARTING_YEAR, STARTING_MONTH, STARTING_DAY)
-
-    off_season_start_date = os.environ["OFF_SEASON_START_DATE"]
-    pre_season_start_date = os.environ["PRE_SEASON_START_DATE"]
-    starting_date = os.environ["SEASON_START_DATE"]
-    stop_date = os.environ["STOP_DATE"]
-
-    start_day = int(os.environ["SEASON_START_DATE"][8:10])
-    start_day += 1
-    str_day_after_start = str(start_day).zfill(2)
-    str_day_after_start_final = os.environ["SEASON_START_DATE"][0:8] + str_day_after_start
-
-    if bot_type == "groupme":
-        bot_id = os.environ["BOT_ID"]
-        bot = GroupMe(bot_id)
-    elif bot_type == "slack":
-        webhook = os.environ["SLACK_WEBHOOK"]
-        bot = Slack(webhook)
-    elif bot_type == "discord":
-        webhook = os.environ["DISCORD_WEBHOOK"]
-        bot = Discord(webhook)
-
-    if os.environ["INIT_MESSAGE"] == "true":
-        bot.send(get_welcome_string)  # inital message to send
-
-    #sched = BlockingScheduler(job_defaults={'misfire_grace_time': 15*60})
-    sched = BlockingScheduler(timezone='America/New_York')
-
-    # Matchups Thursday at 7:00 pm ET
-    sched.add_job(bot.send, 'cron', [get_matchups_string, league_id], id='matchups2',
-        day_of_week='thu', hour=19, start_date=starting_date, end_date=stop_date,
-        replace_existing=True)
-    # Scores Friday & Monday at 9 am ET
-    sched.add_job(bot.send, 'cron', [get_scores_string, league_id], id='scores',
-        day_of_week='fri,mon', hour=9, start_date=starting_date, end_date=stop_date,
-        replace_existing=True)
-    # Close games Sunday & Monday on 7:00 pm ET
-    sched.add_job(bot.send, 'cron', [get_close_games_string, league_id], id='close_game',
-        day_of_week='sun,mon', hour=19, start_date=starting_date, end_date=stop_date,
-        replace_existing=True)
-    # Standings Tuesday at 11:00 am ET
-    sched.add_job(bot.send, 'cron', [get_standings_string, league_id], id='standings',
-        day_of_week='tue', hour=11, start_date=starting_date, end_date=stop_date,
-        replace_existing=True)
-    # Best/Worst Tuesday at 11:01 am ET
-    sched.add_job(bot.send, 'cron', [get_best_and_worst_string, league_id], id='best_and_worst',
-        day_of_week='tue', hour=11, minute=1, start_date=starting_date, end_date=stop_date,
-        replace_existing=True)
-
-    # Fun fact
-    sched.add_job(bot.send, 'cron', [get_fun_fact], id='fun_fact1',
-        day_of_week='mon,tue,wed,thu,fri,sat,sun', hour='9,15,21', minute='20', start_date=pre_season_start_date, end_date=stop_date,
-        replace_existing=True)
-    #
-    # Weekly Predictions
-    sched.add_job(bot.send, 'cron', [get_td_predict], id='td_predict',
-        day_of_week='thu', hour=14, minute=20, start_date=starting_date, end_date=stop_date,
-        replace_existing=True)
-
-    sched.add_job(bot.send, 'cron', [get_high_predict], id='high_predict',
-        day_of_week='thu', hour=14, minute=23, start_date=starting_date, end_date=stop_date,
-        replace_existing=True)
-
-    sched.add_job(bot.send, 'cron', [get_low_predict], id='low_predict',
-        day_of_week='thu', hour=14, minute=25, start_date=starting_date, end_date=stop_date,
-        replace_existing=True)
-
-    sched.add_job(bot.send, 'cron', [get_player_name], id='player_name1',
-        day_of_week='thu', hour=14, minute='20,23,25', second=10, start_date=starting_date, end_date=stop_date,
-        replace_existing=True)
-
-    # Season Prediction
-    sched.add_job(bot.send, 'cron', [get_spoob_predict], id='spoob_predict',
-        day_of_week='mon,tue,wed,thu,fri,sat,sun', hour=19, minute=30, start_date=starting_date, end_date=str_day_after_start_final,
-        replace_existing=True)
-
-    sched.add_job(bot.send, 'cron', [get_champ_predict], id='champ_predict',
-        day_of_week='mon,tue,wed,thu,fri,sat,sun', hour=19, minute=34, start_date=starting_date, end_date=str_day_after_start_final,
-        replace_existing=True)
-
-    sched.add_job(bot.send, 'cron', [get_player_name], id='player_name2',
-        day_of_week='mon,tue,wed,thu,fri,sat,sun', hour=19, minute='30,34', second=10, start_date=starting_date, end_date=str_day_after_start_final,
-        replace_existing=True)
-
-    # Rule Changes Update
-    sched.add_job(bot.send, 'date', [get_rule_changes], id='rule_changes',
-        run_date=pendulum.datetime(PRE_STARTING_YEAR, PRE_STARTING_MONTH, PRE_STARTING_DAY, 22, 20),
-        replace_existing=True)
-
-    # # Off-Season draft order
-    sched.add_job(bot.send, 'cron', [get_draft_order], id='draft_order',
-        day_of_week='mon', hour=16, minute=10, start_date=off_season_start_date, end_date=pre_season_start_date,
-        replace_existing=True)
-
-    sched.start()
