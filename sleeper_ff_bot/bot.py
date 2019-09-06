@@ -1095,6 +1095,9 @@ if __name__ == "__main__":
     if os.environ["INIT_MESSAGE"] == "true":
         bot.send(get_welcome_string)  # inital message to send
 
+    logging.error(starting_date)
+    logging.error(stop_date)
+    
     sched = BlockingScheduler(job_defaults={'misfire_grace_time': 15*60})
 
     # Schedule on UTC (Eastern is -4)

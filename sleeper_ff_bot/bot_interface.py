@@ -19,6 +19,7 @@ class BotInterface:
         :return: None
         """
         try:
+            logging.error('running bot.send')
             message = callback(*args)
         except Exception as err:
             message = "There was an error that occurred with the bot: {}\n\n".format(err)
