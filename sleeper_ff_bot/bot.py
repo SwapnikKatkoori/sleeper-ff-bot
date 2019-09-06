@@ -1094,7 +1094,7 @@ if __name__ == "__main__":
     # Schedule on UTC (Eastern is -4)
     # Matchups Thursday at 7:00 pm ET
     sched.add_job(bot.send, 'cron', [get_matchups_string, league_id], id='matchups',
-    day_of_week='fri', hour='0-23', minute='0-59')
+    day_of_week='fri', hour='0-23', minute='0-59', start_date=starting_date, end_date=stop_date)
     #replace_existing=True, timezone='America/New_York')
     #sched.add_job(bot.send, 'cron', [get_matchups_string, league_id], id='matchups',
     #    day_of_week='thu', hour=23, start_date=starting_date, end_date=stop_date,
