@@ -1,3 +1,5 @@
+import logging
+
 class BotInterface:
     def __init__(self, bot_id):
         self.bot_id = bot_id
@@ -18,6 +20,8 @@ class BotInterface:
         :param args: The arguments to the callback function
         :return: None
         """
+        logging.error('running bot.send')
+        logging.error(*args)
         try:
             message = callback(*args)
         except Exception as err:
