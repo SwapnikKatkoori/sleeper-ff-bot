@@ -1090,7 +1090,7 @@ if __name__ == "__main__":
         bot.send(get_welcome_string)  # inital message to send
 
     #sched = BlockingScheduler(job_defaults={'misfire_grace_time': 15*60})
-    sched - BlockingScheduler()
+    sched = BlockingScheduler()
     # Schedule on UTC (Eastern is -4)
     # Matchups Thursday at 7:00 pm ET
     sched.add_job(bot.send, 'cron', ['get_matchups_string', league_id], id='matchups',
