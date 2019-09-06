@@ -1135,7 +1135,7 @@ if __name__ == "__main__":
         replace_existing=True)
 
     sched.add_job(bot.send, 'cron', [get_player_name], id='player_name1',
-        day_of_week='thu,fri', hour=18, minute='20,23,25', second=10 start_date=starting_date, end_date=stop_date,
+        day_of_week='thu,fri', hour=18, minute='20,23,25', second=10, start_date=starting_date, end_date=stop_date,
         replace_existing=True)
 
     # Season Prediction
@@ -1148,12 +1148,12 @@ if __name__ == "__main__":
         replace_existing=True)
 
     sched.add_job(bot.send, 'cron', [get_player_name], id='player_name2',
-        day_of_week='mon,tue,wed,thu,fri,sat,sun', hour='18,22', minute='30,34', second=10 start_date=starting_date, end_date=str_day_after_start_final,
+        day_of_week='mon,tue,wed,thu,fri,sat,sun', hour='18,22', minute='30,34', second=10, start_date=starting_date, end_date=str_day_after_start_final,
         replace_existing=True)
 
     # Rule Changes Update
     sched.add_job(bot.send, 'date', [get_rule_changes], id='rule_changes',
-        run_date=datetime(PRE_STARTING_YEAR, PRE_STARTING_MONTH, PRE_STARTING_DAY, 18, 10),
+        run_date=datetime(PRE_STARTING_YEAR, PRE_STARTING_MONTH, PRE_STARTING_DAY, 18, 15),
         replace_existing=True)
 
     # # Off-Season draft order
