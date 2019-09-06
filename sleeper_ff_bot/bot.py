@@ -930,11 +930,11 @@ def get_scores_string(league_id):
     final_message_string = "Scores \n____________________\n\n"
     for i, matchup_id in enumerate(scoreboards):
         matchup = scoreboards[matchup_id]
-        if matchup[0][1] = None:
+        if matchup[0][1] == None:
             score1 = 0
         else:
             score2 = matchup[0][1]
-        if matchup[1][1] = None:
+        if matchup[1][1] == None:
             score2 = 0
         else:
             score2 = matchup[1][1]
