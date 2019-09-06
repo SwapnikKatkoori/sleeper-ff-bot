@@ -1123,37 +1123,37 @@ if __name__ == "__main__":
     #
     # Weekly Predictions
     sched.add_job(bot.send, 'cron', [get_td_predict], id='td_predict',
-        day_of_week='thu', hour=12, minute=30, start_date=starting_date, end_date=stop_date,
+        day_of_week='thu,fri', hour=18, minute=20, start_date=starting_date, end_date=stop_date,
         replace_existing=True)
 
     sched.add_job(bot.send, 'cron', [get_high_predict], id='high_predict',
-        day_of_week='thu', hour=12, minute=35, start_date=starting_date, end_date=stop_date,
+        day_of_week='thu,fri', hour=18, minute=23, start_date=starting_date, end_date=stop_date,
         replace_existing=True)
 
     sched.add_job(bot.send, 'cron', [get_low_predict], id='low_predict',
-        day_of_week='thu', hour=12, minute=40, start_date=starting_date, end_date=stop_date,
+        day_of_week='thu,fri', hour=18, minute=25, start_date=starting_date, end_date=stop_date,
         replace_existing=True)
 
     sched.add_job(bot.send, 'cron', [get_player_name], id='player_name1',
-        day_of_week='thu', hour=12, minute='32,37,42', start_date=starting_date, end_date=stop_date,
+        day_of_week='thu,fri', hour=18, minute='20,23,25', second=10 start_date=starting_date, end_date=stop_date,
         replace_existing=True)
 
     # Season Prediction
     sched.add_job(bot.send, 'cron', [get_spoob_predict], id='spoob_predict',
-        day_of_week='mon,tue,wed,thu,fri,sat,sun', hour='17,22', minute='30,51', start_date=starting_date, end_date=str_day_after_start_final,
+        day_of_week='mon,tue,wed,thu,fri,sat,sun', hour='18,22', minute='30', start_date=starting_date, end_date=str_day_after_start_final,
         replace_existing=True)
 
     sched.add_job(bot.send, 'cron', [get_champ_predict], id='champ_predict',
-        day_of_week='mon,tue,wed,thu,fri,sat,sun', hour='17,22', minute='34,55', start_date=starting_date, end_date=str_day_after_start_final,
+        day_of_week='mon,tue,wed,thu,fri,sat,sun', hour='18,22', minute='34', start_date=starting_date, end_date=str_day_after_start_final,
         replace_existing=True)
 
     sched.add_job(bot.send, 'cron', [get_player_name], id='player_name2',
-        day_of_week='thu', hour='17,22', minute='32,36,53,57', start_date=starting_date, end_date=str_day_after_start_final,
+        day_of_week='mon,tue,wed,thu,fri,sat,sun', hour='18,22', minute='30,34', second=10 start_date=starting_date, end_date=str_day_after_start_final,
         replace_existing=True)
 
     # Rule Changes Update
-    sched.add_job(bot.send, 'cron', [get_rule_changes], id='rule_changes',
-        day_of_week='mon,tue,wed,thu,fri,sat,sun', hour=13, minute=30, start_date=pre_season_start_date, end_date=pre_season_start_date,
+    sched.add_job(bot.send, 'date', [get_rule_changes], id='rule_changes',
+        run_date=datetime(PRE_STARTING_YEAR, PRE_STARTING_MONTH, PRE_STARTING_DAY, 18, 10),
         replace_existing=True)
 
     # # Off-Season draft order
