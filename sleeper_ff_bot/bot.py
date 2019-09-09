@@ -1106,7 +1106,7 @@ if __name__ == "__main__":
         replace_existing=True)
     # Scores Friday & Monday at 9 am ET
     sched.add_job(bot.send, 'cron', [get_scores_string, league_id], id='scores',
-        day_of_week='fri,mon', hour=9, start_date=starting_date, end_date=stop_date,
+        day_of_week='fri,mon', hour=9, minute=10, start_date=starting_date, end_date=stop_date,
         replace_existing=True)
     # Close games Sunday & Monday on 7:00 pm ET
     sched.add_job(bot.send, 'cron', [get_close_games_string, league_id], id='close_game',
