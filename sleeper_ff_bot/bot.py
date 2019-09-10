@@ -1070,10 +1070,6 @@ if __name__ == "__main__":
     except:
         close_num = 20
 
-    # off_season_start_date = pendulum.datetime(OFF_STARTING_YEAR, OFF_STARTING_MONTH, OFF_STARTING_DAY)
-    # pre_season_start_date = pendulum.datetime(PRE_STARTING_YEAR, PRE_STARTING_MONTH, PRE_STARTING_DAY)
-    # starting_date = pendulum.datetime(STARTING_YEAR, STARTING_MONTH, STARTING_DAY)
-
     off_season_start_date = os.environ["OFF_SEASON_START_DATE"]
     pre_season_start_date = os.environ["PRE_SEASON_START_DATE"]
     starting_date = os.environ["SEASON_START_DATE"]
