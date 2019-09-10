@@ -11,3 +11,6 @@
 ## Version 0.0.2
 - Fixed standings bug and temporarily fixed the scores bug.
 - Updated to version 1.0.6 of sleeper-wrapper
+
+## Version 0.0.3
+- Fixed bug caused by KeyError in sleeper-wrapper 
