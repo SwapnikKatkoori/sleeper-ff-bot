@@ -46,21 +46,21 @@ phrases = [
            'The 2019 draft was held in Nashville Tennessee. Jamie, Derek, Kendall, Josh, Boof, and Devon did not attend.',
            ##Head-to-Head Matchups
                 ##Adam and Derek
-                'Adam leads his head-to-head against Derek in the modern era at 9-1.',
-                'Adam leads Derek in scoring in their head-to-head matchups 1189.8 - 982.8.',
+                'Adam leads his head-to-head against Derek in the modern era at 9-2.',
+                'Adam leads Derek in scoring in their head-to-head matchups 1309.88 - 1114.54.',
                 ##Kendall and Jamie
-                'Jamie leads the Married Couple Matchup at 3-2 in the modern era.',
-                'Jamie is 3-0 in the regular season against Kendall.',
+                'Jamie leads the Married Couple Matchup at 4-2 in the modern era.',
+                'Jamie is 4-0 in the regular season against Kendall.',
                 'Kendall is 2-0 in the post season against Jamie.',
                 ##Alex and Devon
-                'Alex leads Devon head-to-head 6-2 in the modern era.',
-                'Alex leads Devon head-to-head 2-0 since becoming an official rivalry',
-                'Alex has defeated Devon in six straight matchups.',
-                'Alex leads Devon in scoring in their head-to-head matchups 1,105.7 - 946.4.',
+                'Alex leads Devon head-to-head 7-2 in the modern era.',
+                'Alex leads Devon head-to-head 3-0 since becoming an official rivalry',
+                'Alex has defeated Devon in seven straight matchups.',
+                'Alex leads Devon in scoring in their head-to-head matchups 1249.4 - 1056.62.',
                 ##Cody and Jamie
                 'In 2016 Cody lost a team name bet to Jamie and his franchise was renamed \'Cody Jinnette D.M.D\'.',
-                'Jamie and Cody are tied head-to-head at 5-5.',
-                'Cody leads head-to-head scoring against Jamie 1482.4 - 1323.3.',
+                'Jamie leads Cody in head-to-head matchups at 6-5.',
+                'Cody leads head-to-head scoring against Jamie 1614.76 - 1463.54‬.',
            ##Team names
            'Alex got his team name (Falcoholic) by combining his favorite team (the Falcons) with his favorite activity (being an alcoholic).',
            'Devon chose his name (Morningwood Lumber Company) because it\'s a dick joke.',
@@ -69,7 +69,7 @@ phrases = [
            'Kendall\'s team name is \'Big TD Commitee\' and no one knows why.',
            ##Non-Stat(ish) things that will change
            'Jamie is the only person to have won both The Deyton and The Spooby Shitter.',
-           'Devon currently holds the record for longest active streak with the same team name at 4 seasons (Morningwood Lumber Company). It\'s a dick joke.',
+           'Devon currently holds the record for longest active streak with the same team name at 5 seasons (Morningwood Lumber Company). It\'s a dick joke.',
            ##Statistical records that may change
            'No team has won the \'Fab Five\' award for QB, RB, RB, WR, & WR slots all scoring at least 20 points each',
            'Jamie currently holds the record for fewest point in a season at 1222.1(2017). Ouch!',
