@@ -55,32 +55,32 @@ def get_spoob_predict():
     text = "I predict the spooby this season will be..."
     return text
 
-def get_draft_order():
+#def get_draft_order():
     # use creds to create a client to interact with the Google Drive API
-    scope = ['https://spreadsheets.google.com/feeds' + ' ' +'https://www.googleapis.com/auth/drive']
-    json_creds = os.environ["KEY"]
-    creds_dict = json.loads(json_creds)
-    creds_dict["private_key"] = creds_dict["private_key"].replace("\\\\n", "\n")
-    creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
-    client = gspread.authorize(creds)
+    #scope = ['https://spreadsheets.google.com/feeds' + ' ' +'https://www.googleapis.com/auth/drive']
+    #json_creds = os.environ["KEY"]
+    #creds_dict = json.loads(json_creds)
+    #creds_dict["private_key"] = creds_dict["private_key"].replace("\\\\n", "\n")
+    #creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
+    #client = gspread.authorize(creds)
 
     # Find a workbook by url and open the first sheet
-    sh = client.open_by_url("https://docs.google.com/spreadsheets/d/1ZFv0u8KYoXdoKMhjloK6EhIJlmzZsn91BidnGHwkRT4/edit#gid=0")
-    sheet = sh.sheet1
+    #sh = client.open_by_url("https://docs.google.com/spreadsheets/d/1ZFv0u8KYoXdoKMhjloK6EhIJlmzZsn91BidnGHwkRT4/edit#gid=0")
+    #sheet = sh.sheet1
 
     # Extract and print all of the values
-    draft_order_data = sheet.get_all_records()
+    #draft_order_data = sheet.get_all_records()
 
-    final_string = "\nCurrent Draft Order\n\n"
-    data = json.dumps(draft_order_data)
-    data_clean = json.loads(data)
+    #final_string = "\nCurrent Draft Order\n\n"
+    #data = json.dumps(draft_order_data)
+    #data_clean = json.loads(data)
     #draft_order_data = json.loads(draft_order_data_string)
-    for i in data_clean:
-        user_name = i["Name"]
-        draft_slot = i["Draft Slot"]
-        account_balance = i["Account"]
-        final_string += "{} - {} ({})\n".format(draft_slot, user_name, account_balance)
-    return final_string
+    #for i in data_clean:
+        #user_name = i["Name"]
+        #draft_slot = i["Draft Slot"]
+        #account_balance = i["Account"]
+        #final_string += "{} - {} ({})\n".format(draft_slot, user_name, account_balance)
+    #return final_string
 
 def get_league_scoreboards(league_id, week):
     """
@@ -1097,3 +1097,6 @@ if __name__ == "__main__":
 
     if os.environ["INIT_MESSAGE"] == "true":
         bot.send(get_welcome_string)  # inital message to send
+
+while True:
+    time.sleep(50)
