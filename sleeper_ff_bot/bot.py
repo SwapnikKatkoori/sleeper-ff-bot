@@ -93,7 +93,7 @@ def get_league_scoreboards(league_id, week):
     matchups = league.get_matchups(week)
     users = league.get_users()
     rosters = league.get_rosters()
-    scoreboards = league.get_scoreboards(rosters, matchups, users,'pts_half_ppr',week)
+    scoreboards = league.get_scoreboards(rosters, matchups, users,"pts_half_ppr",week)
     return scoreboards
 
 
@@ -932,6 +932,13 @@ def get_scores_string(league_id):
             first_score = matchup[0][1]
         if matchup[1][1] is not None:
             second_score = matchup[1][1]
+        print(matchup)
+        first_score = 0
+        second_score = 0
+        if matchup[0][1] is not None:
+            first_score = matchup[0][1]
+        if matchup[1][1] is not None:
+            second_score = matchup[1][1]
         string_to_add = "Matchup {}\n{:<8} {:<8.2f}\n{:<8} {:<8.2f}\n\n".format(i + 1, matchup[0][0], first_score,
                                                                                 matchup[1][0], second_score)
         final_message_string += string_to_add
@@ -986,11 +993,11 @@ def get_standings_string(league_id):
         team = standing[0]
         if team is None:
             team = "Team NA"
-        #if len(team) >= 7:
+        if len(team) >= 7:
             #team_name = team[:7]
-        #else:
+        else:
         team_name = team
-        string_to_add = "{} - {} ({}-{})\n".format(i + 1, team_name, standing[1], standing[2])
+        string_to_add = "{0:^7} {1:^10} {2:>7} {3:>7}\n".format(i + 1, team_name, standing[1], standing[3])
         if i == playoff_line:
             string_to_add += "________________________________\n\n"
         final_message_string += string_to_add

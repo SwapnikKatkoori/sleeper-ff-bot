@@ -1,7 +1,9 @@
-![Version](https://img.shields.io/badge/Version-v0.0.1-blue)
+![Version](https://img.shields.io/badge/Version-v0.0.3-blue)
 [![Build Status](https://travis-ci.org/SwapnikKatkoori/sleeper-ff-bot.svg?branch=master)](https://travis-ci.org/SwapnikKatkoori/sleeper-ff-bot)
 ![Version](https://img.shields.io/badge/license-MIT-pink)
 ![GitHub issues](https://img.shields.io/github/issues/SwapnikKatkoori/sleeper-ff-bot)
+
+This project was inspired by https://github.com/dtcarls/ff_bot.
 <h1 align="center">Welcome to sleeper-ff-bot 👋</h1>
 <p>
 </p>
@@ -14,11 +16,11 @@ A GroupMe/Slack/Discord Bot for Sleeper fantasy leagues. It sends messages on th
 - Thursday:
      - 7pm ET Matchups for the week.
 - Friday:
-     - 9am ET Scores
+     - 9am ET Scores (Only does half ppr scores for now)
 - Sunday:
      - 7pm ET Close games.
 - Monday:
-     - 9am ET Scores
+     - 9am ET Scores (Only does half ppr scores for now)
      - 8pm ET Close games
 - Tuesday:
      - 11am ET league standing.
