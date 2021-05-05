@@ -996,8 +996,8 @@ def get_standings_string(league_id):
         if len(team) >= 7:
             team_name = team[:7]
         else:
-        team_name = team
-        string_to_add = "{0:^7} {1:^10} {2:>7} {3:>7}\n".format(i + 1, team_name, standing[1], standing[3])
+            team_name = team
+            string_to_add = "{0:^7} {1:^10} {2:>7} {3:>7}\n".format(i + 1, team_name, standing[1], standing[3])
         if i == playoff_line:
             string_to_add += "________________________________\n\n"
         final_message_string += string_to_add
