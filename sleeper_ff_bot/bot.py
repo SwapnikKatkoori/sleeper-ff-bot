@@ -24,7 +24,7 @@ def get_league_scoreboards(league_id, week):
     matchups = league.get_matchups(week)
     users = league.get_users()
     rosters = league.get_rosters()
-    scoreboards = league.get_scoreboards(rosters, matchups, users, "pts_half_ppr", week)
+    scoreboards = league.get_scoreboards(rosters, matchups, users, "pts_socal", week)
     return scoreboards
 
 
@@ -98,7 +98,7 @@ def make_roster_dict(starters_list, bench_list):
         player_position = player["position"]
         player_name = player["first_name"] + " " + player["last_name"]
         try:
-            player_std_score = week_stats[player_id]["pts_std"]
+            player_std_score = week_stats[player_id]["pts_socal"]
         except KeyError:
             player_std_score = None
 
@@ -114,7 +114,7 @@ def make_roster_dict(starters_list, bench_list):
         player_name = player["first_name"] + " " + player["last_name"]
 
         try:
-            player_std_score = week_stats[player_id]["pts_std"]
+            player_std_score = week_stats[player_id]["pts_socal"]
         except KeyError:
             player_std_score = None
 
@@ -201,7 +201,7 @@ def get_bench_points(league_id):
         std_points = 0
         for player in bench:
             try:
-                std_points += week_stats[str(player)]["pts_std"]
+                std_points += week_stats[str(player)]["pts_socal"]
             except:
                 continue
         owner_id = roster_id_to_owner_id_dict[matchup["roster_id"]]
@@ -242,7 +242,7 @@ def get_negative_starters(league_id):
         negative_players = []
         for starter_id in starters:
             try:
-                std_pts = week_stats[str(starter_id)]["pts_std"]
+                std_pts = week_stats[str(starter_id)]["pts_socal"]
             except KeyError:
                 std_pts = 0
             if std_pts < 0:
@@ -294,9 +294,9 @@ def get_welcome_string():
     """
     welcome_message = "👋 Hello, I am Sleeper Bot! \n\nThe bot schedule for the {} ff season can be found here: ".format(
         STARTING_YEAR)
-    welcome_message += "https://github.com/SwapnikKatkoori/sleeper-ff-bot#current-schedule \n\n"
+    welcome_message += "https://github.com/cyrusfarsoudi/sleeper-ff-bot#current-schedule \n\n"
     welcome_message += "Any feature requests, contributions, or issues for the bot can be added here: " \
-                       "https://github.com/SwapnikKatkoori/sleeper-ff-bot \n\n"
+                       "https://github.com/cyrusfarsoudi/sleeper-ff-bot \n\n"
 
     return welcome_message
 
@@ -353,7 +353,6 @@ def get_scores_string(league_id):
     final_message_string = "Scores \n____________________\n\n"
     for i, matchup_id in enumerate(scoreboards):
         matchup = scoreboards[matchup_id]
-        print(matchup)
         first_score = 0
         second_score = 0
         if matchup[0][1] is not None:
@@ -441,10 +440,10 @@ def get_best_and_worst_string(league_id):
                                                                                                  lowest_score_emojis,
                                                                                                  lowest_scorer,
                                                                                                  lowest_score)
-    highest_bench_score_emojis = " 😂😂"
+    highest_bench_score_emojis = "<:kekw:887913461294723182><:kekw:887913461294723182>"
     bench_points = get_bench_points(league_id)
     largest_scoring_bench = get_highest_bench_points(bench_points)
-    final_string += "{} Most points left on the bench:\n{}\n{:.2f} in standard\n\n".format(highest_bench_score_emojis,
+    final_string += "{} Most points left on the bench:\n{}\n{:.2f}\n\n".format(highest_bench_score_emojis,
                                                                                            largest_scoring_bench[0],
                                                                                            largest_scoring_bench[1])
     negative_starters = get_negative_starters(league_id)
@@ -507,7 +506,19 @@ if __name__ == "__main__":
         webhook = os.environ["DISCORD_WEBHOOK"]
         bot = Discord(webhook)
 
-    bot.send(get_welcome_string)  # inital message to send
+    # bot.send(get_welcome_string)  # inital message to send
+    # bot.send(get_matchups_string, league_id)
+    # bot.send(get_scores_string, league_id)
+    # bot.send(get_close_games_string, league_id, 20)
+    # bot.send(get_standings_string, league_id)
+    bot.send(get_best_and_worst_string, league_id)
+
+    # print(get_matchups_string(league_id))
+    # print(get_scores_string(league_id))
+    # print(get_close_games_string(league_id, 20))
+    # print(get_standings_string(league_id))
+    # print(get_best_and_worst_string(league_id))
+
     schedule.every().thursday.at("19:00").do(bot.send, get_matchups_string,
                                              league_id)  # Matchups Thursday at 4:00 pm ET
     schedule.every().friday.at("12:00").do(bot.send, get_scores_string, league_id)  # Scores Friday at 12 pm ET
