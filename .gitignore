@@ -106,3 +106,6 @@ venv.bak/
 #Pycharm stuff
 .idea
 *.iml
+
+# custom files
+todo.txt

@@ -1,7 +1,7 @@
 {
   "name": "sleeper-ff-bot",
   "description": "A GroupMe/Slack/Discord Bot for Sleeper fantasy leagues",
-  "repository": "https://github.com/SwapnikKatkoori/sleeper-ff-bot",
+  "repository": "https://github.com/cfarsoudi/sleeper-ff-bot",
   "logo": "",
   "keywords": [
     "Bot",
@@ -14,10 +14,6 @@
     "Discord"
   ],
   "env": {
-    "BOT_TYPE": {
-      "description": "The type of Bot. Options are groupme, slack, or discord.",
-      "value": "groupme"
-    },
     "LEAGUE_ID": {
       "description": "The Sleeper league id.",
       "value": "1"
@@ -28,14 +24,6 @@
     },
     "NUMBER_OF_PLAYOFF_TEAMS": {
       "description": "The number of playoff teams in the league."
-    },
-    "BOT_ID": {
-      "description": "The Groupme bot_id. Required if the bot type is groupme.",
-      "value": "1"
-    },
-    "SLACK_WEBHOOK": {
-      "description": "The Slack Webhook. Required if the bot type is slack.",
-      "value": "1"
     },
     "DISCORD_WEBHOOK": {
       "description": "The Discord Webhook. Required if the bot type is discord.",

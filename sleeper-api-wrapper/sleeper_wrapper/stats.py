@@ -1,4 +1,5 @@
 from sleeper_wrapper.base_api import BaseApi
+from sleeper_wrapper.socal858_scoring_settings import SCORING_SETTINGS
 
 class Stats(BaseApi):
 	def __init__(self):
@@ -57,60 +58,20 @@ class Stats(BaseApi):
 		if player_id not in stats:
 			return stats
 
-		scoring_system = {
-			"pass_yd": .04,
-			"pass_td": 6,
-			"pass_2pt": 2,
-			"pass_int": -2,
-			"pass_td_40p": 2,
-			"rush_yd": .1,
-			"rush_td": 6,
-			"rush_2pt": 2,
-			"rush_td_40p": 2,
-			"rec": .5,
-			"rec_yd": .1,
-			"rec_td": 6,
-			"rec_2pt": 2,
-			"rec_td_40p": 2,
-			"fgm": 3,
-			"xpm": 1,
-			"fgm_yds_over_30": .1,
-			"def_td": 6,
-			"pts_allow": {
-				0: 10,
-				6: 7,
-				13: 4,
-				20: 1,
-				28: 0,
-				34: -1,
-				1000: -4
-			},
-			"sack": 1,
-			"int": 2,
-			"fum_rec": 2,
-			"saf": 2,
-			"ff": 1,
-			"blk_kick": 2,
-			"st_td": 6,
-			"st_fum_rec": 2,
-			"fum_lost": -2,
-			"fum_rec_td": 6
-		}
-
 		point_total = 0
 
 		for stat, value in stats[player_id].items():
-			if stat in scoring_system:
+			if stat in SCORING_SETTINGS:
 				if stat == "pts_allow":
-					point_total += self.get_points_from_pts_allow(scoring_system["pts_allow"], value)
+					point_total += self.get_points_from_pts_allow(SCORING_SETTINGS["pts_allow"], value)
 				else:
-					point_total += (value * (scoring_system[stat]))
+					point_total += (value * (SCORING_SETTINGS[stat]))
 
 		stats[player_id]["pts_socal"] = point_total
 
 		return stats
 
-	def get_points_from_pts_allow(self, scoring_system, pts_allowed):
-		for interval_end, pts_earned in scoring_system.items():
+	def get_points_from_pts_allow(self, scoring_settings, pts_allowed):
+		for interval_end, pts_earned in scoring_settings.items():
 			if pts_allowed <= interval_end:
 				return pts_earned
