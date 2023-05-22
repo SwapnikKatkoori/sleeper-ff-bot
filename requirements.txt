@@ -2,4 +2,4 @@ pytest==4.6.2
 schedule==0.6.0
 sleeper-api-wrapper==1.0.7
 pendulum==2.0.5
-requests==2.22.0
+requests==2.31.0
